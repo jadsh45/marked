@@ -566,7 +566,6 @@
                 "max_streams": 8
             },
             "uuid": "6c45dba7-f6a5-458d-80eb-f46f0a802a81"
-        }
     ],
     "route": {
         "geoip": {
