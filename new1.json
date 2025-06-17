@@ -1,4 +1,4 @@
-{} {
+{
   "log": {
     "level": "info",
     "timestamp": true
@@ -92,7 +92,17 @@
       {
         "type": "field",
         "outbound": "server-1",
-        "domain": ["geosite:cn"] 
+        "domain": ["geosite:cn"]
+      },
+      {
+        "type": "field",
+        "outbound": "server-2",
+        "ip": ["geoip:private"]
+      },
+      {
+        "type": "field",
+        "outbound": "server-3",
+        "network": ["tcp", "udp"]
       }
     ]
   }
