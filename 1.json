@@ -560,7 +560,7 @@
       "authenticated_length": true,
       "packet_encoding": "xudp"
     },
-    ],
+    {
     "route": {
         "geoip": {
             "download_url": "https://github.com/soffchen/sing-geoip/releases/latest/download/geoip.db",
