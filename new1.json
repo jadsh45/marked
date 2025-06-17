@@ -1,6 +1,7 @@
 {
   "log": {
-    "level": "info"
+    "level": "info",
+    "timestamp": true
   },
   "inbounds": [
     {
@@ -34,6 +35,65 @@
           }
         }
       }
+    },
+    {
+      "type": "vless",
+      "tag": "server-2",
+      "server": {
+        "address": "www.speedtest.net",
+        "port": 2096,
+        "users": [
+          {
+            "id": "bd1b8bda-9e21-4fc6-8149-1f93022b8958",
+            "encryption": "none"
+          }
+        ]
+      },
+      "transport": {
+        "type": "ws",
+        "tls": true,
+        "tls_server_name": "ExpOrt-6642.AtE72528.WOrkErS.DEv",
+        "ws": {
+          "path": "/t0n7MLrzGrkwopy9",
+          "headers": {
+            "Host": "export-6642.ate72528.workers.dev"
+          }
+        }
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "server-3",
+      "server": {
+        "address": "188.114.96.3",
+        "port": 2096,
+        "users": [
+          {
+            "id": "bd1b8bda-9e21-4fc6-8149-1f93022b8958",
+            "encryption": "none"
+          }
+        ]
+      },
+      "transport": {
+        "type": "ws",
+        "tls": true,
+        "tls_server_name": "EXpoRT-6642.aTE72528.WOrkerS.dEV",
+        "ws": {
+          "path": "/XcNoDIWBgbSVJM3s",
+          "headers": {
+            "Host": "export-6642.ate72528.workers.dev"
+          }
+        }
+      }
     }
-  ]
+  ],
+  "routing": {
+    "rules": [
+      {
+        "type": "field",
+        "outbound": "server-1",
+        "domain": ["geosite:cn"] 
+      }
+    ]
+  }
 }
