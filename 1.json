@@ -1,232 +1,580 @@
-{}{
-  "log": {
-    "level": "info",
-    "timestamp": true
-  }
-}
 {
-  "dns": {
-    "servers": [
-      {
-        "address": "tls://1.1.1.1",
-        "tag": "dns_cf_tls",
-        "detour": "auto_select_proxies"
-      },
-      {
-        "address": "https://dns.google/dns-query",
-        "tag": "dns_google_doh",
-        "detour": "auto_select_proxies"
-      },
-      {
-        "address": "1.0.0.1",
-        "tag": "dns_cf_plain_backup",
-        "detour": "auto_select_proxies"
-      },
-      {
-        "address": "223.5.5.5",
-        "tag": "dns_ali",
-        "detour": "direct"
-      },
-      {
-        "address": "185.51.200.2",
-        "tag": "dns_shecan",
-        "detour": "direct"
-      },
-      {
-        "address": "local",
-        "tag": "dns_system",
-        "detour": "direct"
-      }
-    ],
-    "rules": [
-      {
-        "geosite": ["category-ir"],
-        "server": "dns_ali"
-      },
-      {
-        "domain_suffix": [".ir"],
-        "server": "dns_ali"
-      },
-      {
-        "query_type": ["A", "AAAA"],
-        "server": "dns_cf_tls",
-        "rewrite_ttl": 300
-      },
-      {
-        "server": "dns_system"
-      }
-    ],
-    "strategy": "ipv4_only",
-    "disable_cache": false
-  }
-}
-{
-  "inbounds": [
+  "outbounds":   [
     {
-      "type": "tun",
-      "tag": "tun-in",
-      "interface_name": "NotePadVPN-TUN",
-      "inet4_address": "172.19.0.1/28",
-      "auto_route": true,
-      "strict_route": true,
-      "stack": "mixed",
-      "sniff": true
+      "type": "shadowsocks",
+      "tag": "WiFi-@V2ray_Alpha-1 § 0",
+      "server": "series-a2-mec.varzesh360.co",
+      "server_port": 443,
+      "method": "chacha20-ietf-poly1305",
+      "password": "u17T3BvpYaaiuW2c"
     },
     {
-      "type": "mixed",
-      "tag": "mixed-proxy-in",
-      "listen": "127.0.0.1",
-      "listen_port": 2080,
-      "sniff": true
-    }
-  ]
-}
-{
-  "outbounds": [
-    {
-      "type": "direct",
-      "tag": "direct"
+      "type": "shadowsocks",
+      "tag": "WiFi-@V2ray_Alpha-2 § 1",
+      "server": "homa.cybsecguru.com",
+      "server_port": 55551,
+      "method": "chacha20-ietf-poly1305",
+      "password": "zO-Lm8TOZtNktNsqhPwmlw"
     },
     {
-      "type": "block",
-      "tag": "block"
+      "type": "shadowsocks",
+      "tag": "WiFi-@V2ray_Alpha-3 § 2",
+      "server": "9.163.232.180",
+      "server_port": 1490,
+      "method": "chacha20-ietf-poly1305",
+      "password": "ojcP36n1SouDcnBg9EOZP8"
     },
     {
-      "type": "dns",
-      "tag": "dns-out"
+      "type": "shadowsocks",
+      "tag": "WiFi-@V2ray_Alpha-3 § 3",
+      "server": "45.158.171.146",
+      "server_port": 8080,
+      "method": "chacha20-ietf-poly1305",
+      "password": "1RWwXhwfAB5gAEozU4G2Pg"
     },
     {
-      "type": "vless",
-      "tag": "server-1",
-      "server": "export-6642.ate72528.workers.dev",
-      "server_port": 2096,
-      "uuid": "bd1b8bda-9e21-4fc6-8149-1f93022b8958",
-      "tls": {
+      "type": "shadowsocks",
+      "tag": "WiFi-@V2ray_Alpha-4 § 4",
+      "server": "77.239.116.76",
+      "server_port": 8315,
+      "method": "chacha20-ietf-poly1305",
+      "password": "oHOP1bWFMkQVx3PdbhRlOk"
+    },
+    {
+      "type": "shadowsocks",
+      "tag": "WiFi-@V2ray_Alpha-5 § 5",
+      "server": "107.191.63.241",
+      "server_port": 30665,
+      "method": "chacha20-ietf-poly1305",
+      "password": "44fe4b7d-cd48-45fc-a036-60ea40e4a96c"
+    },
+    {
+      "type": "shadowsocks",
+      "tag": "WiFi-@V2ray_Alpha-6 § 6",
+      "server": "172.233.128.126",
+      "server_port": 1866,
+      "method": "chacha20-ietf-poly1305",
+      "password": "oXGp1+ihlfKg826H"
+    },
+    {
+      "type": "shadowsocks",
+      "tag": "WiFi-@V2ray_Alpha-7 § 7",
+      "server": "173.244.56.9",
+      "server_port": 443,
+      "method": "aes-128-gcm",
+      "password": "shadowsocks"
+    },
+    {
+      "type": "trojan",
+      "tag": "WiFi-@V2ray_Alpha-8 § 8",
+      "server": "217.163.76.221",
+      "server_port": 443,
+      "password": "6884d714-d3c4-4b49-aa20-767ea92837d6",
+      "tls":       {
         "enabled": true,
-        "server_name": "eXpOrt-6642.aTE72528.woRKERs.DEV",
-        "utls": {
+        "server_name": "icecream.955850.xyz",
+        "utls":         {
           "enabled": true,
-          "fingerprint": "randomized"
+          "fingerprint": "chrome"
         }
       },
-      "transport": {
+      "transport":       {
         "type": "ws",
-        "path": "/7xFfyRyHBgAmvwcK",
-        "headers": {
-          "Host": "export-6642.ate72528.workers.dev"
-        }
+        "path": "/Telegram@V2ray_Alpha/217.163.76.221:443",
+        "headers":         {
+          "Host": "icecream.955850.xyz"
+        },
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      }
+    },
+    {
+      "type": "hysteria2",
+      "tag": "WiFi-@V2ray_Alpha-10 § 9",
+      "server": "46.17.41.5",
+      "server_port": 12904,
+      "password": "dongtaiwang.com",
+      "tls":       {
+        "enabled": true,
+        "server_name": "apple.com",
+        "insecure": true
+      }
+    },
+    {
+      "type": "hysteria2",
+      "tag": "WiFi-@V2ray_Alpha-11 § 10",
+      "server": "185.184.70.120",
+      "server_port": 42353,
+      "password": "e48d6377dda26840",
+      "tls":       {
+        "enabled": true,
+        "insecure": true
       }
     },
     {
       "type": "vless",
-      "tag": "server-2",
+      "tag": "WiFi-@V2ray_Alpha-12 § 11",
+      "server": "arvancloud.fr.ir.systemgamingirani.ir",
+      "server_port": 443,
+      "uuid": "412edced-249e-4f49-a2f5-aa9546f0a6ba",
+      "tls":       {
+        "enabled": true,
+        "server_name": "tgju.org",
+        "utls":         {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "reality":         {
+          "enabled": true,
+          "public_key": "tw6uAbjXzRSIKChb6pDbHVNjnU9Don4hbv6dHRkmJx8",
+          "short_id": "e54b5ad736ae4c38"
+        }
+      },
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "vless",
+      "tag": "WiFi-@V2ray_Alpha-13 § 12",
+      "server": "176.223.66.8",
+      "server_port": 39948,
+      "uuid": "2558c819-1363-4859-8fb9-f8cb104d49d2",
+      "transport":       {
+        "type": "http",
+        "host": "divarcdn.com",
+        "path": "/",
+        "method": "GET"
+      },
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "vless",
+      "tag": "WiFi-@V2ray_Alpha-14 § 13",
+      "server": "45.82.251.185",
+      "server_port": 8880,
+      "uuid": "e4824193-4f54-453b-d037-88368e85ef0e",
+      "transport":       {
+        "type": "grpc",
+        "idle_timeout": "15s",
+        "ping_timeout": "15s"
+      },
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "vless",
+      "tag": "WiFi-@V2ray_Alpha-15 § 14",
+      "server": "45.82.251.133",
+      "server_port": 8880,
+      "uuid": "e4824193-4f54-453b-d037-88368e85ef0e",
+      "transport":       {
+        "type": "grpc",
+        "idle_timeout": "15s",
+        "ping_timeout": "15s"
+      },
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "vless",
+      "tag": "WiFi-@V2ray_Alpha-16 § 15",
+      "server": "95.164.45.90",
+      "server_port": 8880,
+      "uuid": "df0680ca-e43c-498d-ed86-8e196eedd012",
+      "transport":       {
+        "type": "grpc",
+        "idle_timeout": "15s",
+        "ping_timeout": "15s"
+      },
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "vless",
+      "tag": "WiFi-@V2ray_Alpha-17 § 16",
       "server": "www.speedtest.net",
-      "server_port": 2096,
-      "uuid": "bd1b8bda-9e21-4fc6-8149-1f93022b8958",
-      "tls": {
+      "server_port": 8880,
+      "uuid": "7fed5bf9-a1de-41a0-ab89-694265c4895f",
+      "transport":       {
+        "type": "ws",
+        "path": "/Telegram@V2ray_Alpha/",
+        "headers":         {
+          "Host": "domain2025.dpdns.org"
+        },
+        "max_early_data": 2560,
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      },
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "vless",
+      "tag": "WiFi-@V2ray_Alpha-18 § 17",
+      "server": "162.251.82.187",
+      "server_port": 80,
+      "uuid": "8c9a892c-e9d5-4fff-bfdb-8ef9c50272b1",
+      "transport":       {
+        "type": "ws",
+        "path": "/58834/mail-template",
+        "headers":         {
+          "Host": "my-mail-management-pr0-git-land-manager.clients-github.com"
+        },
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      },
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "vmess",
+      "tag": "WiFi-@V2ray_Alpha-19 § 18",
+      "server": "2.56.125.101",
+      "server_port": 38088,
+      "uuid": "1275ea18-bc9c-4bcb-b3fd-fee70272e143",
+      "security": "auto",
+      "authenticated_length": true,
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "vmess",
+      "tag": "WiFi-@V2ray_Alpha-20 § 19",
+      "server": "5.180.30.85",
+      "server_port": 18598,
+      "uuid": "bf26f2fb-9d2a-49b6-8527-82e8aba3a9a9",
+      "security": "auto",
+      "authenticated_length": true,
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "vmess",
+      "tag": "WiFi-@V2ray_Alpha-21 § 20",
+      "server": "5.180.30.146",
+      "server_port": 27773,
+      "uuid": "b2347239-dd15-40b3-b683-50cc2ff19ae7",
+      "security": "auto",
+      "authenticated_length": true,
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "vmess",
+      "tag": "WiFi-@V2ray_Alpha-22 § 21",
+      "server": "51.79.86.182",
+      "server_port": 42610,
+      "uuid": "e0957ca6-f613-4017-ff3c-effd1da8871a",
+      "security": "auto",
+      "authenticated_length": true,
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "trojan",
+      "tag": "MCI-@V2ray_Alpha-3 § 22",
+      "server": "146.19.106.154",
+      "server_port": 443,
+      "password": "3482c71a-d01c-4ae5-b454-fa8cb3785f66",
+      "tls":       {
         "enabled": true,
-        "server_name": "ExpOrt-6642.AtE72528.WOrkErS.DEv",
-        "utls": {
+        "server_name": "both-cramp-banjo.stark-industries.solutions",
+        "utls":         {
           "enabled": true,
-          "fingerprint": "randomized"
+          "fingerprint": "chrome"
+        }
+      }
+    },
+    {
+      "type": "trojan",
+      "tag": "MCI-@V2ray_Alpha-4 § 23",
+      "server": "45.67.215.196",
+      "server_port": 443,
+      "password": "6884d714-d3c4-4b49-aa20-767ea92837d6",
+      "tls":       {
+        "enabled": true,
+        "server_name": "icecream.955850.xyz",
+        "utls":         {
+          "enabled": true,
+          "fingerprint": "chrome"
         }
       },
-      "transport": {
+      "transport":       {
         "type": "ws",
-        "path": "/t0n7MLrzGrkwopy9",
-        "headers": {
-          "Host": "export-6642.ate72528.workers.dev"
+        "path": "/Telegram@V2ray_Alpha",
+        "headers":         {
+          "Host": "icecream.955850.xyz"
+        },
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      }
+    },
+    {
+      "type": "trojan",
+      "tag": "MCI-@V2ray_Alpha-5 § 24",
+      "server": "185.16.110.113",
+      "server_port": 443,
+      "password": "6884d714-d3c4-4b49-aa20-767ea92837d6",
+      "tls":       {
+        "enabled": true,
+        "server_name": "icecream.955850.xyz",
+        "utls":         {
+          "enabled": true,
+          "fingerprint": "chrome"
         }
+      },
+      "transport":       {
+        "type": "ws",
+        "path": "/Telegram@V2ray_Alpha",
+        "headers":         {
+          "Host": "icecream.955850.xyz"
+        },
+        "early_data_header_name": "Sec-WebSocket-Protocol"
       }
     },
     {
       "type": "vless",
-      "tag": "server-3",
-      "server": "188.114.96.3",
-      "server_port": 2096,
-      "uuid": "bd1b8bda-9e21-4fc6-8149-1f93022b8958",
-      "tls": {
+      "tag": "MCI-@V2ray_Alpha-6 § 25",
+      "server": "104.26.15.85",
+      "server_port": 8080,
+      "uuid": "690ab90e-3f21-422b-8cb1-bc9845c7af1e",
+      "transport":       {
+        "type": "ws",
+        "path": "/",
+        "headers":         {
+          "Host": "IO.IhJtq0hklC.ZULAiR.OrG."
+        },
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      },
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "vless",
+      "tag": "MCI-@V2ray_Alpha-7 § 26",
+      "server": "45.82.251.185",
+      "server_port": 8880,
+      "uuid": "e4824193-4f54-453b-d037-88368e85ef0e",
+      "transport":       {
+        "type": "grpc",
+        "idle_timeout": "15s",
+        "ping_timeout": "15s"
+      },
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "vless",
+      "tag": "MCI-@V2ray_Alpha-8 § 27",
+      "server": "45.82.251.133",
+      "server_port": 8880,
+      "uuid": "e4824193-4f54-453b-d037-88368e85ef0e",
+      "transport":       {
+        "type": "grpc",
+        "idle_timeout": "15s",
+        "ping_timeout": "15s"
+      },
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "vless",
+      "tag": "MCI-@V2ray_Alpha-9 § 28",
+      "server": "151.101.2.133",
+      "server_port": 80,
+      "uuid": "75ecef77-2050-4250-99f7-936d0188edf2",
+      "transport":       {
+        "type": "ws",
+        "path": "/ws/",
+        "headers":         {
+          "Host": "xasshsga---RUBIKA.ir.speedtest.net.ARCHYU.IR"
+        },
+        "max_early_data": 2048,
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      },
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "vless",
+      "tag": "MCI-@V2ray_Alpha-10 § 29",
+      "server": "2606:4700:3034::ac43:d7fd",
+      "server_port": 2052,
+      "uuid": "7fed5bf9-a1de-41a0-ab89-694265c4895f",
+      "transport":       {
+        "type": "ws",
+        "path": "/OYk1gRYkG0QKEc84",
+        "headers":         {
+          "Host": "domain2025.dpdns.org"
+        },
+        "max_early_data": 2560,
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      },
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "vless",
+      "tag": "MCI-@V2ray_Alpha-11 § 30",
+      "server": "2606:4700:3035::6815:4b42",
+      "server_port": 2086,
+      "uuid": "7fed5bf9-a1de-41a0-ab89-694265c4895f",
+      "transport":       {
+        "type": "ws",
+        "path": "/4ITF3tE2kgdG0sab",
+        "headers":         {
+          "Host": "domain2025.dpdns.org"
+        },
+        "max_early_data": 2560,
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      },
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "vless",
+      "tag": "MCI-@V2ray_Alpha-12 § 31",
+      "server": "77.110.116.32",
+      "server_port": 45467,
+      "uuid": "e23e3004-1526-4d6d-b207-8cf7f48f2c1a",
+      "flow": "xtls-rprx-vision",
+      "tls":       {
         "enabled": true,
-        "server_name": "EXpoRT-6642.aTE72528.WOrkerS.dEV",
-        "utls": {
+        "server_name": "google.com",
+        "utls":         {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "reality":         {
+          "enabled": true,
+          "public_key": "0H0YVyZWNBDzLnsusXo5kEBqEOmcACOJ0Snb0gQA-kw",
+          "short_id": "6d5bf19a"
+        }
+      },
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "vless",
+      "tag": "MCI-@V2ray_Alpha-13 § 32",
+      "server": "185.114.72.31",
+      "server_port": 2053,
+      "uuid": "1a79d43f-b41c-496b-a241-dcbeefa81f0e",
+      "tls":       {
+        "enabled": true,
+        "server_name": "0926.qiang2000.link",
+        "utls":         {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport":       {
+        "type": "ws",
+        "path": "/Telegram@V2ray_Alpha",
+        "headers":         {
+          "Host": "0926.qiang2000.link"
+        },
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      },
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "vless",
+      "tag": "MCI-@V2ray_Alpha-14 § 33",
+      "server": "104.17.147.22",
+      "server_port": 443,
+      "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+      "tls":       {
+        "enabled": true,
+        "server_name": "UUHuhyYgESDfgh.UyHjhgvgFCjgujhBuILbVFDXdxM.xYZ",
+        "utls":         {
           "enabled": true,
           "fingerprint": "randomized"
         }
       },
-      "transport": {
+      "transport":       {
         "type": "ws",
-        "path": "/XcNoDIWBgbSVJM3s",
-        "headers": {
-          "Host": "export-6642.ate72528.workers.dev"
-        }
-      }
+        "path": "/Telegram@V2ray_Alpha/=?ed=2560/",
+        "headers":         {
+          "Host": "UuhUHYygESDfgh.uYhJhGVgfCjgujhbUiLbVFdXDXM.XyZ"
+        },
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      },
+      "packet_encoding": "xudp"
     },
     {
-      "type": "urltest",
-      "tag": "auto_select_proxies",
-      "outbounds": ["server-1", "server-2", "server-3"],
-      "url": "http://www.gstatic.com/generate_204",
-      "interval": "10m",
-      "tolerance": 200
+      "type": "vless",
+      "tag": "MCI-@V2ray_Alpha-15 § 34",
+      "server": "bitbolajepe.vip",
+      "server_port": 443,
+      "uuid": "d4e52293-4a82-404c-ac29-93afc006dcbb",
+      "tls":       {
+        "enabled": true,
+        "server_name": "crolindd.dearcarlotta.cloudns.org",
+        "utls":         {
+          "enabled": true,
+          "fingerprint": "random"
+        }
+      },
+      "transport":       {
+        "type": "ws",
+        "path": "/Telegram@V2ray_Alpha=citlali.shorekeeper.ir",
+        "headers":         {
+          "Host": "crolindd.dearcarlotta.cloudns.org"
+        },
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      },
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "vless",
+      "tag": "MCI-@V2ray_Alpha-16 § 35",
+      "server": "185.135.9.223",
+      "server_port": 443,
+      "uuid": "401374e6-df77-41fb-f638-dad8184f175b",
+      "tls":       {
+        "enabled": true,
+        "server_name": "pqh24v3.hiddendom.shop",
+        "utls":         {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport":       {
+        "type": "grpc",
+        "idle_timeout": "15s",
+        "ping_timeout": "15s"
+      },
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "vless",
+      "tag": "MCI-@V2ray_Alpha-17 § 36",
+      "server": "jeff.ns.cloudflare.com",
+      "server_port": 443,
+      "uuid": "cd2e9541-3fce-4d95-9bec-919d884f911e",
+      "tls":       {
+        "enabled": true,
+        "server_name": "ivsfa.sofia-biaborotookoocheh.info",
+        "utls":         {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport":       {
+        "type": "ws",
+        "path": "/tiger#Telegram@V2ray_Alpha",
+        "headers":         {
+          "Host": "ivsfa.sofia-biaborotookoocheh.info"
+        },
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      },
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "vmess",
+      "tag": "MCI-@V2ray_Alpha-18 § 37",
+      "server": "15.204.11.190",
+      "server_port": 15361,
+      "uuid": "5d7bf9e3-415c-40f3-c66d-a54ea0fd860e",
+      "security": "auto",
+      "authenticated_length": true,
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "vmess",
+      "tag": "MCI-@V2ray_Alpha-19 § 38",
+      "server": "142.93.253.49",
+      "server_port": 2095,
+      "uuid": "21284025-a32f-4f90-aaba-55b5d22b0070",
+      "security": "auto",
+      "authenticated_length": true,
+      "packet_encoding": "xudp",
+      "transport":       {
+        "type": "http",
+        "host": "d1.awsstatic.com",
+        "path": "/",
+        "method": "GET"
+      }
     }
   ]
-}
-{
-  "route": {
-    "rules": [
-      {
-        "protocol": ["dns"],
-        "outbound": "dns-out"
-      },
-      {
-        "domain": ["allatori.com", "analytics.example.com"],
-        "outbound": "block"
-      },
-      {
-        "domain_keyword": ["ads", "tracker"],
-        "outbound": "block"
-      },
-      {
-        "domain_suffix": [
-          ".ir",
-          "arvancloud.ir",
-          "arvancloud.com",
-          "cdn.ir",
-          "shaparak.ir",
-          "digikala.com"
-        ],
-        "outbound": "direct"
-      },
-      {
-        "geosite": ["category-ir"],
-        "outbound": "direct"
-      },
-      {
-        "geoip": ["ir"],
-        "outbound": "direct"
-      },
-      {
-        "ip_cidr": [
-          "192.168.0.0/16",
-          "10.0.0.0/8",
-          "172.16.0.0/12"
-        ],
-        "outbound": "direct"
-      },
-      {
-        "domain": ["localhost"],
-        "outbound": "direct"
-      }
-    ],
-    "final": "auto_select_proxies",
-    "auto_detect_interface": true,
-    "override_android_vpn": true
-  }
-}
-{
-  "experimental": {
-    "cache_file": {
-      "enabled": true
-    }
-  }
 }
