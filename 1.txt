@@ -1,1 +1,1024 @@
-ss%3A%2F%2FY2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpXNzRYRkFMTEx1dzZtNUlB%404.158.118.226%3A443%23MCI-%2540V2ray_Alpha-1%7Css%3A%2F%2FY2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpXc3R1U25sdTRpZUE5TTBM%4074.177.208.211%3A443%23MCI-%2540V2ray_Alpha-2%7Css%3A%2F%2FY2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTp1MTdUM0J2cFlhYWl1VzJj%40api.namasha.co%3A443%23MCI-%2540V2ray_Alpha-3%7Css%3A%2F%2FY2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpBbENzQkdwc2VqSGRWQ01F%404.159.35.230%3A443%23MCI-%2540V2ray_Alpha-4%7Css%3A%2F%2FY2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTo2OU1VaWk3VkR3TXFoN0h6%40172.165.62.90%3A443%23MCI-%2540V2ray_Alpha-5%7Ctrojan%3A%2F%2FBm92516VO0%4051.15.68.121%3A1935%3Fsecurity%3Dtls%26headerType%3Dnone%26type%3Dtcp%26sni%3Dx11-amsterdam-scaleway-v2-c88f0.devefun.org%23MCI-%2540V2ray_Alpha-6%7Ctrojan%3A%2F%2F77G4g4apO0%4051.20.38.227%3A1935%3Fsecurity%3Dtls%26headerType%3Dnone%26type%3Dtcp%26sni%3Dx8-sweden-amazon-v2-cf9yw.devefun.org%23MCI-%2540V2ray_Alpha-7%7Ctrojan%3A%2F%2Fttfang%408.219.77.72%3A5027%3Fpath%3D%252F%26security%3Dtls%26host%3Dttfang.fange.me%26type%3Dws%26sni%3Dttfang.fange.me%23MCI-%2540V2ray_Alpha-8%7Ctrojan%3A%2F%2Fttfang%4047.245.91.197%3A9000%3Fpath%3D%252F%26security%3Dtls%26host%3Dttfang.fange.me%26type%3Dws%26sni%3Dttfang.fange.me%23MCI-%2540V2ray_Alpha-9%7Ctrojan%3A%2F%2FNg35283528%40104.16.83.176%3A443%3Fpath%3D%252F%253Fed%253D2560%26security%3Dtls%26host%3Dc2.validbv3528.eu.org%26type%3Dws%26sni%3Dc2.validbv3528.eu.org%23MCI-%2540V2ray_Alpha-10%7Cvless%3A%2F%2F26bc13af-e442-4956-afd4-b8f85744d26f%40172.66.138.81%3A80%3Fpath%3D%252F%253Fed%253D2560%26security%3Dnone%26encryption%3Dnone%26host%3Dfggerlad.gerald81.dpdns.org%26fp%3Drandom%26type%3Dws%26sni%3Dfggerlad.gerald81.dpdns.org%23MCI-%2540V2ray_Alpha-11%7Cvless%3A%2F%2F451def43-cf9b-41c4-a01a-744ace385a29%40iran.1mrsub.site%3A19%3Fsecurity%3Dnone%26encryption%3Dnone%26headerType%3Dnone%26type%3Dtcp%23MCI-%2540V2ray_Alpha-12%7Cvless%3A%2F%2F055636cc-dc0a-4917-8a42-f3fc8be47c06%4085.133.202.35%3A5112%3Fsecurity%3Dnone%26encryption%3Dnone%26headerType%3Dnone%26type%3Dtcp%23MCI-%2540V2ray_Alpha-13%7Cvless%3A%2F%2Fc698a4d6-19b4-d47b-50b1-dbc3e0f7a4eb%4085.9.122.123%3A9003%3Fsecurity%3Dnone%26encryption%3Dnone%26host%3Dspeedtest.net%26headerType%3Dhttp%26type%3Dtcp%23MCI-%2540V2ray_Alpha-14%7Cvless%3A%2F%2F89b3cbba-e6ac-485a-9481-976a0415eab9%4045.131.6.139%3A80%3Fpath%3DTelegram%253A%2540ShadowProxy66%252F%253Fed%253D2560%26security%3Dnone%26encryption%3Dnone%26host%3DuuhUHYygEsdFGH.UYHJHGvgFcjGUJhbUIlbVFDxDxM.xyz%26type%3Dws%23MCI-%2540V2ray_Alpha-15%7Cvless%3A%2F%2F63601f9f-7c67-4952-919a-1ef802b5a7ec%4047.76.218.163%3A443%3Fpath%3D%252FTelegram%2520%2540V2ray_Alpha%252F%253Fed%253D2560%26security%3Dtls%26encryption%3Dnone%26host%3Dsteep.skyfigure.top%26type%3Dws%26sni%3Dsteep.skyfigure.top%23MCI-%2540V2ray_Alpha-16%7Cvless%3A%2F%2F06e4425e-a8cb-4b63-929f-2105604ab0a9%40104.18.41.190%3A443%3Fpath%3D%252F%253Fed%253D2560%26security%3Dtls%26encryption%3Dnone%26host%3Dyz.ylka.dpdns.org%26type%3Dws%26sni%3Dyz.ylka.dpdns.org%23MCI-%2540V2ray_Alpha-17%7Cvless%3A%2F%2F54694a33-a8dc-47dd-bc38-acd3971e0055%40147.135.4.2%3A443%3Fsecurity%3Dtls%26encryption%3Dnone%26headerType%3Dnone%26type%3Dtcp%26sni%3D147135004002.sec20org.com%23MCI-%2540V2ray_Alpha-18%7Cvless%3A%2F%2F4b8fa6eb-2834-4bc3-acf9-971819ae42a0%402.189.85.180%3A3060%3Fsecurity%3Dnone%26encryption%3Dnone%26host%3Dspeedtest.net%26headerType%3Dhttp%26type%3Dtcp%23MCI-%2540V2ray_Alpha-19&insert=false&config=https%3A%2F%2Fraw.githubusercontent.com%2FACL4SSR%2FACL4SSR%2Fmaster%2FClash%2Fconfig%2FACL4SSR_Online_Full_NoAuto.ini&emoji=true&list=false&xudp=false&udp=false&tfo=false&expand=true&scv=false&fdn=false
+{
+  "log": {
+    "disabled": false,
+    "level": "warn",
+    "timestamp": true
+  },
+  "experimental": {
+    "clash_api": {
+      "external_controller": "0.0.0.0:9090",
+      "external_ui": "yacd",
+      "external_ui_download_url": "https://github.com/MetaCubeX/Yacd-meta/archive/gh-pages.zip",
+      "external_ui_download_detour": "Internet",
+      "secret": "",
+      "default_mode": "rule",
+      "store_selected": true,
+      "cache_file": "clash.db"
+    }
+  },
+  "dns": {
+    "servers": [
+      {
+        "tag": "Internet-dns",
+        "address": "1.0.0.1",
+        "strategy": "ipv4_only",
+        "detour": "Internet"
+      },
+      {
+        "tag": "Best Latency-dns",
+        "address": "1.1.1.1",
+        "strategy": "ipv4_only",
+        "detour": "Best Latency"
+      },
+      {
+        "tag": "Lock Region ID-dns",
+        "address": "8.8.8.8",
+        "strategy": "ipv4_only",
+        "detour": "Lock Region ID"
+      },
+      {
+        "tag": "WhatsApp-dns",
+        "address": "8.8.4.4",
+        "strategy": "ipv4_only",
+        "detour": "WhatsApp"
+      },
+      {
+        "tag": "GAMESMAX(ML/FF/AOV)-dns",
+        "address": "8.8.4.4",
+        "strategy": "ipv4_only",
+        "detour": "GAMESMAX(ML/FF/AOV)"
+      },
+      {
+        "tag": "Route Port Game-dns",
+        "address": "9.9.9.9",
+        "strategy": "ipv4_only",
+        "detour": "Route Port Game"
+      },
+      {
+        "tag": "direct-dns",
+        "address": "local",
+        "strategy": "ipv4_only",
+        "detour": "direct"
+      },
+      {
+        "tag": "block-dns",
+        "address": "rcode://success"
+      }
+    ],
+    "rules": [
+      {
+        "domain_suffix": [
+          ".arpa.",
+          ".arpa"
+        ],
+        "server": "block-dns",
+        "rewrite_ttl": 20
+      },
+      {
+        "domain_suffix": [
+          "iran.1mrsub.site"
+        ],
+        "server": "direct-dns",
+        "rewrite_ttl": 20
+      },
+      {
+        "network": "udp",
+        "port": 443,
+        "server": "block-dns",
+        "rewrite_ttl": 20
+      },
+      {
+        "geosite": "rule-malicious",
+        "server": "block-dns",
+        "rewrite_ttl": 20
+      },
+      {
+        "outbound": "Internet",
+        "server": "Internet-dns",
+        "rewrite_ttl": 20
+      },
+      {
+        "outbound": "Best Latency",
+        "server": "Best Latency-dns",
+        "rewrite_ttl": 20
+      },
+      {
+        "outbound": "Lock Region ID",
+        "server": "Lock Region ID-dns",
+        "rewrite_ttl": 20
+      },
+      {
+        "outbound": "WhatsApp",
+        "server": "WhatsApp-dns",
+        "rewrite_ttl": 20
+      },
+      {
+        "outbound": "GAMESMAX(ML/FF/AOV)",
+        "server": "GAMESMAX(ML/FF/AOV)-dns",
+        "rewrite_ttl": 20
+      },
+      {
+        "outbound": "Route Port Game",
+        "server": "Route Port Game-dns",
+        "rewrite_ttl": 20
+      },
+      {
+        "outbound": "direct",
+        "server": "direct-dns",
+        "rewrite_ttl": 20
+      },
+      {
+        "outbound": "any",
+        "server": "direct-dns",
+        "rewrite_ttl": 20
+      }
+    ],
+    "reverse_mapping": true,
+    "strategy": "ipv4_only",
+    "independent_cache": true,
+    "disable_cache": true
+  },
+  "inbounds": [
+    {
+      "type": "tun",
+      "tag": "tun-in",
+      "interface_name": "tun0",
+      "inet4_address": "172.19.0.1/30",
+      "mtu": 9000,
+      "auto_route": true,
+      "strict_route": true,
+      "stack": "system",
+      "endpoint_independent_nat": true,
+      "sniff": true
+    },
+    {
+      "listen": "0.0.0.0",
+      "listen_port": 2080,
+      "sniff": true,
+      "tag": "mixed-in",
+      "type": "mixed"
+    }
+  ],
+  "outbounds": [
+    {
+      "type": "selector",
+      "tag": "Internet",
+      "outbounds": [
+        "Best Latency",
+        "MCI-@V2ray_Alpha-7",
+        "MCI-@V2ray_Alpha-8",
+        "MCI-@V2ray_Alpha-9",
+        "MCI-@V2ray_Alpha-10",
+        "MCI-@V2ray_Alpha-11",
+        "MCI-@V2ray_Alpha-12",
+        "MCI-@V2ray_Alpha-13",
+        "MCI-@V2ray_Alpha-14",
+        "MCI-@V2ray_Alpha-15",
+        "MCI-@V2ray_Alpha-16",
+        "MCI-@V2ray_Alpha-17",
+        "MCI-@V2ray_Alpha-18",
+        "MCI-@V2ray_Alpha-19"
+      ]
+    },
+    {
+      "type": "urltest",
+      "tag": "Best Latency",
+      "outbounds": [
+        "MCI-@V2ray_Alpha-7",
+        "MCI-@V2ray_Alpha-8",
+        "MCI-@V2ray_Alpha-9",
+        "MCI-@V2ray_Alpha-10",
+        "MCI-@V2ray_Alpha-11",
+        "MCI-@V2ray_Alpha-12",
+        "MCI-@V2ray_Alpha-13",
+        "MCI-@V2ray_Alpha-14",
+        "MCI-@V2ray_Alpha-15",
+        "MCI-@V2ray_Alpha-16",
+        "MCI-@V2ray_Alpha-17",
+        "MCI-@V2ray_Alpha-18",
+        "MCI-@V2ray_Alpha-19"
+      ],
+      "url": "https://detectportal.firefox.com/success.txt",
+      "interval": "1m0s"
+    },
+    {
+      "type": "selector",
+      "tag": "Lock Region ID",
+      "outbounds": [
+        "MCI-@V2ray_Alpha-7",
+        "MCI-@V2ray_Alpha-8",
+        "MCI-@V2ray_Alpha-9",
+        "MCI-@V2ray_Alpha-10",
+        "MCI-@V2ray_Alpha-11",
+        "MCI-@V2ray_Alpha-12",
+        "MCI-@V2ray_Alpha-13",
+        "MCI-@V2ray_Alpha-14",
+        "MCI-@V2ray_Alpha-15",
+        "MCI-@V2ray_Alpha-16",
+        "MCI-@V2ray_Alpha-17",
+        "MCI-@V2ray_Alpha-18",
+        "MCI-@V2ray_Alpha-19"
+      ]
+    },
+    {
+      "tag": "MCI-@V2ray_Alpha-7",
+      "type": "trojan",
+      "server": "51.20.38.227",
+      "server_port": 1935,
+      "password": "77G4g4apO0",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "tls": {
+        "enabled": true,
+        "server_name": "x8-sweden-amazon-v2-cf9yw.devefun.org",
+        "insecure": true,
+        "disable_sni": false
+      },
+      "domain_strategy": "ipv4_only"
+    },
+    {
+      "tag": "MCI-@V2ray_Alpha-8",
+      "type": "trojan",
+      "server": "8.219.77.72",
+      "server_port": 5027,
+      "password": "ttfang",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "tls": {
+        "enabled": true,
+        "server_name": "ttfang.fange.me",
+        "insecure": true,
+        "disable_sni": false
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/",
+        "headers": {
+          "Host": "ttfang.fange.me"
+        },
+        "max_early_data": 0,
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      },
+      "domain_strategy": "ipv4_only"
+    },
+    {
+      "tag": "MCI-@V2ray_Alpha-9",
+      "type": "trojan",
+      "server": "47.245.91.197",
+      "server_port": 9000,
+      "password": "ttfang",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "tls": {
+        "enabled": true,
+        "server_name": "ttfang.fange.me",
+        "insecure": true,
+        "disable_sni": false
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/",
+        "headers": {
+          "Host": "ttfang.fange.me"
+        },
+        "max_early_data": 0,
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      },
+      "domain_strategy": "ipv4_only"
+    },
+    {
+      "tag": "MCI-@V2ray_Alpha-10",
+      "type": "trojan",
+      "server": "104.16.83.176",
+      "server_port": 443,
+      "password": "Ng35283528",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "tls": {
+        "enabled": true,
+        "server_name": "c2.validbv3528.eu.org",
+        "insecure": true,
+        "disable_sni": false
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/?ed=2560",
+        "headers": {
+          "Host": "c2.validbv3528.eu.org"
+        },
+        "max_early_data": 0,
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      },
+      "domain_strategy": "ipv4_only"
+    },
+    {
+      "tag": "MCI-@V2ray_Alpha-11",
+      "type": "vless",
+      "server": "172.66.138.81",
+      "server_port": 80,
+      "uuid": "26bc13af-e442-4956-afd4-b8f85744d26f",
+      "flow": "",
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/?ed=2560",
+        "headers": {
+          "Host": "fggerlad.gerald81.dpdns.org"
+        },
+        "max_early_data": 0,
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      },
+      "domain_strategy": "ipv4_only"
+    },
+    {
+      "tag": "MCI-@V2ray_Alpha-12",
+      "type": "vless",
+      "server": "iran.1mrsub.site",
+      "server_port": 19,
+      "uuid": "451def43-cf9b-41c4-a01a-744ace385a29",
+      "flow": "",
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "domain_strategy": "ipv4_only"
+    },
+    {
+      "tag": "MCI-@V2ray_Alpha-13",
+      "type": "vless",
+      "server": "85.133.202.35",
+      "server_port": 5112,
+      "uuid": "055636cc-dc0a-4917-8a42-f3fc8be47c06",
+      "flow": "",
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "domain_strategy": "ipv4_only"
+    },
+    {
+      "tag": "MCI-@V2ray_Alpha-14",
+      "type": "vless",
+      "server": "85.9.122.123",
+      "server_port": 9003,
+      "uuid": "c698a4d6-19b4-d47b-50b1-dbc3e0f7a4eb",
+      "flow": "",
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "domain_strategy": "ipv4_only"
+    },
+    {
+      "tag": "MCI-@V2ray_Alpha-15",
+      "type": "vless",
+      "server": "45.131.6.139",
+      "server_port": 80,
+      "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
+      "flow": "",
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "transport": {
+        "type": "ws",
+        "path": "Telegram:@ShadowProxy66/?ed=2560",
+        "headers": {
+          "Host": "uuhUHYygEsdFGH.UYHJHGvgFcjGUJhbUIlbVFDxDxM.xyz"
+        },
+        "max_early_data": 0,
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      },
+      "domain_strategy": "ipv4_only"
+    },
+    {
+      "tag": "MCI-@V2ray_Alpha-16",
+      "type": "vless",
+      "server": "47.76.218.163",
+      "server_port": 443,
+      "uuid": "63601f9f-7c67-4952-919a-1ef802b5a7ec",
+      "flow": "",
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "tls": {
+        "enabled": true,
+        "server_name": "steep.skyfigure.top",
+        "insecure": true,
+        "disable_sni": false
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/Telegram @V2ray_Alpha/?ed=2560",
+        "headers": {
+          "Host": "steep.skyfigure.top"
+        },
+        "max_early_data": 0,
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      },
+      "domain_strategy": "ipv4_only"
+    },
+    {
+      "tag": "MCI-@V2ray_Alpha-17",
+      "type": "vless",
+      "server": "104.18.41.190",
+      "server_port": 443,
+      "uuid": "06e4425e-a8cb-4b63-929f-2105604ab0a9",
+      "flow": "",
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "tls": {
+        "enabled": true,
+        "server_name": "yz.ylka.dpdns.org",
+        "insecure": true,
+        "disable_sni": false
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/?ed=2560",
+        "headers": {
+          "Host": "yz.ylka.dpdns.org"
+        },
+        "max_early_data": 0,
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      },
+      "domain_strategy": "ipv4_only"
+    },
+    {
+      "tag": "MCI-@V2ray_Alpha-18",
+      "type": "vless",
+      "server": "147.135.4.2",
+      "server_port": 443,
+      "uuid": "54694a33-a8dc-47dd-bc38-acd3971e0055",
+      "flow": "",
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "tls": {
+        "enabled": true,
+        "server_name": "147135004002.sec20org.com",
+        "insecure": true,
+        "disable_sni": false
+      },
+      "domain_strategy": "ipv4_only"
+    },
+    {
+      "tag": "MCI-@V2ray_Alpha-19",
+      "type": "vless",
+      "server": "2.189.85.180",
+      "server_port": 3060,
+      "uuid": "4b8fa6eb-2834-4bc3-acf9-971819ae42a0",
+      "flow": "",
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "domain_strategy": "ipv4_only"
+    },
+    {
+      "type": "selector",
+      "tag": "WhatsApp",
+      "outbounds": [
+        "direct",
+        "Internet",
+        "Best Latency",
+        "Lock Region ID"
+      ]
+    },
+    {
+      "type": "selector",
+      "tag": "GAMESMAX(ML/FF/AOV)",
+      "outbounds": [
+        "direct",
+        "Internet",
+        "Best Latency",
+        "Lock Region ID"
+      ]
+    },
+    {
+      "type": "selector",
+      "tag": "Route Port Game",
+      "outbounds": [
+        "direct",
+        "Internet",
+        "Best Latency",
+        "Lock Region ID"
+      ]
+    },
+    {
+      "type": "selector",
+      "tag": "Option ADs",
+      "outbounds": [
+        "block",
+        "Internet"
+      ]
+    },
+    {
+      "type": "selector",
+      "tag": "Option P0rn",
+      "outbounds": [
+        "block",
+        "Internet"
+      ]
+    },
+    {
+      "type": "direct",
+      "tag": "direct"
+    },
+    {
+      "type": "block",
+      "tag": "block"
+    },
+    {
+      "type": "dns",
+      "tag": "dns-out"
+    }
+  ],
+  "route": {
+    "auto_detect_interface": true,
+    "override_android_vpn": true,
+    "final": "Internet",
+    "geoip": {
+      "download_url": "https://github.com/malikshi/sing-box-geo/releases/latest/download/geoip.db",
+      "download_detour": "Best Latency"
+    },
+    "geosite": {
+      "download_url": "https://github.com/malikshi/v2ray-rules-dat/releases/latest/download/geosite.db",
+      "download_detour": "Best Latency"
+    },
+    "rules": [
+      {
+        "outbound": "dns-out",
+        "port": [
+          53
+        ]
+      },
+      {
+        "network": "udp",
+        "port": [
+          443
+        ],
+        "outbound": "block"
+      },
+      {
+        "domain_suffix": [
+          "googlesyndication.com"
+        ],
+        "outbound": "Internet"
+      },
+      {
+        "geosite": [
+          "rule-ads",
+          "oisd-full"
+        ],
+        "outbound": "Option ADs"
+      },
+      {
+        "geosite": [
+          "oisd-nsfw",
+          "category-porn"
+        ],
+        "outbound": "Option P0rn"
+      },
+      {
+        "geosite": "whatsapp",
+        "outbound": "WhatsApp"
+      },
+      {
+        "geoip": "facebook",
+        "port": [
+          3478,
+          4244,
+          5222,
+          5223,
+          5242,
+          45395,
+          50318,
+          59234
+        ],
+        "outbound": "WhatsApp"
+      },
+      {
+        "protocol": "stun",
+        "outbound": "Internet"
+      },
+      {
+        "geosite": [
+          "rule-indo"
+        ],
+        "outbound": "Lock Region ID"
+      },
+      {
+        "network": "udp",
+        "port": [
+          2702,
+          3702,
+          8443,
+          9120,
+          9992,
+          10003,
+          6006,
+          6008,
+          6674,
+          7889,
+          8008,
+          8130,
+          8443,
+          9008,
+          9120,
+          10100,
+          12008,
+          13008,
+          8011,
+          9030,
+          10491,
+          10612,
+          12235,
+          13004,
+          13748,
+          17000,
+          17500,
+          10039,
+          10096,
+          11455,
+          13894,
+          13972
+        ],
+        "port_range": [
+          "4001:4009",
+          "5000:5221",
+          "5224:5241",
+          "5243:5287",
+          "5289:5352",
+          "5354:5509",
+          "5517:5529",
+          "5551:5559",
+          "5601:5700",
+          "9000:9010",
+          "30000:30300",
+          "7006:7008",
+          "8001:8012",
+          "10000:10015",
+          "11000:11019",
+          "10101:10201",
+          "10080:10110",
+          "17000:18000"
+        ],
+        "outbound": "GAMESMAX(ML/FF/AOV)"
+      },
+      {
+        "network": "tcp",
+        "port": [
+          5517,
+          8443,
+          9443,
+          10003,
+          6006,
+          6008,
+          6674,
+          7889,
+          9006,
+          9137,
+          12006,
+          12008,
+          13006,
+          15006,
+          20561,
+          39003,
+          39006,
+          39698,
+          39779,
+          39800,
+          10012,
+          14000,
+          15692,
+          17000,
+          17500,
+          18081,
+          20371,
+          8013,
+          8085,
+          18082,
+          20000,
+          50000,
+          65010,
+          65050,
+          8013,
+          18082,
+          20166,
+          31003,
+          33445,
+          50000,
+          42472,
+          14422,
+          16999,
+          8013,
+          8888,
+          30031,
+          14009,
+          40005,
+          9339,
+          2099,
+          8088,
+          5692,
+          8085,
+          8500,
+          10000,
+          10082,
+          20000,
+          25000,
+          29134,
+          31003
+        ],
+        "port_range": [
+          "5000:5221",
+          "5224:5227",
+          "5229:5241",
+          "5243:5287",
+          "5289:5352",
+          "5354:5509",
+          "5520:5529",
+          "5551:5559",
+          "5601:5700",
+          "9000:9010",
+          "30000:30300",
+          "7006:7008",
+          "8001:8012",
+          "10000:10012",
+          "11000:11019",
+          "8085:8088",
+          "10000:10019",
+          "20000:20002",
+          "10000:10001",
+          "20000:20001",
+          "9330:9340",
+          "2080:2099",
+          "9100:9200",
+          "8230:8250",
+          "8110:8120",
+          "27000:28998",
+          "7770:7790",
+          "44590:44610",
+          "10500:10515",
+          "27015:27030",
+          "27036:27037",
+          "39190:39200",
+          "49001:49190",
+          "8393:8400"
+        ],
+        "outbound": "Route Port Game"
+      },
+      {
+        "network": "udp",
+        "port": [
+          2702,
+          3702,
+          8443,
+          9120,
+          9992,
+          10003,
+          6006,
+          6008,
+          6674,
+          7889,
+          8008,
+          8130,
+          8443,
+          9008,
+          9120,
+          10100,
+          12008,
+          13008,
+          8700,
+          10013,
+          10019,
+          10039,
+          10096,
+          10491,
+          10612,
+          11455,
+          12235,
+          13748,
+          13894,
+          13972,
+          17000,
+          17500,
+          8700,
+          9030,
+          8011,
+          9030,
+          10491,
+          10612,
+          12235,
+          13004,
+          13748,
+          17000,
+          17500,
+          10039,
+          10096,
+          11455,
+          13894,
+          13972,
+          42472,
+          5100,
+          39000,
+          4380,
+          27036,
+          14422,
+          16999,
+          8013,
+          8888,
+          8000,
+          30104,
+          14009,
+          40005,
+          8088,
+          5010,
+          6650,
+          8011,
+          8700,
+          20000,
+          25000,
+          29134,
+          30000
+        ],
+        "port_range": [
+          "4001:4009",
+          "5000:5221",
+          "5224:5241",
+          "5243:5287",
+          "5289:5352",
+          "5354:5509",
+          "5517:5529",
+          "5551:5559",
+          "5601:5700",
+          "9000:9010",
+          "30000:30300",
+          "7006:7008",
+          "8001:8012",
+          "10000:10015",
+          "11000:11019",
+          "7086:7995",
+          "8011:8013",
+          "9030:9031",
+          "20000:20002",
+          "12070:12460",
+          "41182:41192",
+          "7500:7995",
+          "10010:10019",
+          "20000:20001",
+          "10101:10201",
+          "10080:10110",
+          "17000:18000",
+          "5055:5058",
+          "22101:22102",
+          "9330:9340",
+          "27000:28998",
+          "16300:16350",
+          "40000:40010",
+          "60970:60980",
+          "27000:27031",
+          "40000:40010",
+          "7000:8000",
+          "8180:8181",
+          "27016:27024",
+          "54000:54012"
+        ],
+        "outbound": "Route Port Game"
+      },
+      {
+        "geoip": [
+          "id"
+        ],
+        "port": [
+          21,
+          22,
+          23,
+          80,
+          81,
+          123,
+          143,
+          182,
+          183,
+          194,
+          443,
+          465,
+          587,
+          853,
+          993,
+          995,
+          998,
+          2052,
+          2053,
+          2082,
+          2083,
+          2086,
+          2095,
+          2096,
+          5222,
+          5228,
+          5229,
+          5230,
+          8000,
+          8080,
+          8081,
+          8088,
+          8443,
+          8880,
+          8883,
+          8888,
+          8889,
+          42069
+        ],
+        "outbound": "Lock Region ID"
+      },
+      {
+        "port": [
+          21,
+          22,
+          23,
+          80,
+          81,
+          123,
+          143,
+          182,
+          183,
+          194,
+          443,
+          465,
+          587,
+          853,
+          993,
+          995,
+          998,
+          2052,
+          2053,
+          2082,
+          2083,
+          2086,
+          2095,
+          2096,
+          5222,
+          5228,
+          5229,
+          5230,
+          8000,
+          8080,
+          8081,
+          8088,
+          8443,
+          8880,
+          8883,
+          8888,
+          8889,
+          42069
+        ],
+        "outbound": "Internet"
+      },
+      {
+        "port_range": [
+          "1023:42068",
+          "42070:65535"
+        ],
+        "outbound": "Route Port Game"
+      }
+    ]
+  }
+}
