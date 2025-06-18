@@ -18,21 +18,6 @@
       {
         "clash_mode": "Direct",
         "server": "direct-dns"
-      },
-      {
-        "rule_set": [
-          "geosite-ir"
-        ],
-        "server": "direct-dns"
-      },
-      {
-        "rule_set": [
-          "geosite-category-ads-all",
-          "geosite-malware",
-          "geosite-phishing",
-          "geosite-cryptominers"
-        ],
-        "server": "block"
       }
     ],
     "servers": [
@@ -94,30 +79,30 @@
       "type": "selector",
       "outbounds": [
         "auto",
-        "ss-38e28e3e",
-        "ss-14b14969",
-        "ss-aa390649",
-        "ss-e0b6ee93",
-        "ss-4ac2d6ce",
-        "trojan-89a9f0dc",
-        "trojan-0c21b400",
-        "trojan-4c3492c9",
-        "trojan-63e4d5d6",
-        "trojan-fa5837e3",
-        "vless-e4fb4e7a",
-        "vless-6df3bacc",
-        "vless-79eb9bbb",
-        "vless-9f3e19ea",
-        "vless-6ae1b4ad",
-        "vless-c5704475",
-        "vless-56f9cde2",
-        "vless-675ece42",
-        "vless-583a382f",
-        "vless-798e7fed",
-        "vless-0391fada",
-        "vless-b7bab853",
-        "vless-c9fd86c1",
-        "vmess-8ad19fef",
+        "ss-e32ea8eb",
+        "ss-0caf48af",
+        "ss-e3575ca1",
+        "ss-c7c63132",
+        "ss-455bb789",
+        "trojan-1c5272ad",
+        "trojan-f5aa4891",
+        "trojan-e1e4b5b5",
+        "trojan-d3123e2b",
+        "trojan-a351a694",
+        "vless-5c51bd6d",
+        "vless-4627c6c0",
+        "vless-0c31aa33",
+        "vless-379fa727",
+        "vless-b03d2f8d",
+        "vless-35ebadb3",
+        "vless-5d9e0e09",
+        "vless-81058a76",
+        "vless-e4937039",
+        "vless-be58615d",
+        "vless-2072bb83",
+        "vless-fb894d1e",
+        "vless-65a0b090",
+        "vmess-e35993c5",
         "direct"
       ]
     },
@@ -125,30 +110,30 @@
       "tag": "auto",
       "type": "urltest",
       "outbounds": [
-        "ss-38e28e3e",
-        "ss-14b14969",
-        "ss-aa390649",
-        "ss-e0b6ee93",
-        "ss-4ac2d6ce",
-        "trojan-89a9f0dc",
-        "trojan-0c21b400",
-        "trojan-4c3492c9",
-        "trojan-63e4d5d6",
-        "trojan-fa5837e3",
-        "vless-e4fb4e7a",
-        "vless-6df3bacc",
-        "vless-79eb9bbb",
-        "vless-9f3e19ea",
-        "vless-6ae1b4ad",
-        "vless-c5704475",
-        "vless-56f9cde2",
-        "vless-675ece42",
-        "vless-583a382f",
-        "vless-798e7fed",
-        "vless-0391fada",
-        "vless-b7bab853",
-        "vless-c9fd86c1",
-        "vmess-8ad19fef"
+        "ss-e32ea8eb",
+        "ss-0caf48af",
+        "ss-e3575ca1",
+        "ss-c7c63132",
+        "ss-455bb789",
+        "trojan-1c5272ad",
+        "trojan-f5aa4891",
+        "trojan-e1e4b5b5",
+        "trojan-d3123e2b",
+        "trojan-a351a694",
+        "vless-5c51bd6d",
+        "vless-4627c6c0",
+        "vless-0c31aa33",
+        "vless-379fa727",
+        "vless-b03d2f8d",
+        "vless-35ebadb3",
+        "vless-5d9e0e09",
+        "vless-81058a76",
+        "vless-e4937039",
+        "vless-be58615d",
+        "vless-2072bb83",
+        "vless-fb894d1e",
+        "vless-65a0b090",
+        "vmess-e35993c5"
       ],
       "url": "http://www.gstatic.com/generate_204",
       "interval": "10m",
@@ -160,7 +145,7 @@
     },
     {
       "type": "shadowsocks",
-      "tag": "ss-38e28e3e",
+      "tag": "ss-e32ea8eb",
       "server": "4.158.118.226",
       "server_port": 443,
       "method": "chacha20-ietf-poly1305",
@@ -168,7 +153,7 @@
     },
     {
       "type": "shadowsocks",
-      "tag": "ss-14b14969",
+      "tag": "ss-0caf48af",
       "server": "74.177.208.211",
       "server_port": 443,
       "method": "chacha20-ietf-poly1305",
@@ -176,7 +161,7 @@
     },
     {
       "type": "shadowsocks",
-      "tag": "ss-aa390649",
+      "tag": "ss-e3575ca1",
       "server": "api.namasha.co",
       "server_port": 443,
       "method": "chacha20-ietf-poly1305",
@@ -184,7 +169,7 @@
     },
     {
       "type": "shadowsocks",
-      "tag": "ss-e0b6ee93",
+      "tag": "ss-c7c63132",
       "server": "4.159.35.230",
       "server_port": 443,
       "method": "chacha20-ietf-poly1305",
@@ -192,7 +177,7 @@
     },
     {
       "type": "shadowsocks",
-      "tag": "ss-4ac2d6ce",
+      "tag": "ss-455bb789",
       "server": "172.165.62.90",
       "server_port": 443,
       "method": "chacha20-ietf-poly1305",
@@ -200,7 +185,7 @@
     },
     {
       "type": "trojan",
-      "tag": "trojan-89a9f0dc",
+      "tag": "trojan-1c5272ad",
       "server": "51.15.68.121",
       "server_port": 1935,
       "password": "Bm92516VO0",
@@ -214,7 +199,7 @@
     },
     {
       "type": "trojan",
-      "tag": "trojan-0c21b400",
+      "tag": "trojan-f5aa4891",
       "server": "51.20.38.227",
       "server_port": 1935,
       "password": "77G4g4apO0",
@@ -228,7 +213,7 @@
     },
     {
       "type": "trojan",
-      "tag": "trojan-4c3492c9",
+      "tag": "trojan-e1e4b5b5",
       "server": "8.219.77.72",
       "server_port": 5027,
       "password": "ttfang",
@@ -245,7 +230,7 @@
     },
     {
       "type": "trojan",
-      "tag": "trojan-63e4d5d6",
+      "tag": "trojan-d3123e2b",
       "server": "47.245.91.197",
       "server_port": 9000,
       "password": "ttfang",
@@ -262,7 +247,7 @@
     },
     {
       "type": "trojan",
-      "tag": "trojan-fa5837e3",
+      "tag": "trojan-a351a694",
       "server": "104.16.83.176",
       "server_port": 443,
       "password": "Ng35283528",
@@ -279,7 +264,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-e4fb4e7a",
+      "tag": "vless-5c51bd6d",
       "server": "172.66.138.81",
       "server_port": 80,
       "uuid": "26bc13af-e442-4956-afd4-b8f85744d26f",
@@ -299,7 +284,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-6df3bacc",
+      "tag": "vless-4627c6c0",
       "server": "iran.1mrsub.site",
       "server_port": 19,
       "uuid": "451def43-cf9b-41c4-a01a-744ace385a29",
@@ -313,7 +298,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-79eb9bbb",
+      "tag": "vless-0c31aa33",
       "server": "85.133.202.35",
       "server_port": 5112,
       "uuid": "055636cc-dc0a-4917-8a42-f3fc8be47c06",
@@ -327,7 +312,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-9f3e19ea",
+      "tag": "vless-379fa727",
       "server": "85.9.122.123",
       "server_port": 9003,
       "uuid": "c698a4d6-19b4-d47b-50b1-dbc3e0f7a4eb",
@@ -341,7 +326,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-6ae1b4ad",
+      "tag": "vless-b03d2f8d",
       "server": "45.131.6.139",
       "server_port": 80,
       "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
@@ -361,7 +346,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-c5704475",
+      "tag": "vless-35ebadb3",
       "server": "47.76.218.163",
       "server_port": 443,
       "uuid": "63601f9f-7c67-4952-919a-1ef802b5a7ec",
@@ -381,7 +366,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-56f9cde2",
+      "tag": "vless-5d9e0e09",
       "server": "104.18.41.190",
       "server_port": 443,
       "uuid": "06e4425e-a8cb-4b63-929f-2105604ab0a9",
@@ -401,7 +386,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-675ece42",
+      "tag": "vless-81058a76",
       "server": "147.135.4.2",
       "server_port": 443,
       "uuid": "54694a33-a8dc-47dd-bc38-acd3971e0055",
@@ -415,7 +400,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-583a382f",
+      "tag": "vless-e4937039",
       "server": "2.189.85.180",
       "server_port": 3060,
       "uuid": "4b8fa6eb-2834-4bc3-acf9-971819ae42a0",
@@ -429,7 +414,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-798e7fed",
+      "tag": "vless-be58615d",
       "server": "31.14.123.54",
       "server_port": 5969,
       "uuid": "e63e93a0-d092-4d12-9f79-b5137ae03af4",
@@ -443,7 +428,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-0391fada",
+      "tag": "vless-2072bb83",
       "server": "172.67.60.197",
       "server_port": 80,
       "uuid": "cba0b35b-8943-4c70-a864-9f78145b7897",
@@ -463,7 +448,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-b7bab853",
+      "tag": "vless-fb894d1e",
       "server": "45.142.120.134",
       "server_port": 80,
       "uuid": "89b3cbba-e6ac-485a-9481-976a0415eab9",
@@ -483,7 +468,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-c9fd86c1",
+      "tag": "vless-65a0b090",
       "server": "172.67.92.147",
       "server_port": 80,
       "uuid": "b8be6118-0dd7-4402-ae1a-69b2816f3a7f",
@@ -503,7 +488,7 @@
     },
     {
       "type": "vmess",
-      "tag": "vmess-8ad19fef",
+      "tag": "vmess-e35993c5",
       "server": "15.204.234.200",
       "server_port": 41100,
       "uuid": "c7f169a3-2e9a-4894-ba53-7b2fa6fd08b4",
@@ -532,96 +517,6 @@
       {
         "protocol": "dns",
         "action": "hijack-dns"
-      },
-      {
-        "domain_suffix": [
-          ".ir"
-        ],
-        "outbound": "direct"
-      },
-      {
-        "rule_set": [
-          "geoip-ir",
-          "geosite-ir"
-        ],
-        "outbound": "direct"
-      },
-      {
-        "rule_set": [
-          "geosite-category-ads-all",
-          "geosite-malware",
-          "geosite-phishing",
-          "geosite-cryptominers",
-          "geoip-malware",
-          "geoip-phishing"
-        ],
-        "outbound": "block"
-      }
-    ],
-    "rule_set": [
-      {
-        "tag": "geosite-ir",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-ir.srs",
-        "download_detour": "direct",
-        "update_interval": "1d"
-      },
-      {
-        "tag": "geosite-category-ads-all",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-category-ads-all.srs",
-        "download_detour": "direct",
-        "update_interval": "1d"
-      },
-      {
-        "tag": "geosite-malware",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-malware.srs",
-        "download_detour": "direct",
-        "update_interval": "1d"
-      },
-      {
-        "tag": "geosite-phishing",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-phishing.srs",
-        "download_detour": "direct",
-        "update_interval": "1d"
-      },
-      {
-        "tag": "geosite-cryptominers",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-cryptominers.srs",
-        "download_detour": "direct",
-        "update_interval": "1d"
-      },
-      {
-        "tag": "geoip-ir",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geoip-ir.srs",
-        "download_detour": "direct",
-        "update_interval": "1d"
-      },
-      {
-        "tag": "geoip-malware",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geoip-malware.srs",
-        "download_detour": "direct",
-        "update_interval": "1d"
-      },
-      {
-        "tag": "geoip-phishing",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geoip-phishing.srs",
-        "download_detour": "direct",
-        "update_interval": "1d"
       }
     ]
   }
