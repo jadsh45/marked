@@ -98,7 +98,6 @@
         "ss_obfs",
         "vmess",
         "vless_vision",
-        "节点2",
         "vless",
         "tuic"
       ]
@@ -344,7 +343,6 @@
         "ss_obfs",
         "vmess",
         "vless_vision",
-        "节点2",
         "vless",
         "tuic"
       ]
@@ -357,7 +355,6 @@
         "ss_obfs",
         "vmess",
         "vless_vision",
-        "节点2",
         "vless",
         "tuic"
       ],
@@ -419,18 +416,6 @@
           "public_key": "8GssTHyqkYrGu6nZ3xfWQHwbHNcQVdq-DIgdUU7TJC4",
           "short_id": "9886241c"
         }
-      }
-    },
-    {
-      "type": "hysteria2",
-      "tag": "节点2",
-      "server": "1.2.3.4",
-      "server_port": 5555,
-      "password": "v2rayse.com",
-      "tls": {
-        "enabled": true,
-        "server_name": "www.v2rayse.com",
-        "insecure": true
       }
     },
     {
