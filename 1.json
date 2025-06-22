@@ -1,1 +1,469 @@
-dmxlc3M6Ly81MTg2N2VhNC00NDNjLTQ1MzktYTAzZS1jZjc1MDVkYjU1MjFANS4xOTguMTY4LjE2NDo4MDgwP2VuY3J5cHRpb249bm9uZSZzZWN1cml0eT1ub25lJnR5cGU9dGNwJmhlYWRlclR5cGU9aHR0cCMlRjAlOUYlOTQlOTIlMjBWTC1UQ1AtTk9ORSUyMCVGMCU5RiU4NyVBRSVGMCU5RiU4NyVCNyUyMElSLTUuMTk4LjE2OC4xNjQlM0E4MDgwCnZsZXNzOi8vZWQ0NDdkZTQtZWJkMy00ZjFjLTgzMzktYzA4NGUwNmVjNTg4QDYyLjYwLjE1Ni4yMDU6NDQzP2VuY3J5cHRpb249bm9uZSZzZWN1cml0eT10bHMmc25pPWV6LmV6MDUzNS5jb20mYWxwbj1oMiUyQ2h0dHAlMkYxLjEmZnA9Y2hyb21lJnR5cGU9Z3JwYyMlRjAlOUYlOTQlOTIlMjBWTC1HUlBDLVRMUyUyMCVGMCU5RiU4NyVBQiVGMCU5RiU4NyVCNyUyMEZSLTYyLjYwLjE1Ni4yMDUlM0E0NDMKdmxlc3M6Ly9lZDQ0N2RlNC1lYmQzLTRmMWMtODMzOS1jMDg0ZTA2ZWM1ODhANjIuNjAuMTU3LjIxOjQ0Mz9lbmNyeXB0aW9uPW5vbmUmc2VjdXJpdHk9dGxzJnNuaT1lei5lejA1MzUuY29tJmFscG49aDIlMkNodHRwJTJGMS4xJmZwPWNocm9tZSZ0eXBlPWdycGMjJUYwJTlGJTk0JTkyJTIwVkwtR1JQQy1UTFMlMjAlRjAlOUYlODclQUIlRjAlOUYlODclQjclMjBGUi02Mi42MC4xNTcuMjElM0E0NDMKdmxlc3M6Ly9iOGQ3NTI2Zi05YmJlLTQwY2UtYTg0NC1lODRiODJhODAwZDFAODUuMTk4LjIzLjEwNTo0MTYwNj9lbmNyeXB0aW9uPW5vbmUmc2VjdXJpdHk9bm9uZSZ0eXBlPXRjcCZoZWFkZXJUeXBlPW5vbmUjJUYwJTlGJTk0JTkyJTIwVkwtVENQLU5PTkUlMjAlRjAlOUYlODclQUUlRjAlOUYlODclQjclMjBJUi04NS4xOTguMjMuMTA1JTNBNDE2MDYKdmxlc3M6Ly8zOTQyMGJiNy01NTM1LTQ4ZmMtYzU2Yy01Yzk4YzZlYWZjZThAMTg1LjIwOC43Ny4xMTM6MTExNDA/ZW5jcnlwdGlvbj1ub25lJnNlY3VyaXR5PW5vbmUmdHlwZT13cyZwYXRoPSUyRiMlRjAlOUYlOTQlOTIlMjBWTC1XUy1OT05FJTIwJUYwJTlGJTg3JUFFJUYwJTlGJTg3JUI3JTIwSVItMTg1LjIwOC43Ny4xMTMlM0ExMTE0MAp2bGVzczovLzFjZTgxMDRmLTYzZWQtNGExZi05ODQ3LTZkZmQyMDY0MDM0OUAyMTcuNjAuMjM2LjIxMzo4NDQzP2VuY3J5cHRpb249bm9uZSZzZWN1cml0eT1ub25lJnR5cGU9dGNwJmhlYWRlclR5cGU9aHR0cCZob3N0PWhlYWQuc2hlY2FubWFya2V0LmNvbSMlRjAlOUYlOTQlOTIlMjBWTC1UQ1AtTk9ORSUyMCVGMCU5RiU4NyVBNiVGMCU5RiU4NyVBQSUyMEFFLTIxNy42MC4yMzYuMjEzJTNBODQ0Mwp2bGVzczovLzUxODY3ZWE0LTQ0M2MtNDUzOS1hMDNlLWNmNzUwNWRiNTUyMUA1LjE5OC4xNjguMTYzOjgwODA/ZW5jcnlwdGlvbj1ub25lJnNlY3VyaXR5PW5vbmUmdHlwZT10Y3AmaGVhZGVyVHlwZT1odHRwIyVGMCU5RiU5NCU5MiUyMFZMLVRDUC1OT05FJTIwJUYwJTlGJTg3JUFFJUYwJTlGJTg3JUI3JTIwSVItNS4xOTguMTY4LjE2MyUzQTgwODAKdmxlc3M6Ly9lZDQ0N2RlNC1lYmQzLTRmMWMtODMzOS1jMDg0ZTA2ZWM1ODhANjIuNjAuMTU2LjQ4OjQ0Mz9lbmNyeXB0aW9uPW5vbmUmc2VjdXJpdHk9dGxzJnNuaT1lei5lejA1MzUuY29tJmFscG49aDIlMkNodHRwJTJGMS4xJmZwPWNocm9tZSZ0eXBlPWdycGMjJUYwJTlGJTk0JTkyJTIwVkwtR1JQQy1UTFMlMjAlRjAlOUYlODclQUIlRjAlOUYlODclQjclMjBGUi02Mi42MC4xNTYuNDglM0E0NDMKdmxlc3M6Ly8zNDkxZGQyOS1kYTMyLTcyMWItYjJmOS03MzQyMWFlYWQ4OTVAODUuMTMzLjI1MC42OjQ0Mz9lbmNyeXB0aW9uPW5vbmUmc2VjdXJpdHk9bm9uZSZ0eXBlPXRjcCZoZWFkZXJUeXBlPWh0dHAmaG9zdD1kaXZhcmNkbi5jb20jJUYwJTlGJTk0JTkyJTIwVkwtVENQLU5PTkUlMjAlRjAlOUYlODclQUUlRjAlOUYlODclQjclMjBJUi04NS4xMzMuMjUwLjYlM0E0NDMKdmxlc3M6Ly9lZDQ0N2RlNC1lYmQzLTRmMWMtODMzOS1jMDg0ZTA2ZWM1ODhANjIuNjAuMTU2LjIyODo0NDM/ZW5jcnlwdGlvbj1ub25lJnNlY3VyaXR5PXRscyZzbmk9ZXouZXowNTM1LmNvbSZhbHBuPWgyJTJDaHR0cCUyRjEuMSZmcD1jaHJvbWUmdHlwZT1ncnBjIyVGMCU5RiU5NCU5MiUyMFZMLUdSUEMtVExTJTIwJUYwJTlGJTg3JUFCJUYwJTlGJTg3JUI3JTIwRlItNjIuNjAuMTU2LjIyOCUzQTQ0Mwp2bGVzczovL2MxNTJjMmM5LTg2ZTQtNGQ2NS1iMjQ4LTM4MGM5NDQyZTNiM0AxOTMuMTUxLjE0OS4xMDU6Mjg5OTU/ZW5jcnlwdGlvbj1ub25lJnNlY3VyaXR5PW5vbmUmdHlwZT10Y3AmaGVhZGVyVHlwZT1odHRwJmhvc3Q9ZGl2YXJjZG4uY29tIyVGMCU5RiU5NCU5MiUyMFZMLVRDUC1OT05FJTIwJUYwJTlGJTg3JUFFJUYwJTlGJTg3JUI3JTIwSVItMTkzLjE1MS4xNDkuMTA1JTNBMjg5OTUK
+{
+  "dns": {
+    "servers": [
+      {
+        "tag": "dns_proxy",
+        "address": "tcp://1.1.1.1",
+        "address_resolver": "dns_resolver",
+        "strategy": "ipv4_only",
+        "detour": "🚀 Node Select"
+      },
+      {
+        "tag": "dns_direct",
+        "address": "https://dns.alidns.com/dns-query",
+        "address_resolver": "dns_resolver",
+        "strategy": "ipv4_only",
+        "detour": "DIRECT"
+      },
+      {
+        "tag": "dns_resolver",
+        "address": "223.5.5.5",
+        "detour": "DIRECT"
+      },
+      {
+        "tag": "dns_success",
+        "address": "rcode://success"
+      },
+      {
+        "tag": "dns_refused",
+        "address": "rcode://refused"
+      },
+      {
+        "tag": "dns_fakeip",
+        "address": "fakeip"
+      }
+    ],
+    "rules": [
+      {
+        "outbound": "any",
+        "server": "dns_resolver"
+      },
+      {
+        "rule_set": "geolocation-!cn",
+        "query_type": [
+          "A",
+          "AAAA"
+        ],
+        "server": "dns_fakeip"
+      },
+      {
+        "rule_set": "geolocation-!cn",
+        "query_type": [
+          "CNAME"
+        ],
+        "server": "dns_proxy"
+      },
+      {
+        "query_type": [
+          "A",
+          "AAAA",
+          "CNAME"
+        ],
+        "invert": true,
+        "server": "dns_refused",
+        "disable_cache": true
+      }
+    ],
+    "final": "dns_direct",
+    "independent_cache": true,
+    "fakeip": {
+      "enabled": true,
+      "inet4_range": "198.18.0.0/15",
+      "inet6_range": "fc00::/18"
+    }
+  },
+  "ntp": {
+    "enabled": true,
+    "server": "time.apple.com",
+    "server_port": 123,
+    "interval": "30m"
+  },
+  "inbounds": [
+    {
+      "type": "mixed",
+      "tag": "mixed-in",
+      "listen": "0.0.0.0",
+      "listen_port": 2080
+    },
+    {
+      "type": "tun",
+      "tag": "tun-in",
+      "address": "172.19.0.1/30",
+      "auto_route": true,
+      "strict_route": true,
+      "stack": "mixed",
+      "sniff": true
+    }
+  ],
+  "outbounds": [
+    {
+      "type": "selector",
+      "tag": "🚀 节点选择",
+      "outbounds": [
+        "DIRECT",
+        "REJECT",
+        "⚡ 自动选择",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-5.198.168.164:8080",
+        "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.156.205:443",
+        "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.157.21:443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-85.198.23.105:41606",
+        "🔒 VL-WS-NONE 🇮🇷 IR-185.208.77.113:11140",
+        "🔒 VL-TCP-NONE 🇦🇪 AE-217.60.236.213:8443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-5.198.168.163:8080",
+        "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.156.48:443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-85.133.250.6:443",
+        "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.156.228:443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-193.151.149.105:28995"
+      ]
+    },
+    {
+      "type": "urltest",
+      "tag": "⚡ 自动选择",
+      "outbounds": [
+        "🔒 VL-TCP-NONE 🇮🇷 IR-5.198.168.164:8080",
+        "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.156.205:443",
+        "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.157.21:443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-85.198.23.105:41606",
+        "🔒 VL-WS-NONE 🇮🇷 IR-185.208.77.113:11140",
+        "🔒 VL-TCP-NONE 🇦🇪 AE-217.60.236.213:8443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-5.198.168.163:8080",
+        "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.156.48:443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-85.133.250.6:443",
+        "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.156.228:443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-193.151.149.105:28995"
+      ]
+    },
+    {
+      "type": "block",
+      "tag": "REJECT"
+    },
+    {
+      "type": "direct",
+      "tag": "DIRECT"
+    },
+    {
+      "type": "vless",
+      "tag": "🔒 VL-TCP-NONE 🇮🇷 IR-5.198.168.164:8080",
+      "server": "5.198.168.164",
+      "server_port": 8080,
+      "uuid": "51867ea4-443c-4539-a03e-cf7505db5521",
+      "tcp_fast_open": false,
+      "tls": {
+        "enabled": false
+      },
+      "network": "tcp"
+    },
+    {
+      "type": "vless",
+      "tag": "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.156.205:443",
+      "server": "62.60.156.205",
+      "server_port": 443,
+      "uuid": "ed447de4-ebd3-4f1c-8339-c084e06ec588",
+      "tcp_fast_open": false,
+      "tls": {
+        "enabled": true,
+        "server_name": "ez.ez0535.com",
+        "insecure": false
+      },
+      "transport": {
+        "type": "grpc"
+      },
+      "network": "tcp"
+    },
+    {
+      "type": "vless",
+      "tag": "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.157.21:443",
+      "server": "62.60.157.21",
+      "server_port": 443,
+      "uuid": "ed447de4-ebd3-4f1c-8339-c084e06ec588",
+      "tcp_fast_open": false,
+      "tls": {
+        "enabled": true,
+        "server_name": "ez.ez0535.com",
+        "insecure": false
+      },
+      "transport": {
+        "type": "grpc"
+      },
+      "network": "tcp"
+    },
+    {
+      "type": "vless",
+      "tag": "🔒 VL-TCP-NONE 🇮🇷 IR-85.198.23.105:41606",
+      "server": "85.198.23.105",
+      "server_port": 41606,
+      "uuid": "b8d7526f-9bbe-40ce-a844-e84b82a800d1",
+      "tcp_fast_open": false,
+      "tls": {
+        "enabled": false
+      },
+      "network": "tcp"
+    },
+    {
+      "type": "vless",
+      "tag": "🔒 VL-WS-NONE 🇮🇷 IR-185.208.77.113:11140",
+      "server": "185.208.77.113",
+      "server_port": 11140,
+      "uuid": "39420bb7-5535-48fc-c56c-5c98c6eafce8",
+      "tcp_fast_open": false,
+      "tls": {
+        "enabled": false
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/"
+      },
+      "network": "tcp"
+    },
+    {
+      "type": "vless",
+      "tag": "🔒 VL-TCP-NONE 🇦🇪 AE-217.60.236.213:8443",
+      "server": "217.60.236.213",
+      "server_port": 8443,
+      "uuid": "1ce8104f-63ed-4a1f-9847-6dfd20640349",
+      "tcp_fast_open": false,
+      "tls": {
+        "enabled": false
+      },
+      "network": "tcp"
+    },
+    {
+      "type": "vless",
+      "tag": "🔒 VL-TCP-NONE 🇮🇷 IR-5.198.168.163:8080",
+      "server": "5.198.168.163",
+      "server_port": 8080,
+      "uuid": "51867ea4-443c-4539-a03e-cf7505db5521",
+      "tcp_fast_open": false,
+      "tls": {
+        "enabled": false
+      },
+      "network": "tcp"
+    },
+    {
+      "type": "vless",
+      "tag": "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.156.48:443",
+      "server": "62.60.156.48",
+      "server_port": 443,
+      "uuid": "ed447de4-ebd3-4f1c-8339-c084e06ec588",
+      "tcp_fast_open": false,
+      "tls": {
+        "enabled": true,
+        "server_name": "ez.ez0535.com",
+        "insecure": false
+      },
+      "transport": {
+        "type": "grpc"
+      },
+      "network": "tcp"
+    },
+    {
+      "type": "vless",
+      "tag": "🔒 VL-TCP-NONE 🇮🇷 IR-85.133.250.6:443",
+      "server": "85.133.250.6",
+      "server_port": 443,
+      "uuid": "3491dd29-da32-721b-b2f9-73421aead895",
+      "tcp_fast_open": false,
+      "tls": {
+        "enabled": false
+      },
+      "network": "tcp"
+    },
+    {
+      "type": "vless",
+      "tag": "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.156.228:443",
+      "server": "62.60.156.228",
+      "server_port": 443,
+      "uuid": "ed447de4-ebd3-4f1c-8339-c084e06ec588",
+      "tcp_fast_open": false,
+      "tls": {
+        "enabled": true,
+        "server_name": "ez.ez0535.com",
+        "insecure": false
+      },
+      "transport": {
+        "type": "grpc"
+      },
+      "network": "tcp"
+    },
+    {
+      "type": "vless",
+      "tag": "🔒 VL-TCP-NONE 🇮🇷 IR-193.151.149.105:28995",
+      "server": "193.151.149.105",
+      "server_port": 28995,
+      "uuid": "c152c2c9-86e4-4d65-b248-380c9442e3b3",
+      "tcp_fast_open": false,
+      "tls": {
+        "enabled": false
+      },
+      "network": "tcp"
+    },
+    {
+      "type": "selector",
+      "tag": "🏠 私有网络",
+      "outbounds": [
+        "🚀 节点选择",
+        "DIRECT",
+        "REJECT",
+        "⚡ 自动选择",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-5.198.168.164:8080",
+        "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.156.205:443",
+        "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.157.21:443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-85.198.23.105:41606",
+        "🔒 VL-WS-NONE 🇮🇷 IR-185.208.77.113:11140",
+        "🔒 VL-TCP-NONE 🇦🇪 AE-217.60.236.213:8443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-5.198.168.163:8080",
+        "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.156.48:443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-85.133.250.6:443",
+        "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.156.228:443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-193.151.149.105:28995"
+      ]
+    },
+    {
+      "type": "selector",
+      "tag": "🔒 国内服务",
+      "outbounds": [
+        "🚀 节点选择",
+        "DIRECT",
+        "REJECT",
+        "⚡ 自动选择",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-5.198.168.164:8080",
+        "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.156.205:443",
+        "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.157.21:443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-85.198.23.105:41606",
+        "🔒 VL-WS-NONE 🇮🇷 IR-185.208.77.113:11140",
+        "🔒 VL-TCP-NONE 🇦🇪 AE-217.60.236.213:8443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-5.198.168.163:8080",
+        "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.156.48:443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-85.133.250.6:443",
+        "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.156.228:443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-193.151.149.105:28995"
+      ]
+    },
+    {
+      "type": "selector",
+      "tag": "🌐 非中国",
+      "outbounds": [
+        "🚀 节点选择",
+        "DIRECT",
+        "REJECT",
+        "⚡ 自动选择",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-5.198.168.164:8080",
+        "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.156.205:443",
+        "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.157.21:443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-85.198.23.105:41606",
+        "🔒 VL-WS-NONE 🇮🇷 IR-185.208.77.113:11140",
+        "🔒 VL-TCP-NONE 🇦🇪 AE-217.60.236.213:8443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-5.198.168.163:8080",
+        "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.156.48:443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-85.133.250.6:443",
+        "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.156.228:443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-193.151.149.105:28995"
+      ]
+    },
+    {
+      "type": "selector",
+      "tag": "🐟 漏网之鱼",
+      "outbounds": [
+        "🚀 节点选择",
+        "DIRECT",
+        "REJECT",
+        "⚡ 自动选择",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-5.198.168.164:8080",
+        "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.156.205:443",
+        "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.157.21:443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-85.198.23.105:41606",
+        "🔒 VL-WS-NONE 🇮🇷 IR-185.208.77.113:11140",
+        "🔒 VL-TCP-NONE 🇦🇪 AE-217.60.236.213:8443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-5.198.168.163:8080",
+        "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.156.48:443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-85.133.250.6:443",
+        "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.156.228:443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-193.151.149.105:28995"
+      ]
+    }
+  ],
+  "route": {
+    "rule_set": [
+      {
+        "tag": "geolocation-cn",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://gh-proxy.com/https://raw.githubusercontent.com/lyc8503/sing-box-rules/refs/heads/rule-set-geosite/geosite-geolocation-cn.srs"
+      },
+      {
+        "tag": "cn",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://gh-proxy.com/https://raw.githubusercontent.com/lyc8503/sing-box-rules/refs/heads/rule-set-geosite/geosite-cn.srs"
+      },
+      {
+        "tag": "geolocation-!cn",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://gh-proxy.com/https://raw.githubusercontent.com/lyc8503/sing-box-rules/refs/heads/rule-set-geosite/geosite-geolocation-!cn.srs"
+      },
+      {
+        "tag": "private-ip",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://gh-proxy.com/https://raw.githubusercontent.com/lyc8503/sing-box-rules/refs/heads/rule-set-geoip/geoip-private.srs"
+      },
+      {
+        "tag": "cn-ip",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://gh-proxy.com/https://raw.githubusercontent.com/lyc8503/sing-box-rules/refs/heads/rule-set-geoip/geoip-cn.srs"
+      }
+    ],
+    "rules": [
+      {
+        "clash_mode": "direct",
+        "outbound": "DIRECT"
+      },
+      {
+        "clash_mode": "global",
+        "outbound": "🚀 节点选择"
+      },
+      {
+        "action": "sniff"
+      },
+      {
+        "protocol": "dns",
+        "action": "hijack-dns"
+      },
+      {
+        "rule_set": [
+          "geolocation-cn",
+          "cn"
+        ],
+        "outbound": "🔒 国内服务"
+      },
+      {
+        "rule_set": [
+          "geolocation-!cn"
+        ],
+        "outbound": "🌐 非中国"
+      },
+      {
+        "rule_set": [
+          "private-ip"
+        ],
+        "outbound": "🏠 私有网络"
+      },
+      {
+        "rule_set": [
+          "cn-ip"
+        ],
+        "outbound": "🔒 国内服务"
+      }
+    ],
+    "auto_detect_interface": true,
+    "final": "🐟 漏网之鱼"
+  },
+  "experimental": {
+    "cache_file": {
+      "enabled": true,
+      "store_fakeip": true
+    }
+  }
+}
