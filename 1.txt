@@ -1,96 +1,71 @@
 {
   "log": {
-    "level": "panic",
-    "output": "/data/adb/box/run/sing-box.log",
+    "level": "info",
+    "output": "/etc/neko/tmp/sing-box.log",
     "timestamp": true
   },
   "dns": {
     "servers": [
       {
-        "tag": "Internet-dns",
-        "address": "9.9.9.10",
-        "strategy": "ipv4_only",
+        "tag": "fastest-dns",
+        "address": "1.1.1.1",
+        "address_strategy": "prefer_ipv4",
         "detour": "INTERNET🚀"
       },
       {
-        "tag": "Best-Latency-dns",
-        "address": "1.1.1.1",
-        "strategy": "ipv4_only",
-        "detour": "Best-Latency"
+        "tag": "internet-dns",
+        "address_strategy": "prefer_ipv4",
+        "address": "8.8.8.8",
+        "detour": "INTERNET🚀"
       },
       {
-        "tag": "direct-dns",
-        "address": "149.112.112.112",
-        "strategy": "ipv4_only",
-        "detour": "direct"
-      },
-      {
-        "tag": "block-dns",
-        "address": "rcode://success"
+        "tag": "rcode",
+        "address": "rcode://success",
+        "detour": "block"
       }
     ],
     "rules": [
       {
-        "domain_suffix": [
-          ".arpa.",
-          ".arpa"
-        ],
-        "server": "block-dns",
-        "rewrite_ttl": 20
-      },
-      {
-        "network": "udp",
-        "port": 443,
-        "server": "block-dns",
-        "rewrite_ttl": 20
-      },
-      {
-        "outbound": "INTERNET🚀",
-        "server": "Internet-dns",
-        "disable_cache": false,
-        "rewrite_ttl": 20
-      },
-      {
-        "outbound": "Best-Latency",
-        "server": "Best-Latency-dns",
-        "rewrite_ttl": 20
-      },
-      {
-        "outbound": "direct",
-        "server": "direct-dns",
-        "rewrite_ttl": 20
+        "outbound": "any",
+        "server": "internet-dns",
+        "disable_cache": false
       },
       {
         "outbound": "any",
-        "server": "direct-dns",
-        "rewrite_ttl": 20
+        "server": "rcode",
+        "disable_cache": true
+      },
+      {
+        "domain_suffix": [
+          ".lan"
+        ],
+        "server": "internet-dns"
       }
     ],
-    "reverse_mapping": true,
-    "strategy": "ipv4_only",
-    "independent_cache": true
+    "final": "internet-dns",
+    "strategy": "prefer_ipv4",
+    "independent_cache": true,
+    "reverse_mapping": true
   },
   "inbounds": [
     {
-      "type": "tproxy",
-      "tag": "tproxy-in",
-      "listen": "::",
-      "listen_port": 9898,
-      "sniff": true
-    },
-    {
       "type": "tun",
       "tag": "tun-in",
-      "interface_name": "tun0",
+      "interface_name": "Meta",
       "mtu": 9000,
-      "address": "172.18.0.1/30",
-      "auto_route": false,
-      "include_android_user": [
-        0,
-        10
+      "stack": "system",
+      "auto_route": true,
+      "strict_route": true,
+      "sniff": true,
+      "sniff_override_destination": true,
+      "address": [
+        "172.18.0.1/30",
+        "fdfe:dcba:9876::1/126"
       ],
-      "stack": "mixed",
-      "sniff": true
+      "route_exclude_address": [
+        "192.168.0.0/16",
+        "fc00::/7"
+      ]
     }
   ],
   "outbounds": [
@@ -98,18 +73,18 @@
       "type": "selector",
       "tag": "INTERNET🚀",
       "outbounds": [
-        "Best-Latency",
+        "BEST PING",
         "mobilesignal%20%7C%20%D9%86%D8%AA%20%D9%85%D9%84%DB%8C",
         "WiFi-%40V2ray_Alpha-9",
         "WiFi-%40V2ray_Alpha-10",
         "WiFi-%40V2ray_Alpha-11",
         "DIRECT"
       ],
-      "default": "Best-Latency"
+      "default": "BEST PING"
     },
     {
       "type": "urltest",
-      "tag": "Best-Latency",
+      "tag": "BEST PING",
       "outbounds": [
         "mobilesignal%20%7C%20%D9%86%D8%AA%20%D9%85%D9%84%DB%8C",
         "WiFi-%40V2ray_Alpha-9",
@@ -221,25 +196,24 @@
   "route": {
     "rules": [
       {
-        "port": 53,
+        "protocol": "dns",
         "outbound": "dns-out"
-      },
-      {
-        "protocol": "stun",
-        "outbound": "INTERNET🚀"
       }
     ],
     "final": "INTERNET🚀",
-    "find_process": true
+    "find_process": true,
+    "auto_detect_interface": true
   },
   "experimental": {
     "cache_file": {
       "enabled": true,
-      "path": "cache.db"
+      "path": "/etc/neko/singbox-cache.db",
+      "store_rdrc": true
     },
     "clash_api": {
       "external_controller": "0.0.0.0:9090",
-      "external_ui": "/data/adb/box/sing-box/dashboard"
+      "external_ui": "/etc/neko/ui/",
+      "secret": "Akun"
     }
   }
 }
