@@ -1,976 +1,1275 @@
 {
   "dns": {
-    "final": "local-dns",
-    "rules": [
-      {
-        "clash_mode": "Global",
-        "server": "proxy-dns",
-        "source_ip_cidr": [
-          "172.19.0.0/30"
-        ]
-      },
-      {
-        "server": "proxy-dns",
-        "source_ip_cidr": [
-          "172.19.0.0/30"
-        ]
-      },
-      {
-        "clash_mode": "Direct",
-        "server": "direct-dns"
-      },
-      {
-        "rule_set": [
-          "geosite-ir"
-        ],
-        "server": "direct-dns"
-      },
-      {
-        "rule_set": [
-          "geosite-category-ads-all",
-          "geosite-malware",
-          "geosite-phishing",
-          "geosite-cryptominers"
-        ],
-        "server": "block"
-      }
-    ],
     "servers": [
       {
-        "address": "tls://208.67.222.123",
-        "address_resolver": "local-dns",
-        "detour": "proxy",
-        "tag": "proxy-dns"
+        "tag": "dns_proxy",
+        "address": "tcp://1.1.1.1",
+        "address_resolver": "dns_resolver",
+        "strategy": "ipv4_only",
+        "detour": "🚀 Node Select"
       },
       {
-        "address": "local",
-        "detour": "direct",
-        "tag": "local-dns"
+        "tag": "dns_direct",
+        "address": "https://dns.alidns.com/dns-query",
+        "address_resolver": "dns_resolver",
+        "strategy": "ipv4_only",
+        "detour": "DIRECT"
       },
       {
-        "address": "rcode://success",
-        "tag": "block"
+        "tag": "dns_resolver",
+        "address": "223.5.5.5",
+        "detour": "DIRECT"
       },
       {
-        "address": "local",
-        "detour": "direct",
-        "tag": "direct-dns"
+        "tag": "dns_success",
+        "address": "rcode://success"
+      },
+      {
+        "tag": "dns_refused",
+        "address": "rcode://refused"
+      },
+      {
+        "tag": "dns_fakeip",
+        "address": "fakeip"
       }
     ],
-    "strategy": "prefer_ipv4"
+    "rules": [
+      {
+        "outbound": "any",
+        "server": "dns_resolver"
+      },
+      {
+        "rule_set": "geolocation-!cn",
+        "query_type": [
+          "A",
+          "AAAA"
+        ],
+        "server": "dns_fakeip"
+      },
+      {
+        "rule_set": "geolocation-!cn",
+        "query_type": [
+          "CNAME"
+        ],
+        "server": "dns_proxy"
+      },
+      {
+        "query_type": [
+          "A",
+          "AAAA",
+          "CNAME"
+        ],
+        "invert": true,
+        "server": "dns_refused",
+        "disable_cache": true
+      }
+    ],
+    "final": "dns_direct",
+    "independent_cache": true,
+    "fakeip": {
+      "enabled": true,
+      "inet4_range": "198.18.0.0/15",
+      "inet6_range": "fc00::/18"
+    }
+  },
+  "ntp": {
+    "enabled": true,
+    "server": "time.apple.com",
+    "server_port": 123,
+    "interval": "30m"
   },
   "inbounds": [
     {
-      "address": [
-        "172.19.0.1/30",
-        "fdfe:dcba:9876::1/126"
-      ],
-      "auto_route": true,
-      "endpoint_independent_nat": false,
-      "mtu": 9000,
-      "platform": {
-        "http_proxy": {
-          "enabled": true,
-          "server": "127.0.0.1",
-          "server_port": 2080
-        }
-      },
-      "sniff": true,
-      "stack": "system",
-      "strict_route": false,
-      "type": "tun"
+      "type": "mixed",
+      "tag": "mixed-in",
+      "listen": "0.0.0.0",
+      "listen_port": 2080
     },
     {
-      "listen": "127.0.0.1",
-      "listen_port": 2080,
-      "sniff": true,
-      "type": "mixed",
-      "users": []
+      "type": "tun",
+      "tag": "tun-in",
+      "address": "172.19.0.1/30",
+      "auto_route": true,
+      "strict_route": true,
+      "stack": "mixed",
+      "sniff": true
     }
   ],
   "outbounds": [
     {
-      "tag": "proxy",
       "type": "selector",
+      "tag": "🚀 节点选择",
       "outbounds": [
-        "auto",
-        "vless-c3191b7b",
-        "vless-3bb1c52e",
-        "vless-531948d4",
-        "vless-9876f640",
-        "vless-ec67c551",
-        "vless-7f4dad3f",
-        "vless-6b70970c",
-        "vless-1ff425b6",
-        "vless-802ec4c8",
-        "vless-29b9f994",
-        "vless-85e11e69",
-        "vless-1b1edb29",
-        "vless-c5bac3b4",
-        "vless-db6e48aa",
-        "vless-052166e8",
-        "vless-d6fed3bd",
-        "vless-2554a203",
-        "vless-306927e7",
-        "vless-4c7baf74",
-        "vless-165b307d",
-        "vless-d53ef743",
-        "vless-5757df71",
-        "vless-845df3db",
-        "vless-649df433",
-        "vless-201cfd35",
-        "vless-16a4c366",
-        "vless-bc433f2c",
-        "vless-de1de841",
-        "vless-32381222",
-        "vless-89052c9a",
-        "vless-6867246f",
-        "vless-50dc7147",
-        "vless-d99625ed",
-        "vless-54913f84",
-        "vless-01dbd8cc",
-        "vless-1bfa0812",
-        "vless-9d6802ac",
-        "vless-f6bd49e9",
-        "vless-7e3c228b",
-        "vless-3bb89e4f",
-        "vless-6b4ec685",
-        "vless-9be4c121",
-        "vless-0180fad9",
-        "direct"
+        "DIRECT",
+        "REJECT",
+        "⚡ 自动选择",
+        "WiFi-@V2ray_Alpha-1",
+        "WiFi-@V2ray_Alpha-2",
+        "WiFi-@V2ray_Alpha-3",
+        "WiFi-@V2ray_Alpha-4",
+        "WiFi-@V2ray_Alpha-5",
+        "WiFi-@V2ray_Alpha-6",
+        "WiFi-@V2ray_Alpha-7",
+        "WiFi-@V2ray_Alpha-9",
+        "WiFi-@V2ray_Alpha-10",
+        "WiFi-@V2ray_Alpha-11",
+        "WiFi-@V2ray_Alpha-12",
+        "WiFi-@V2ray_Alpha-13",
+        "WiFi-@V2ray_Alpha-14",
+        "WiFi-@V2ray_Alpha-15",
+        "WiFi-@V2ray_Alpha-16",
+        "WiFi-@V2ray_Alpha-17",
+        "WiFi-@V2ray_Alpha-18",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-5.198.168.164:8080",
+        "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.156.205:443",
+        "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.157.21:443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-85.198.23.105:41606",
+        "🔒 VL-WS-NONE 🇮🇷 IR-185.208.77.113:11140",
+        "🔒 VL-TCP-NONE 🇦🇪 AE-217.60.236.213:8443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-5.198.168.163:8080",
+        "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.156.48:443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-85.133.250.6:443",
+        "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.156.228:443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-193.151.149.105:28995",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-85.133.250.115:443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-2.189.117.82:8080",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-2.144.7.14:8446",
+        "🔒 VL-WS-NONE 🇦🇪 AE-217.60.36.198:14961",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-5.198.168.162:8080",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-37.32.41.184:1010",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-2.189.117.83:8080",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-37.32.41.184:5050",
+        "🔒 VL-WS-NONE 🇮🇷 IR-185.14.160.118:90",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-85.133.196.2:3073",
+        "@meli_proxyy",
+        "🔒 VL-WS-NONE 🇦🇪 AE-217.60.37.197:12497",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-5.198.168.141:8080",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-5.198.168.133:8080",
+        "🔒 VL-TCP-NA 🇮🇷 IR-185.126.200.13:2096",
+        "mobilesignal",
+        "@mobilesignal |نت ملی 21",
+        "mobilesignal | نت ملی",
+        "@meli_proxyy 2",
+        "⇝ @v2mystery • 🌊قطع شدی بیا",
+        "mobilesignal🇮🇷",
+        "@meli_proxyy 3",
+        "mobilesignal | نت ملی 2"
       ]
     },
     {
-      "tag": "auto",
       "type": "urltest",
+      "tag": "⚡ 自动选择",
       "outbounds": [
-        "vless-c3191b7b",
-        "vless-3bb1c52e",
-        "vless-531948d4",
-        "vless-9876f640",
-        "vless-ec67c551",
-        "vless-7f4dad3f",
-        "vless-6b70970c",
-        "vless-1ff425b6",
-        "vless-802ec4c8",
-        "vless-29b9f994",
-        "vless-85e11e69",
-        "vless-1b1edb29",
-        "vless-c5bac3b4",
-        "vless-db6e48aa",
-        "vless-052166e8",
-        "vless-d6fed3bd",
-        "vless-2554a203",
-        "vless-306927e7",
-        "vless-4c7baf74",
-        "vless-165b307d",
-        "vless-d53ef743",
-        "vless-5757df71",
-        "vless-845df3db",
-        "vless-649df433",
-        "vless-201cfd35",
-        "vless-16a4c366",
-        "vless-bc433f2c",
-        "vless-de1de841",
-        "vless-32381222",
-        "vless-89052c9a",
-        "vless-6867246f",
-        "vless-50dc7147",
-        "vless-d99625ed",
-        "vless-54913f84",
-        "vless-01dbd8cc",
-        "vless-1bfa0812",
-        "vless-9d6802ac",
-        "vless-f6bd49e9",
-        "vless-7e3c228b",
-        "vless-3bb89e4f",
-        "vless-6b4ec685",
-        "vless-9be4c121",
-        "vless-0180fad9"
-      ],
-      "url": "http://www.gstatic.com/generate_204",
-      "interval": "10m",
-      "tolerance": 50
+        "WiFi-@V2ray_Alpha-1",
+        "WiFi-@V2ray_Alpha-2",
+        "WiFi-@V2ray_Alpha-3",
+        "WiFi-@V2ray_Alpha-4",
+        "WiFi-@V2ray_Alpha-5",
+        "WiFi-@V2ray_Alpha-6",
+        "WiFi-@V2ray_Alpha-7",
+        "WiFi-@V2ray_Alpha-9",
+        "WiFi-@V2ray_Alpha-10",
+        "WiFi-@V2ray_Alpha-11",
+        "WiFi-@V2ray_Alpha-12",
+        "WiFi-@V2ray_Alpha-13",
+        "WiFi-@V2ray_Alpha-14",
+        "WiFi-@V2ray_Alpha-15",
+        "WiFi-@V2ray_Alpha-16",
+        "WiFi-@V2ray_Alpha-17",
+        "WiFi-@V2ray_Alpha-18",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-5.198.168.164:8080",
+        "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.156.205:443",
+        "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.157.21:443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-85.198.23.105:41606",
+        "🔒 VL-WS-NONE 🇮🇷 IR-185.208.77.113:11140",
+        "🔒 VL-TCP-NONE 🇦🇪 AE-217.60.236.213:8443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-5.198.168.163:8080",
+        "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.156.48:443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-85.133.250.6:443",
+        "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.156.228:443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-193.151.149.105:28995",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-85.133.250.115:443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-2.189.117.82:8080",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-2.144.7.14:8446",
+        "🔒 VL-WS-NONE 🇦🇪 AE-217.60.36.198:14961",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-5.198.168.162:8080",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-37.32.41.184:1010",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-2.189.117.83:8080",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-37.32.41.184:5050",
+        "🔒 VL-WS-NONE 🇮🇷 IR-185.14.160.118:90",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-85.133.196.2:3073",
+        "@meli_proxyy",
+        "🔒 VL-WS-NONE 🇦🇪 AE-217.60.37.197:12497",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-5.198.168.141:8080",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-5.198.168.133:8080",
+        "🔒 VL-TCP-NA 🇮🇷 IR-185.126.200.13:2096",
+        "mobilesignal",
+        "@mobilesignal |نت ملی 21",
+        "mobilesignal | نت ملی",
+        "@meli_proxyy 2",
+        "⇝ @v2mystery • 🌊قطع شدی بیا",
+        "mobilesignal🇮🇷",
+        "@meli_proxyy 3",
+        "mobilesignal | نت ملی 2"
+      ]
     },
     {
-      "tag": "direct",
-      "type": "direct"
+      "type": "block",
+      "tag": "REJECT"
     },
     {
-      "type": "vless",
-      "tag": "vless-c3191b7b",
-      "server": "5.198.168.164",
-      "server_port": 8080,
-      "uuid": "51867ea4-443c-4539-a03e-cf7505db5521",
-      "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "5.198.168.164",
-        "insecure": true
-      }
+      "type": "direct",
+      "tag": "DIRECT"
     },
     {
-      "type": "vless",
-      "tag": "vless-3bb1c52e",
-      "server": "62.60.156.205",
+      "tag": "WiFi-@V2ray_Alpha-1",
+      "type": "shadowsocks",
+      "server": "api.namasha.co",
       "server_port": 443,
-      "uuid": "ed447de4-ebd3-4f1c-8339-c084e06ec588",
-      "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "ez.ez0535.com",
-        "insecure": true
-      }
+      "method": "chacha20-ietf-poly1305",
+      "password": "u17T3BvpYaaiuW2c",
+      "network": "tcp",
+      "tcp_fast_open": false
     },
     {
-      "type": "vless",
-      "tag": "vless-531948d4",
-      "server": "62.60.157.21",
+      "tag": "WiFi-@V2ray_Alpha-2",
+      "type": "shadowsocks",
+      "server": "series-a2-mec.varzesh360.co",
       "server_port": 443,
-      "uuid": "ed447de4-ebd3-4f1c-8339-c084e06ec588",
-      "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "ez.ez0535.com",
-        "insecure": true
-      }
+      "method": "chacha20-ietf-poly1305",
+      "password": "u17T3BvpYaaiuW2c",
+      "network": "tcp",
+      "tcp_fast_open": false
     },
     {
-      "type": "vless",
-      "tag": "vless-9876f640",
-      "server": "85.198.23.105",
-      "server_port": 41606,
-      "uuid": "b8d7526f-9bbe-40ce-a844-e84b82a800d1",
-      "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "85.198.23.105",
-        "insecure": true
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "vless-ec67c551",
-      "server": "185.208.77.113",
-      "server_port": 11140,
-      "uuid": "39420bb7-5535-48fc-c56c-5c98c6eafce8",
-      "flow": "",
-      "transport": {
-        "path": "/",
-        "type": "ws"
-      },
-      "tls": {
-        "enabled": true,
-        "server_name": "185.208.77.113",
-        "insecure": true
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "vless-7f4dad3f",
-      "server": "217.60.236.213",
-      "server_port": 8443,
-      "uuid": "1ce8104f-63ed-4a1f-9847-6dfd20640349",
-      "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "217.60.236.213",
-        "insecure": true
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "vless-6b70970c",
-      "server": "5.198.168.163",
-      "server_port": 8080,
-      "uuid": "51867ea4-443c-4539-a03e-cf7505db5521",
-      "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "5.198.168.163",
-        "insecure": true
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "vless-1ff425b6",
-      "server": "62.60.156.48",
+      "tag": "WiFi-@V2ray_Alpha-3",
+      "type": "shadowsocks",
+      "server": "admin.c2.webramz.co",
       "server_port": 443,
-      "uuid": "ed447de4-ebd3-4f1c-8339-c084e06ec588",
-      "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "ez.ez0535.com",
-        "insecure": true
-      }
+      "method": "chacha20-ietf-poly1305",
+      "password": "WstuSnlu4ieA9M0L",
+      "network": "tcp",
+      "tcp_fast_open": false
+    },
+    {
+      "tag": "WiFi-@V2ray_Alpha-4",
+      "type": "shadowsocks",
+      "server": "4.223.106.151",
+      "server_port": 48172,
+      "method": "chacha20-ietf-poly1305",
+      "password": "51yloQC8D9w1Wae7FHtI65",
+      "network": "tcp",
+      "tcp_fast_open": false
+    },
+    {
+      "tag": "WiFi-@V2ray_Alpha-5",
+      "type": "shadowsocks",
+      "server": "67.220.95.102",
+      "server_port": 6379,
+      "method": "aes-256-gcm",
+      "password": "zDNVedRFPQexG9v",
+      "network": "tcp",
+      "tcp_fast_open": false
+    },
+    {
+      "tag": "WiFi-@V2ray_Alpha-6",
+      "type": "shadowsocks",
+      "server": "5.189.201.250",
+      "server_port": 31348,
+      "method": "chacha20-ietf-poly1305",
+      "password": "RiPuKJJl18ZgvLpTjWxBwSfKiPkt9gzFKyxGCY8eHtOcDb2X",
+      "network": "tcp",
+      "tcp_fast_open": false
+    },
+    {
+      "tag": "WiFi-@V2ray_Alpha-7",
+      "type": "shadowsocks",
+      "server": "144.126.146.38",
+      "server_port": 30100,
+      "method": "chacha20-ietf-poly1305",
+      "password": "741ddced-e6ee-4175-9c1a-e524009f9045",
+      "network": "tcp",
+      "tcp_fast_open": false
     },
     {
       "type": "vless",
-      "tag": "vless-802ec4c8",
-      "server": "85.133.250.6",
-      "server_port": 443,
-      "uuid": "3491dd29-da32-721b-b2f9-73421aead895",
-      "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "85.133.250.6",
-        "insecure": true
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "vless-29b9f994",
-      "server": "62.60.156.228",
-      "server_port": 443,
-      "uuid": "ed447de4-ebd3-4f1c-8339-c084e06ec588",
-      "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "ez.ez0535.com",
-        "insecure": true
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "vless-85e11e69",
-      "server": "193.151.149.105",
-      "server_port": 28995,
-      "uuid": "c152c2c9-86e4-4d65-b248-380c9442e3b3",
-      "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "193.151.149.105",
-        "insecure": true
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "vless-1b1edb29",
-      "server": "85.133.250.115",
-      "server_port": 443,
-      "uuid": "88c0434e-fe9e-0472-703f-6ece5411066e",
-      "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "85.133.250.115",
-        "insecure": true
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "vless-c5bac3b4",
-      "server": "2.189.117.82",
-      "server_port": 8080,
-      "uuid": "51867ea4-443c-4539-a03e-cf7505db5521",
-      "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "2.189.117.82",
-        "insecure": true
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "vless-db6e48aa",
-      "server": "2.144.7.14",
-      "server_port": 8446,
-      "uuid": "c0ac6d0a-dba7-4a19-97d3-ebae0ddefcfa",
-      "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "2.144.7.14",
-        "insecure": true
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "vless-052166e8",
-      "server": "217.60.36.198",
-      "server_port": 14961,
-      "uuid": "d89b753c-aeef-4fab-9c31-744397572941",
-      "flow": "",
-      "transport": {
-        "path": "/VPNPacket",
-        "type": "ws"
-      },
-      "tls": {
-        "enabled": true,
-        "server_name": "217.60.36.198",
-        "insecure": true
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "vless-d6fed3bd",
-      "server": "5.198.168.162",
-      "server_port": 8080,
-      "uuid": "51867ea4-443c-4539-a03e-cf7505db5521",
-      "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "5.198.168.162",
-        "insecure": true
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "vless-2554a203",
-      "server": "37.32.41.184",
-      "server_port": 1010,
-      "uuid": "adeee029-e9b5-4312-8d00-71be8d86a7d3",
-      "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "37.32.41.184",
-        "insecure": true
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "vless-306927e7",
-      "server": "2.189.117.83",
-      "server_port": 8080,
-      "uuid": "51867ea4-443c-4539-a03e-cf7505db5521",
-      "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "2.189.117.83",
-        "insecure": true
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "vless-4c7baf74",
-      "server": "37.32.41.184",
-      "server_port": 5050,
-      "uuid": "1fadbc66-03c3-43db-a134-1ca7703eca0e",
-      "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "37.32.41.184",
-        "insecure": true
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "vless-165b307d",
-      "server": "185.14.160.118",
-      "server_port": 90,
-      "uuid": "9f1a116b-a8c1-4977-ad14-54da3974fe76",
-      "flow": "",
-      "transport": {
-        "path": "/",
-        "type": "ws"
-      },
-      "tls": {
-        "enabled": true,
-        "server_name": "185.14.160.118",
-        "insecure": true
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "vless-d53ef743",
-      "server": "85.133.196.2",
-      "server_port": 3073,
-      "uuid": "99f2acd8-b0ab-4dbd-edc3-467ae27a95a7",
-      "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "85.133.196.2",
-        "insecure": true
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "vless-5757df71",
-      "server": "m1.persiangames.online",
-      "server_port": 3073,
-      "uuid": "99f2acd8-b0ab-4dbd-edc3-467ae27a95a7",
-      "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "m1.persiangames.online",
-        "insecure": true
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "vless-845df3db",
-      "server": "217.60.37.197",
-      "server_port": 12497,
-      "uuid": "41543083-fdfc-4951-b2a1-238ea58cdda6",
-      "flow": "",
-      "transport": {
-        "path": "/@VPNPacket",
-        "type": "ws"
-      },
-      "tls": {
-        "enabled": true,
-        "server_name": "217.60.37.197",
-        "insecure": true
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "vless-649df433",
-      "server": "5.198.168.141",
-      "server_port": 8080,
-      "uuid": "51867ea4-443c-4539-a03e-cf7505db5521",
-      "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "5.198.168.141",
-        "insecure": true
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "vless-201cfd35",
-      "server": "5.198.168.133",
-      "server_port": 8080,
-      "uuid": "51867ea4-443c-4539-a03e-cf7505db5521",
-      "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "5.198.168.133",
-        "insecure": true
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "vless-16a4c366",
-      "server": "185.126.200.13",
-      "server_port": 2096,
-      "uuid": "f7508eb9-b5e8-4df2-849c-fe6d37abb68b",
-      "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "185.126.200.13",
-        "insecure": true
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "vless-bc433f2c",
-      "server": "turkey.jewelll.ir",
-      "server_port": 3311,
-      "uuid": "ccd5d8c4-634c-46bc-8f7a-5be3b8649858",
-      "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "turkey.jewelll.ir",
-        "insecure": true
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "vless-de1de841",
-      "server": "217.60.38.40",
-      "server_port": 47460,
-      "uuid": "42c6ca3b-b298-47f2-958d-ad386cf8289b",
-      "flow": "",
-      "transport": {
-        "path": "/",
-        "type": "ws"
-      },
-      "tls": {
-        "enabled": true,
-        "server_name": "217.60.38.40",
-        "insecure": true
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "vless-32381222",
-      "server": "217.60.38.40",
-      "server_port": 47460,
-      "uuid": "42c6ca3b-b298-47f2-958d-ad386cf8289b",
-      "flow": "",
-      "transport": {
-        "path": "/",
-        "type": "ws"
-      },
-      "tls": {
-        "enabled": true,
-        "server_name": "217.60.38.40",
-        "insecure": true
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "vless-89052c9a",
-      "server": "ir4.golden-dragon66.pw",
-      "server_port": 9211,
-      "uuid": "e8dc92da-89f4-4b1e-b1ba-3911c1ac8362",
-      "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "ir4.golden-dragon66.pw",
-        "insecure": true
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "vless-6867246f",
-      "server": "ir4.golden-dragon66.pw",
-      "server_port": 9211,
-      "uuid": "e8dc92da-89f4-4b1e-b1ba-3911c1ac8362",
-      "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "ir4.golden-dragon66.pw",
-        "insecure": true
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "vless-50dc7147",
-      "server": "l32.magicnetwork.info",
-      "server_port": 443,
-      "uuid": "8f584d16-6ee7-1fc4-028b-a46a3302fac1",
-      "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "l32.magicnetwork.info",
-        "insecure": true
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "vless-d99625ed",
-      "server": "turkey.jewelll.ir",
-      "server_port": 3311,
-      "uuid": "ccd5d8c4-634c-46bc-8f7a-5be3b8649858",
-      "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "turkey.jewelll.ir",
-        "insecure": true
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "vless-54913f84",
-      "server": "m1.persiangames.online",
-      "server_port": 3073,
-      "uuid": "99f2acd8-b0ab-4dbd-edc3-467ae27a95a7",
-      "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "m1.persiangames.online",
-        "insecure": true
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "vless-01dbd8cc",
+      "tag": "WiFi-@V2ray_Alpha-9",
       "server": "vip-82.f-sub.cfd",
       "server_port": 5969,
       "uuid": "953d71f0-9241-4903-95b4-cce61e90015e",
-      "flow": "",
-      "transport": {},
+      "tcp_fast_open": false,
       "tls": {
-        "enabled": true,
-        "server_name": "vip-82.f-sub.cfd",
-        "insecure": true
-      }
+        "enabled": false
+      },
+      "network": "tcp"
     },
     {
       "type": "vless",
-      "tag": "vless-1bfa0812",
+      "tag": "WiFi-@V2ray_Alpha-10",
       "server": "www.speedtest.net",
       "server_port": 80,
       "uuid": "53fa8faf-ba4b-4322-9c69-a3e5b1555049",
-      "flow": "",
+      "tcp_fast_open": false,
+      "tls": {
+        "enabled": false
+      },
       "transport": {
+        "type": "ws",
         "path": "/Telegram@V2ray_Alpha/?ed=2560",
         "headers": {
-          "Host": "redfree8mahsang6.redfree8.ir"
-        },
-        "type": "ws"
+          "host": "redfree8mahsang6.redfree8.ir"
+        }
       },
-      "tls": {
-        "enabled": true,
-        "server_name": "www.speedtest.net",
-        "insecure": true
-      }
+      "network": "tcp"
     },
     {
       "type": "vless",
-      "tag": "vless-9d6802ac",
+      "tag": "WiFi-@V2ray_Alpha-11",
       "server": "www.speedtest.net",
       "server_port": 80,
       "uuid": "7c9e3c1d-a360-4429-9189-e45a98de7fde",
-      "flow": "",
+      "tcp_fast_open": false,
+      "tls": {
+        "enabled": false
+      },
       "transport": {
+        "type": "ws",
         "path": "/",
         "headers": {
-          "Host": "mail.ski1plag.ir"
-        },
-        "type": "ws"
+          "host": "mail.ski1plag.ir"
+        }
       },
-      "tls": {
-        "enabled": true,
-        "server_name": "www.speedtest.net",
-        "insecure": true
-      }
+      "network": "tcp"
     },
     {
       "type": "vless",
-      "tag": "vless-f6bd49e9",
+      "tag": "WiFi-@V2ray_Alpha-12",
       "server": "www.speedtest.net",
       "server_port": 2096,
       "uuid": "24a4aa9b-b341-4717-9d4a-00d74c2b84e0",
-      "flow": "",
-      "transport": {
-        "path": "/",
-        "headers": {
-          "Host": "62X1tXx6M0.9pEsC.cOm"
-        },
-        "type": "ws"
-      },
+      "tcp_fast_open": false,
       "tls": {
         "enabled": true,
         "server_name": "62X1tXx6M0.9pEsC.cOm",
-        "insecure": true
-      }
+        "insecure": false
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/",
+        "headers": {
+          "host": "62X1tXx6M0.9pEsC.cOm"
+        }
+      },
+      "network": "tcp"
     },
     {
       "type": "vless",
-      "tag": "vless-7e3c228b",
+      "tag": "WiFi-@V2ray_Alpha-13",
       "server": "www.speedtest.net",
       "server_port": 2096,
       "uuid": "24a4aa9b-b341-4717-9d4a-00d74c2b84e0",
-      "flow": "",
-      "transport": {
-        "path": "/",
-        "headers": {
-          "Host": "FlN5fXaYrS.9pEsC.cOm"
-        },
-        "type": "ws"
-      },
+      "tcp_fast_open": false,
       "tls": {
         "enabled": true,
         "server_name": "FlN5fXaYrS.9pEsC.cOm",
-        "insecure": true
-      }
+        "insecure": false
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/",
+        "headers": {
+          "host": "FlN5fXaYrS.9pEsC.cOm"
+        }
+      },
+      "network": "tcp"
     },
     {
       "type": "vless",
-      "tag": "vless-3bb89e4f",
+      "tag": "WiFi-@V2ray_Alpha-14",
       "server": "www.speedtest.net",
       "server_port": 2096,
       "uuid": "24a4aa9b-b341-4717-9d4a-00d74c2b84e0",
-      "flow": "",
-      "transport": {
-        "path": "/",
-        "headers": {
-          "Host": "ZhN5vJ9dY7.9pEsC.cOm"
-        },
-        "type": "ws"
-      },
+      "tcp_fast_open": false,
       "tls": {
         "enabled": true,
         "server_name": "ZhN5vJ9dY7.9pEsC.cOm",
-        "insecure": true
-      }
+        "insecure": false
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/",
+        "headers": {
+          "host": "ZhN5vJ9dY7.9pEsC.cOm"
+        }
+      },
+      "network": "tcp"
     },
     {
       "type": "vless",
-      "tag": "vless-6b4ec685",
+      "tag": "WiFi-@V2ray_Alpha-15",
       "server": "www.speedtest.net",
       "server_port": 2096,
       "uuid": "24a4aa9b-b341-4717-9d4a-00d74c2b84e0",
-      "flow": "",
-      "transport": {
-        "path": "/",
-        "headers": {
-          "Host": "HkPk6Cd2Kj.9PeSc.CoM"
-        },
-        "type": "ws"
-      },
+      "tcp_fast_open": false,
       "tls": {
         "enabled": true,
         "server_name": "HkPk6Cd2Kj.9PeSc.CoM",
-        "insecure": true
-      }
+        "insecure": false
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/",
+        "headers": {
+          "host": "HkPk6Cd2Kj.9PeSc.CoM"
+        }
+      },
+      "network": "tcp"
     },
     {
       "type": "vless",
-      "tag": "vless-9be4c121",
+      "tag": "WiFi-@V2ray_Alpha-16",
       "server": "www.speedtest.net",
       "server_port": 2096,
       "uuid": "24a4aa9b-b341-4717-9d4a-00d74c2b84e0",
-      "flow": "",
-      "transport": {
-        "path": "/",
-        "headers": {
-          "Host": "PkO09dA8jF.9pEsC.cOm"
-        },
-        "type": "ws"
-      },
+      "tcp_fast_open": false,
       "tls": {
         "enabled": true,
         "server_name": "PkO09dA8jF.9pEsC.cOm",
-        "insecure": true
-      }
+        "insecure": false
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/",
+        "headers": {
+          "host": "PkO09dA8jF.9pEsC.cOm"
+        }
+      },
+      "network": "tcp"
     },
     {
       "type": "vless",
-      "tag": "vless-0180fad9",
+      "tag": "WiFi-@V2ray_Alpha-17",
       "server": "www.speedtest.net",
       "server_port": 2096,
       "uuid": "24a4aa9b-b341-4717-9d4a-00d74c2b84e0",
-      "flow": "",
-      "transport": {
-        "path": "/",
-        "headers": {
-          "Host": "Q03l9EiQiA.9pEsC.cOm"
-        },
-        "type": "ws"
-      },
+      "tcp_fast_open": false,
       "tls": {
         "enabled": true,
         "server_name": "Q03l9EiQiA.9pEsC.cOm",
-        "insecure": true
-      }
+        "insecure": false
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/",
+        "headers": {
+          "host": "Q03l9EiQiA.9pEsC.cOm"
+        }
+      },
+      "network": "tcp"
+    },
+    {
+      "tag": "WiFi-@V2ray_Alpha-18",
+      "type": "vmess",
+      "server": "15.204.234.200",
+      "server_port": 41100,
+      "uuid": "c7f169a3-2e9a-4894-ba53-7b2fa6fd08b4",
+      "alter_id": 0,
+      "security": "auto",
+      "network": "tcp",
+      "tcp_fast_open": false,
+      "transport": {}
+    },
+    {
+      "type": "vless",
+      "tag": "🔒 VL-TCP-NONE 🇮🇷 IR-5.198.168.164:8080",
+      "server": "5.198.168.164",
+      "server_port": 8080,
+      "uuid": "51867ea4-443c-4539-a03e-cf7505db5521",
+      "tcp_fast_open": false,
+      "tls": {
+        "enabled": false
+      },
+      "network": "tcp"
+    },
+    {
+      "type": "vless",
+      "tag": "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.156.205:443",
+      "server": "62.60.156.205",
+      "server_port": 443,
+      "uuid": "ed447de4-ebd3-4f1c-8339-c084e06ec588",
+      "tcp_fast_open": false,
+      "tls": {
+        "enabled": true,
+        "server_name": "ez.ez0535.com",
+        "insecure": false
+      },
+      "transport": {
+        "type": "grpc"
+      },
+      "network": "tcp"
+    },
+    {
+      "type": "vless",
+      "tag": "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.157.21:443",
+      "server": "62.60.157.21",
+      "server_port": 443,
+      "uuid": "ed447de4-ebd3-4f1c-8339-c084e06ec588",
+      "tcp_fast_open": false,
+      "tls": {
+        "enabled": true,
+        "server_name": "ez.ez0535.com",
+        "insecure": false
+      },
+      "transport": {
+        "type": "grpc"
+      },
+      "network": "tcp"
+    },
+    {
+      "type": "vless",
+      "tag": "🔒 VL-TCP-NONE 🇮🇷 IR-85.198.23.105:41606",
+      "server": "85.198.23.105",
+      "server_port": 41606,
+      "uuid": "b8d7526f-9bbe-40ce-a844-e84b82a800d1",
+      "tcp_fast_open": false,
+      "tls": {
+        "enabled": false
+      },
+      "network": "tcp"
+    },
+    {
+      "type": "vless",
+      "tag": "🔒 VL-WS-NONE 🇮🇷 IR-185.208.77.113:11140",
+      "server": "185.208.77.113",
+      "server_port": 11140,
+      "uuid": "39420bb7-5535-48fc-c56c-5c98c6eafce8",
+      "tcp_fast_open": false,
+      "tls": {
+        "enabled": false
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/"
+      },
+      "network": "tcp"
+    },
+    {
+      "type": "vless",
+      "tag": "🔒 VL-TCP-NONE 🇦🇪 AE-217.60.236.213:8443",
+      "server": "217.60.236.213",
+      "server_port": 8443,
+      "uuid": "1ce8104f-63ed-4a1f-9847-6dfd20640349",
+      "tcp_fast_open": false,
+      "tls": {
+        "enabled": false
+      },
+      "network": "tcp"
+    },
+    {
+      "type": "vless",
+      "tag": "🔒 VL-TCP-NONE 🇮🇷 IR-5.198.168.163:8080",
+      "server": "5.198.168.163",
+      "server_port": 8080,
+      "uuid": "51867ea4-443c-4539-a03e-cf7505db5521",
+      "tcp_fast_open": false,
+      "tls": {
+        "enabled": false
+      },
+      "network": "tcp"
+    },
+    {
+      "type": "vless",
+      "tag": "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.156.48:443",
+      "server": "62.60.156.48",
+      "server_port": 443,
+      "uuid": "ed447de4-ebd3-4f1c-8339-c084e06ec588",
+      "tcp_fast_open": false,
+      "tls": {
+        "enabled": true,
+        "server_name": "ez.ez0535.com",
+        "insecure": false
+      },
+      "transport": {
+        "type": "grpc"
+      },
+      "network": "tcp"
+    },
+    {
+      "type": "vless",
+      "tag": "🔒 VL-TCP-NONE 🇮🇷 IR-85.133.250.6:443",
+      "server": "85.133.250.6",
+      "server_port": 443,
+      "uuid": "3491dd29-da32-721b-b2f9-73421aead895",
+      "tcp_fast_open": false,
+      "tls": {
+        "enabled": false
+      },
+      "network": "tcp"
+    },
+    {
+      "type": "vless",
+      "tag": "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.156.228:443",
+      "server": "62.60.156.228",
+      "server_port": 443,
+      "uuid": "ed447de4-ebd3-4f1c-8339-c084e06ec588",
+      "tcp_fast_open": false,
+      "tls": {
+        "enabled": true,
+        "server_name": "ez.ez0535.com",
+        "insecure": false
+      },
+      "transport": {
+        "type": "grpc"
+      },
+      "network": "tcp"
+    },
+    {
+      "type": "vless",
+      "tag": "🔒 VL-TCP-NONE 🇮🇷 IR-193.151.149.105:28995",
+      "server": "193.151.149.105",
+      "server_port": 28995,
+      "uuid": "c152c2c9-86e4-4d65-b248-380c9442e3b3",
+      "tcp_fast_open": false,
+      "tls": {
+        "enabled": false
+      },
+      "network": "tcp"
+    },
+    {
+      "type": "vless",
+      "tag": "🔒 VL-TCP-NONE 🇮🇷 IR-85.133.250.115:443",
+      "server": "85.133.250.115",
+      "server_port": 443,
+      "uuid": "88c0434e-fe9e-0472-703f-6ece5411066e",
+      "tcp_fast_open": false,
+      "tls": {
+        "enabled": false
+      },
+      "network": "tcp"
+    },
+    {
+      "type": "vless",
+      "tag": "🔒 VL-TCP-NONE 🇮🇷 IR-2.189.117.82:8080",
+      "server": "2.189.117.82",
+      "server_port": 8080,
+      "uuid": "51867ea4-443c-4539-a03e-cf7505db5521",
+      "tcp_fast_open": false,
+      "tls": {
+        "enabled": false
+      },
+      "network": "tcp"
+    },
+    {
+      "type": "vless",
+      "tag": "🔒 VL-TCP-NONE 🇮🇷 IR-2.144.7.14:8446",
+      "server": "2.144.7.14",
+      "server_port": 8446,
+      "uuid": "c0ac6d0a-dba7-4a19-97d3-ebae0ddefcfa",
+      "tcp_fast_open": false,
+      "tls": {
+        "enabled": false
+      },
+      "network": "tcp"
+    },
+    {
+      "type": "vless",
+      "tag": "🔒 VL-WS-NONE 🇦🇪 AE-217.60.36.198:14961",
+      "server": "217.60.36.198",
+      "server_port": 14961,
+      "uuid": "d89b753c-aeef-4fab-9c31-744397572941",
+      "tcp_fast_open": false,
+      "tls": {
+        "enabled": false
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/VPNPacket"
+      },
+      "network": "tcp"
+    },
+    {
+      "type": "vless",
+      "tag": "🔒 VL-TCP-NONE 🇮🇷 IR-5.198.168.162:8080",
+      "server": "5.198.168.162",
+      "server_port": 8080,
+      "uuid": "51867ea4-443c-4539-a03e-cf7505db5521",
+      "tcp_fast_open": false,
+      "tls": {
+        "enabled": false
+      },
+      "network": "tcp"
+    },
+    {
+      "type": "vless",
+      "tag": "🔒 VL-TCP-NONE 🇮🇷 IR-37.32.41.184:1010",
+      "server": "37.32.41.184",
+      "server_port": 1010,
+      "uuid": "adeee029-e9b5-4312-8d00-71be8d86a7d3",
+      "tcp_fast_open": false,
+      "tls": {
+        "enabled": false
+      },
+      "network": "tcp"
+    },
+    {
+      "type": "vless",
+      "tag": "🔒 VL-TCP-NONE 🇮🇷 IR-2.189.117.83:8080",
+      "server": "2.189.117.83",
+      "server_port": 8080,
+      "uuid": "51867ea4-443c-4539-a03e-cf7505db5521",
+      "tcp_fast_open": false,
+      "tls": {
+        "enabled": false
+      },
+      "network": "tcp"
+    },
+    {
+      "type": "vless",
+      "tag": "🔒 VL-TCP-NONE 🇮🇷 IR-37.32.41.184:5050",
+      "server": "37.32.41.184",
+      "server_port": 5050,
+      "uuid": "1fadbc66-03c3-43db-a134-1ca7703eca0e",
+      "tcp_fast_open": false,
+      "tls": {
+        "enabled": false
+      },
+      "network": "tcp"
+    },
+    {
+      "type": "vless",
+      "tag": "🔒 VL-WS-NONE 🇮🇷 IR-185.14.160.118:90",
+      "server": "185.14.160.118",
+      "server_port": 90,
+      "uuid": "9f1a116b-a8c1-4977-ad14-54da3974fe76",
+      "tcp_fast_open": false,
+      "tls": {
+        "enabled": false
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/"
+      },
+      "network": "tcp"
+    },
+    {
+      "type": "vless",
+      "tag": "🔒 VL-TCP-NONE 🇮🇷 IR-85.133.196.2:3073",
+      "server": "85.133.196.2",
+      "server_port": 3073,
+      "uuid": "99f2acd8-b0ab-4dbd-edc3-467ae27a95a7",
+      "tcp_fast_open": false,
+      "tls": {
+        "enabled": false
+      },
+      "network": "tcp"
+    },
+    {
+      "type": "vless",
+      "tag": "@meli_proxyy",
+      "server": "m1.persiangames.online",
+      "server_port": 3073,
+      "uuid": "99f2acd8-b0ab-4dbd-edc3-467ae27a95a7",
+      "tcp_fast_open": false,
+      "tls": {
+        "enabled": false
+      },
+      "network": "tcp"
+    },
+    {
+      "type": "vless",
+      "tag": "🔒 VL-WS-NONE 🇦🇪 AE-217.60.37.197:12497",
+      "server": "217.60.37.197",
+      "server_port": 12497,
+      "uuid": "41543083-fdfc-4951-b2a1-238ea58cdda6",
+      "tcp_fast_open": false,
+      "tls": {
+        "enabled": false
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/@VPNPacket"
+      },
+      "network": "tcp"
+    },
+    {
+      "type": "vless",
+      "tag": "🔒 VL-TCP-NONE 🇮🇷 IR-5.198.168.141:8080",
+      "server": "5.198.168.141",
+      "server_port": 8080,
+      "uuid": "51867ea4-443c-4539-a03e-cf7505db5521",
+      "tcp_fast_open": false,
+      "tls": {
+        "enabled": false
+      },
+      "network": "tcp"
+    },
+    {
+      "type": "vless",
+      "tag": "🔒 VL-TCP-NONE 🇮🇷 IR-5.198.168.133:8080",
+      "server": "5.198.168.133",
+      "server_port": 8080,
+      "uuid": "51867ea4-443c-4539-a03e-cf7505db5521",
+      "tcp_fast_open": false,
+      "tls": {
+        "enabled": false
+      },
+      "network": "tcp"
+    },
+    {
+      "type": "vless",
+      "tag": "🔒 VL-TCP-NA 🇮🇷 IR-185.126.200.13:2096",
+      "server": "185.126.200.13",
+      "server_port": 2096,
+      "uuid": "f7508eb9-b5e8-4df2-849c-fe6d37abb68b",
+      "tcp_fast_open": false,
+      "tls": {
+        "enabled": false
+      },
+      "network": "tcp"
+    },
+    {
+      "type": "vless",
+      "tag": "mobilesignal",
+      "server": "turkey.jewelll.ir",
+      "server_port": 3311,
+      "uuid": "ccd5d8c4-634c-46bc-8f7a-5be3b8649858",
+      "tcp_fast_open": false,
+      "tls": {
+        "enabled": false
+      },
+      "transport": {
+        "type": "grpc"
+      },
+      "network": "tcp"
+    },
+    {
+      "type": "vless",
+      "tag": "@mobilesignal |نت ملی 21",
+      "server": "217.60.38.40",
+      "server_port": 47460,
+      "uuid": "42c6ca3b-b298-47f2-958d-ad386cf8289b",
+      "tcp_fast_open": false,
+      "tls": {
+        "enabled": false
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/"
+      },
+      "network": "tcp"
+    },
+    {
+      "type": "vless",
+      "tag": "mobilesignal | نت ملی",
+      "server": "217.60.38.40",
+      "server_port": 47460,
+      "uuid": "42c6ca3b-b298-47f2-958d-ad386cf8289b",
+      "tcp_fast_open": false,
+      "tls": {
+        "enabled": false
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/"
+      },
+      "network": "tcp"
+    },
+    {
+      "type": "vless",
+      "tag": "@meli_proxyy 2",
+      "server": "ir4.golden-dragon66.pw",
+      "server_port": 9211,
+      "uuid": "e8dc92da-89f4-4b1e-b1ba-3911c1ac8362",
+      "tcp_fast_open": false,
+      "tls": {
+        "enabled": false
+      },
+      "transport": {
+        "type": "grpc"
+      },
+      "network": "tcp"
+    },
+    {
+      "type": "vless",
+      "tag": "⇝ @v2mystery • 🌊قطع شدی بیا",
+      "server": "ir4.golden-dragon66.pw",
+      "server_port": 9211,
+      "uuid": "e8dc92da-89f4-4b1e-b1ba-3911c1ac8362",
+      "tcp_fast_open": false,
+      "tls": {
+        "enabled": false
+      },
+      "transport": {
+        "type": "grpc"
+      },
+      "network": "tcp"
+    },
+    {
+      "type": "vless",
+      "tag": "mobilesignal🇮🇷",
+      "server": "l32.magicnetwork.info",
+      "server_port": 443,
+      "uuid": "8f584d16-6ee7-1fc4-028b-a46a3302fac1",
+      "tcp_fast_open": false,
+      "tls": {
+        "enabled": false
+      },
+      "network": "tcp"
+    },
+    {
+      "type": "vless",
+      "tag": "@meli_proxyy 3",
+      "server": "turkey.jewelll.ir",
+      "server_port": 3311,
+      "uuid": "ccd5d8c4-634c-46bc-8f7a-5be3b8649858",
+      "tcp_fast_open": false,
+      "tls": {
+        "enabled": false
+      },
+      "transport": {
+        "type": "grpc"
+      },
+      "network": "tcp"
+    },
+    {
+      "type": "vless",
+      "tag": "mobilesignal | نت ملی 2",
+      "server": "m1.persiangames.online",
+      "server_port": 3073,
+      "uuid": "99f2acd8-b0ab-4dbd-edc3-467ae27a95a7",
+      "tcp_fast_open": false,
+      "tls": {
+        "enabled": false
+      },
+      "network": "tcp"
+    },
+    {
+      "type": "selector",
+      "tag": "🏠 私有网络",
+      "outbounds": [
+        "🚀 节点选择",
+        "DIRECT",
+        "REJECT",
+        "⚡ 自动选择",
+        "WiFi-@V2ray_Alpha-1",
+        "WiFi-@V2ray_Alpha-2",
+        "WiFi-@V2ray_Alpha-3",
+        "WiFi-@V2ray_Alpha-4",
+        "WiFi-@V2ray_Alpha-5",
+        "WiFi-@V2ray_Alpha-6",
+        "WiFi-@V2ray_Alpha-7",
+        "WiFi-@V2ray_Alpha-9",
+        "WiFi-@V2ray_Alpha-10",
+        "WiFi-@V2ray_Alpha-11",
+        "WiFi-@V2ray_Alpha-12",
+        "WiFi-@V2ray_Alpha-13",
+        "WiFi-@V2ray_Alpha-14",
+        "WiFi-@V2ray_Alpha-15",
+        "WiFi-@V2ray_Alpha-16",
+        "WiFi-@V2ray_Alpha-17",
+        "WiFi-@V2ray_Alpha-18",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-5.198.168.164:8080",
+        "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.156.205:443",
+        "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.157.21:443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-85.198.23.105:41606",
+        "🔒 VL-WS-NONE 🇮🇷 IR-185.208.77.113:11140",
+        "🔒 VL-TCP-NONE 🇦🇪 AE-217.60.236.213:8443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-5.198.168.163:8080",
+        "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.156.48:443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-85.133.250.6:443",
+        "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.156.228:443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-193.151.149.105:28995",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-85.133.250.115:443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-2.189.117.82:8080",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-2.144.7.14:8446",
+        "🔒 VL-WS-NONE 🇦🇪 AE-217.60.36.198:14961",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-5.198.168.162:8080",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-37.32.41.184:1010",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-2.189.117.83:8080",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-37.32.41.184:5050",
+        "🔒 VL-WS-NONE 🇮🇷 IR-185.14.160.118:90",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-85.133.196.2:3073",
+        "@meli_proxyy",
+        "🔒 VL-WS-NONE 🇦🇪 AE-217.60.37.197:12497",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-5.198.168.141:8080",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-5.198.168.133:8080",
+        "🔒 VL-TCP-NA 🇮🇷 IR-185.126.200.13:2096",
+        "mobilesignal",
+        "@mobilesignal |نت ملی 21",
+        "mobilesignal | نت ملی",
+        "@meli_proxyy 2",
+        "⇝ @v2mystery • 🌊قطع شدی بیا",
+        "mobilesignal🇮🇷",
+        "@meli_proxyy 3",
+        "mobilesignal | نت ملی 2"
+      ]
+    },
+    {
+      "type": "selector",
+      "tag": "🔒 国内服务",
+      "outbounds": [
+        "🚀 节点选择",
+        "DIRECT",
+        "REJECT",
+        "⚡ 自动选择",
+        "WiFi-@V2ray_Alpha-1",
+        "WiFi-@V2ray_Alpha-2",
+        "WiFi-@V2ray_Alpha-3",
+        "WiFi-@V2ray_Alpha-4",
+        "WiFi-@V2ray_Alpha-5",
+        "WiFi-@V2ray_Alpha-6",
+        "WiFi-@V2ray_Alpha-7",
+        "WiFi-@V2ray_Alpha-9",
+        "WiFi-@V2ray_Alpha-10",
+        "WiFi-@V2ray_Alpha-11",
+        "WiFi-@V2ray_Alpha-12",
+        "WiFi-@V2ray_Alpha-13",
+        "WiFi-@V2ray_Alpha-14",
+        "WiFi-@V2ray_Alpha-15",
+        "WiFi-@V2ray_Alpha-16",
+        "WiFi-@V2ray_Alpha-17",
+        "WiFi-@V2ray_Alpha-18",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-5.198.168.164:8080",
+        "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.156.205:443",
+        "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.157.21:443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-85.198.23.105:41606",
+        "🔒 VL-WS-NONE 🇮🇷 IR-185.208.77.113:11140",
+        "🔒 VL-TCP-NONE 🇦🇪 AE-217.60.236.213:8443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-5.198.168.163:8080",
+        "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.156.48:443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-85.133.250.6:443",
+        "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.156.228:443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-193.151.149.105:28995",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-85.133.250.115:443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-2.189.117.82:8080",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-2.144.7.14:8446",
+        "🔒 VL-WS-NONE 🇦🇪 AE-217.60.36.198:14961",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-5.198.168.162:8080",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-37.32.41.184:1010",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-2.189.117.83:8080",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-37.32.41.184:5050",
+        "🔒 VL-WS-NONE 🇮🇷 IR-185.14.160.118:90",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-85.133.196.2:3073",
+        "@meli_proxyy",
+        "🔒 VL-WS-NONE 🇦🇪 AE-217.60.37.197:12497",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-5.198.168.141:8080",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-5.198.168.133:8080",
+        "🔒 VL-TCP-NA 🇮🇷 IR-185.126.200.13:2096",
+        "mobilesignal",
+        "@mobilesignal |نت ملی 21",
+        "mobilesignal | نت ملی",
+        "@meli_proxyy 2",
+        "⇝ @v2mystery • 🌊قطع شدی بیا",
+        "mobilesignal🇮🇷",
+        "@meli_proxyy 3",
+        "mobilesignal | نت ملی 2"
+      ]
+    },
+    {
+      "type": "selector",
+      "tag": "🌐 非中国",
+      "outbounds": [
+        "🚀 节点选择",
+        "DIRECT",
+        "REJECT",
+        "⚡ 自动选择",
+        "WiFi-@V2ray_Alpha-1",
+        "WiFi-@V2ray_Alpha-2",
+        "WiFi-@V2ray_Alpha-3",
+        "WiFi-@V2ray_Alpha-4",
+        "WiFi-@V2ray_Alpha-5",
+        "WiFi-@V2ray_Alpha-6",
+        "WiFi-@V2ray_Alpha-7",
+        "WiFi-@V2ray_Alpha-9",
+        "WiFi-@V2ray_Alpha-10",
+        "WiFi-@V2ray_Alpha-11",
+        "WiFi-@V2ray_Alpha-12",
+        "WiFi-@V2ray_Alpha-13",
+        "WiFi-@V2ray_Alpha-14",
+        "WiFi-@V2ray_Alpha-15",
+        "WiFi-@V2ray_Alpha-16",
+        "WiFi-@V2ray_Alpha-17",
+        "WiFi-@V2ray_Alpha-18",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-5.198.168.164:8080",
+        "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.156.205:443",
+        "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.157.21:443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-85.198.23.105:41606",
+        "🔒 VL-WS-NONE 🇮🇷 IR-185.208.77.113:11140",
+        "🔒 VL-TCP-NONE 🇦🇪 AE-217.60.236.213:8443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-5.198.168.163:8080",
+        "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.156.48:443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-85.133.250.6:443",
+        "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.156.228:443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-193.151.149.105:28995",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-85.133.250.115:443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-2.189.117.82:8080",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-2.144.7.14:8446",
+        "🔒 VL-WS-NONE 🇦🇪 AE-217.60.36.198:14961",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-5.198.168.162:8080",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-37.32.41.184:1010",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-2.189.117.83:8080",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-37.32.41.184:5050",
+        "🔒 VL-WS-NONE 🇮🇷 IR-185.14.160.118:90",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-85.133.196.2:3073",
+        "@meli_proxyy",
+        "🔒 VL-WS-NONE 🇦🇪 AE-217.60.37.197:12497",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-5.198.168.141:8080",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-5.198.168.133:8080",
+        "🔒 VL-TCP-NA 🇮🇷 IR-185.126.200.13:2096",
+        "mobilesignal",
+        "@mobilesignal |نت ملی 21",
+        "mobilesignal | نت ملی",
+        "@meli_proxyy 2",
+        "⇝ @v2mystery • 🌊قطع شدی بیا",
+        "mobilesignal🇮🇷",
+        "@meli_proxyy 3",
+        "mobilesignal | نت ملی 2"
+      ]
+    },
+    {
+      "type": "selector",
+      "tag": "🐟 漏网之鱼",
+      "outbounds": [
+        "🚀 节点选择",
+        "DIRECT",
+        "REJECT",
+        "⚡ 自动选择",
+        "WiFi-@V2ray_Alpha-1",
+        "WiFi-@V2ray_Alpha-2",
+        "WiFi-@V2ray_Alpha-3",
+        "WiFi-@V2ray_Alpha-4",
+        "WiFi-@V2ray_Alpha-5",
+        "WiFi-@V2ray_Alpha-6",
+        "WiFi-@V2ray_Alpha-7",
+        "WiFi-@V2ray_Alpha-9",
+        "WiFi-@V2ray_Alpha-10",
+        "WiFi-@V2ray_Alpha-11",
+        "WiFi-@V2ray_Alpha-12",
+        "WiFi-@V2ray_Alpha-13",
+        "WiFi-@V2ray_Alpha-14",
+        "WiFi-@V2ray_Alpha-15",
+        "WiFi-@V2ray_Alpha-16",
+        "WiFi-@V2ray_Alpha-17",
+        "WiFi-@V2ray_Alpha-18",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-5.198.168.164:8080",
+        "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.156.205:443",
+        "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.157.21:443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-85.198.23.105:41606",
+        "🔒 VL-WS-NONE 🇮🇷 IR-185.208.77.113:11140",
+        "🔒 VL-TCP-NONE 🇦🇪 AE-217.60.236.213:8443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-5.198.168.163:8080",
+        "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.156.48:443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-85.133.250.6:443",
+        "🔒 VL-GRPC-TLS 🇫🇷 FR-62.60.156.228:443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-193.151.149.105:28995",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-85.133.250.115:443",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-2.189.117.82:8080",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-2.144.7.14:8446",
+        "🔒 VL-WS-NONE 🇦🇪 AE-217.60.36.198:14961",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-5.198.168.162:8080",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-37.32.41.184:1010",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-2.189.117.83:8080",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-37.32.41.184:5050",
+        "🔒 VL-WS-NONE 🇮🇷 IR-185.14.160.118:90",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-85.133.196.2:3073",
+        "@meli_proxyy",
+        "🔒 VL-WS-NONE 🇦🇪 AE-217.60.37.197:12497",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-5.198.168.141:8080",
+        "🔒 VL-TCP-NONE 🇮🇷 IR-5.198.168.133:8080",
+        "🔒 VL-TCP-NA 🇮🇷 IR-185.126.200.13:2096",
+        "mobilesignal",
+        "@mobilesignal |نت ملی 21",
+        "mobilesignal | نت ملی",
+        "@meli_proxyy 2",
+        "⇝ @v2mystery • 🌊قطع شدی بیا",
+        "mobilesignal🇮🇷",
+        "@meli_proxyy 3",
+        "mobilesignal | نت ملی 2"
+      ]
     }
   ],
   "route": {
-    "auto_detect_interface": true,
-    "final": "proxy",
-    "rules": [
+    "rule_set": [
       {
-        "clash_mode": "Direct",
-        "outbound": "direct"
+        "tag": "geolocation-cn",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://gh-proxy.com/https://raw.githubusercontent.com/lyc8503/sing-box-rules/refs/heads/rule-set-geosite/geosite-geolocation-cn.srs"
       },
       {
-        "clash_mode": "Global",
-        "outbound": "proxy"
+        "tag": "cn",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://gh-proxy.com/https://raw.githubusercontent.com/lyc8503/sing-box-rules/refs/heads/rule-set-geosite/geosite-cn.srs"
+      },
+      {
+        "tag": "geolocation-!cn",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://gh-proxy.com/https://raw.githubusercontent.com/lyc8503/sing-box-rules/refs/heads/rule-set-geosite/geosite-geolocation-!cn.srs"
+      },
+      {
+        "tag": "private-ip",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://gh-proxy.com/https://raw.githubusercontent.com/lyc8503/sing-box-rules/refs/heads/rule-set-geoip/geoip-private.srs"
+      },
+      {
+        "tag": "cn-ip",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://gh-proxy.com/https://raw.githubusercontent.com/lyc8503/sing-box-rules/refs/heads/rule-set-geoip/geoip-cn.srs"
+      }
+    ],
+    "rules": [
+      {
+        "clash_mode": "direct",
+        "outbound": "DIRECT"
+      },
+      {
+        "clash_mode": "global",
+        "outbound": "🚀 节点选择"
+      },
+      {
+        "action": "sniff"
       },
       {
         "protocol": "dns",
         "action": "hijack-dns"
       },
       {
-        "domain_suffix": [
-          ".ir"
+        "rule_set": [
+          "geolocation-cn",
+          "cn"
         ],
-        "outbound": "direct"
+        "outbound": "🔒 国内服务"
       },
       {
         "rule_set": [
-          "geoip-ir",
-          "geosite-ir"
+          "geolocation-!cn"
         ],
-        "outbound": "direct"
+        "outbound": "🌐 非中国"
       },
       {
         "rule_set": [
-          "geosite-category-ads-all",
-          "geosite-malware",
-          "geosite-phishing",
-          "geosite-cryptominers",
-          "geoip-malware",
-          "geoip-phishing"
+          "private-ip"
         ],
-        "outbound": "block"
+        "outbound": "🏠 私有网络"
+      },
+      {
+        "rule_set": [
+          "cn-ip"
+        ],
+        "outbound": "🔒 国内服务"
       }
     ],
-    "rule_set": [
-      {
-        "tag": "geosite-ir",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-ir.srs",
-        "download_detour": "direct",
-        "update_interval": "1d"
-      },
-      {
-        "tag": "geosite-category-ads-all",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-category-ads-all.srs",
-        "download_detour": "direct",
-        "update_interval": "1d"
-      },
-      {
-        "tag": "geosite-malware",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-malware.srs",
-        "download_detour": "direct",
-        "update_interval": "1d"
-      },
-      {
-        "tag": "geosite-phishing",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-phishing.srs",
-        "download_detour": "direct",
-        "update_interval": "1d"
-      },
-      {
-        "tag": "geosite-cryptominers",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-cryptominers.srs",
-        "download_detour": "direct",
-        "update_interval": "1d"
-      },
-      {
-        "tag": "geoip-ir",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geoip-ir.srs",
-        "download_detour": "direct",
-        "update_interval": "1d"
-      },
-      {
-        "tag": "geoip-malware",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geoip-malware.srs",
-        "download_detour": "direct",
-        "update_interval": "1d"
-      },
-      {
-        "tag": "geoip-phishing",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geoip-phishing.srs",
-        "download_detour": "direct",
-        "update_interval": "1d"
-      }
-    ]
+    "auto_detect_interface": true,
+    "final": "🐟 漏网之鱼"
+  },
+  "experimental": {
+    "cache_file": {
+      "enabled": true,
+      "store_fakeip": true
+    }
   }
 }
