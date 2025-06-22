@@ -1,812 +1,891 @@
 {
   "log": {
-    "level": "info",
+    "disabled": false,
+    "level": "warn",
     "timestamp": true
   },
   "experimental": {
     "clash_api": {
-      "external_controller": "127.0.0.1:9090",
-      "external_ui": "ui",
+      "external_controller": "0.0.0.0:9090",
+      "external_ui": "yacd",
+      "external_ui_download_url": "https://github.com/MetaCubeX/Yacd-meta/archive/gh-pages.zip",
+      "external_ui_download_detour": "Internet",
       "secret": "",
-      "external_ui_download_url": "https://gh-proxy.com/https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip",
-      "external_ui_download_detour": "direct",
-      "default_mode": "rule"
-    },
-    "cache_file": {
-      "enabled": true,
-      "store_fakeip": false
+      "default_mode": "rule",
+      "store_selected": true,
+      "cache_file": "clash.db"
     }
   },
   "dns": {
     "servers": [
       {
-        "tag": "proxyDns",
-        "address": "tls://8.8.8.8",
-        "detour": "Proxy"
+        "tag": "Internet-dns",
+        "address": "1.0.0.1",
+        "strategy": "ipv4_only",
+        "detour": "Internet"
       },
       {
-        "tag": "localDns",
-        "address": "https://223.5.5.5/dns-query",
+        "tag": "Best Latency-dns",
+        "address": "1.1.1.1",
+        "strategy": "ipv4_only",
+        "detour": "Best Latency"
+      },
+      {
+        "tag": "Lock Region ID-dns",
+        "address": "8.8.8.8",
+        "strategy": "ipv4_only",
+        "detour": "Lock Region ID"
+      },
+      {
+        "tag": "WhatsApp-dns",
+        "address": "8.8.4.4",
+        "strategy": "ipv4_only",
+        "detour": "WhatsApp"
+      },
+      {
+        "tag": "GAMESMAX(ML/FF/AOV)-dns",
+        "address": "8.8.4.4",
+        "strategy": "ipv4_only",
+        "detour": "GAMESMAX(ML/FF/AOV)"
+      },
+      {
+        "tag": "Route Port Game-dns",
+        "address": "9.9.9.9",
+        "strategy": "ipv4_only",
+        "detour": "Route Port Game"
+      },
+      {
+        "tag": "direct-dns",
+        "address": "local",
+        "strategy": "ipv4_only",
         "detour": "direct"
+      },
+      {
+        "tag": "block-dns",
+        "address": "rcode://success"
       }
     ],
     "rules": [
       {
-        "domain": [
-          "cdn.jsdelivr.net"
+        "domain_suffix": [
+          ".arpa.",
+          ".arpa"
         ],
-        "server": "proxyDns"
+        "server": "block-dns",
+        "rewrite_ttl": 20
       },
       {
-        "outbound": "any",
-        "server": "localDns"
+        "network": "udp",
+        "port": 443,
+        "server": "block-dns",
+        "rewrite_ttl": 20
       },
       {
-        "rule_set": "geosite-cn",
-        "server": "localDns"
+        "geosite": "rule-malicious",
+        "server": "block-dns",
+        "rewrite_ttl": 20
       },
       {
-        "clash_mode": "direct",
-        "server": "localDns"
+        "outbound": "Internet",
+        "server": "Internet-dns",
+        "rewrite_ttl": 20
       },
       {
-        "clash_mode": "global",
-        "server": "proxyDns"
+        "outbound": "Best Latency",
+        "server": "Best Latency-dns",
+        "rewrite_ttl": 20
       },
       {
-        "rule_set": "geosite-geolocation-!cn",
-        "server": "proxyDns"
+        "outbound": "Lock Region ID",
+        "server": "Lock Region ID-dns",
+        "rewrite_ttl": 20
+      },
+      {
+        "outbound": "WhatsApp",
+        "server": "WhatsApp-dns",
+        "rewrite_ttl": 20
+      },
+      {
+        "outbound": "GAMESMAX(ML/FF/AOV)",
+        "server": "GAMESMAX(ML/FF/AOV)-dns",
+        "rewrite_ttl": 20
+      },
+      {
+        "outbound": "Route Port Game",
+        "server": "Route Port Game-dns",
+        "rewrite_ttl": 20
       }
     ],
-    "final": "localDns",
-    "strategy": "ipv4_only"
+    "reverse_mapping": true,
+    "strategy": "ipv4_only",
+    "independent_cache": true,
+    "disable_cache": true
   },
   "inbounds": [
     {
-      "tag": "tun-in",
       "type": "tun",
-      "address": [
-        "172.19.0.0/30"
-      ],
+      "tag": "tun-in",
+      "interface_name": "tun0",
+      "inet4_address": "172.19.0.1/30",
       "mtu": 9000,
       "auto_route": true,
       "strict_route": true,
       "stack": "system",
-      "platform": {
-        "http_proxy": {
-          "enabled": true,
-          "server": "127.0.0.1",
-          "server_port": 2080
-        }
-      }
+      "endpoint_independent_nat": true,
+      "sniff": true
     },
     {
+      "listen": "0.0.0.0",
+      "listen_port": 2080,
+      "sniff": true,
       "tag": "mixed-in",
-      "type": "mixed",
-      "listen": "127.0.0.1",
-      "listen_port": 2080
+      "type": "mixed"
     }
   ],
   "outbounds": [
     {
-      "tag": "Proxy",
       "type": "selector",
+      "tag": "Internet",
       "outbounds": [
-        "auto",
-        "direct",
-        "ss",
-        "ss_obfs",
-        "vmess",
-        "vless_vision",
-        "vless",
-        "tuic"
+        "Best Latency",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-5.198.168.164:8080",
+        "%F0%9F%94%92%20VL-GRPC-TLS%20%F0%9F%87%AB%F0%9F%87%B7%20FR-62.60.156.205:443",
+        "%F0%9F%94%92%20VL-GRPC-TLS%20%F0%9F%87%AB%F0%9F%87%B7%20FR-62.60.157.21:443",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-85.198.23.105:41606",
+        "%F0%9F%94%92%20VL-WS-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-185.208.77.113:11140",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%A6%F0%9F%87%AA%20AE-217.60.236.213:8443",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-5.198.168.163:8080",
+        "%F0%9F%94%92%20VL-GRPC-TLS%20%F0%9F%87%AB%F0%9F%87%B7%20FR-62.60.156.48:443",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-85.133.250.6:443"
       ]
     },
     {
-      "tag": "OpenAI",
-      "type": "selector",
-      "outbounds": [
-        "TaiWan",
-        "Singapore",
-        "Japan",
-        "America",
-        "Others"
-      ],
-      "default": "America"
-    },
-    {
-      "tag": "Google",
-      "type": "selector",
-      "outbounds": [
-        "HongKong",
-        "TaiWan",
-        "Singapore",
-        "Japan",
-        "America",
-        "Others"
-      ]
-    },
-    {
-      "tag": "Telegram",
-      "type": "selector",
-      "outbounds": [
-        "HongKong",
-        "TaiWan",
-        "Singapore",
-        "Japan",
-        "America",
-        "Others"
-      ]
-    },
-    {
-      "tag": "Twitter",
-      "type": "selector",
-      "outbounds": [
-        "HongKong",
-        "TaiWan",
-        "Singapore",
-        "Japan",
-        "America",
-        "Others"
-      ]
-    },
-    {
-      "tag": "Facebook",
-      "type": "selector",
-      "outbounds": [
-        "HongKong",
-        "TaiWan",
-        "Singapore",
-        "Japan",
-        "America",
-        "Others"
-      ]
-    },
-    {
-      "tag": "BiliBili",
-      "type": "selector",
-      "outbounds": [
-        "direct",
-        "HongKong",
-        "TaiWan"
-      ]
-    },
-    {
-      "tag": "Bahamut",
-      "type": "selector",
-      "outbounds": [
-        "TaiWan",
-        "Proxy"
-      ]
-    },
-    {
-      "tag": "Spotify",
-      "type": "selector",
-      "outbounds": [
-        "HongKong",
-        "TaiWan",
-        "Singapore",
-        "Japan",
-        "America",
-        "Others"
-      ],
-      "default": "America"
-    },
-    {
-      "tag": "TikTok",
-      "type": "selector",
-      "outbounds": [
-        "HongKong",
-        "TaiWan",
-        "Singapore",
-        "Japan",
-        "America"
-      ],
-      "default": "Japan"
-    },
-    {
-      "tag": "Netflix",
-      "type": "selector",
-      "outbounds": [
-        "HongKong",
-        "TaiWan",
-        "Singapore",
-        "Japan",
-        "America",
-        "Others"
-      ]
-    },
-    {
-      "tag": "Disney+",
-      "type": "selector",
-      "outbounds": [
-        "HongKong",
-        "TaiWan",
-        "Singapore",
-        "Japan",
-        "America",
-        "Others"
-      ]
-    },
-    {
-      "tag": "Apple",
-      "type": "selector",
-      "outbounds": [
-        "direct",
-        "HongKong",
-        "TaiWan",
-        "Singapore",
-        "Japan",
-        "America",
-        "Others"
-      ]
-    },
-    {
-      "tag": "Microsoft",
-      "type": "selector",
-      "outbounds": [
-        "direct",
-        "HongKong",
-        "TaiWan",
-        "Singapore",
-        "Japan",
-        "America",
-        "Others"
-      ]
-    },
-    {
-      "tag": "Games",
-      "type": "selector",
-      "outbounds": [
-        "direct",
-        "HongKong",
-        "TaiWan",
-        "Singapore",
-        "Japan",
-        "America",
-        "Others"
-      ]
-    },
-    {
-      "tag": "Streaming",
-      "type": "selector",
-      "outbounds": [
-        "HongKong",
-        "TaiWan",
-        "Singapore",
-        "Japan",
-        "America",
-        "Others"
-      ]
-    },
-    {
-      "tag": "Global",
-      "type": "selector",
-      "outbounds": [
-        "HongKong",
-        "TaiWan",
-        "Singapore",
-        "Japan",
-        "America",
-        "Others",
-        "direct"
-      ]
-    },
-    {
-      "tag": "China",
-      "type": "selector",
-      "outbounds": [
-        "direct",
-        "Proxy"
-      ]
-    },
-    {
-      "tag": "HongKong",
-      "type": "selector",
-      "outbounds": [
-        "Proxy"
-      ]
-    },
-    {
-      "tag": "TaiWan",
-      "type": "selector",
-      "outbounds": [
-        "Proxy"
-      ]
-    },
-    {
-      "tag": "Singapore",
-      "type": "selector",
-      "outbounds": [
-        "Proxy"
-      ]
-    },
-    {
-      "tag": "Japan",
-      "type": "selector",
-      "outbounds": [
-        "Proxy"
-      ]
-    },
-    {
-      "tag": "America",
-      "type": "selector",
-      "outbounds": [
-        "Proxy"
-      ]
-    },
-    {
-      "tag": "Others",
-      "type": "selector",
-      "outbounds": [
-        "ss",
-        "ss_obfs",
-        "vmess",
-        "vless_vision",
-        "vless",
-        "tuic"
-      ]
-    },
-    {
-      "tag": "auto",
       "type": "urltest",
+      "tag": "Best Latency",
       "outbounds": [
-        "ss",
-        "ss_obfs",
-        "vmess",
-        "vless_vision",
-        "vless",
-        "tuic"
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-5.198.168.164:8080",
+        "%F0%9F%94%92%20VL-GRPC-TLS%20%F0%9F%87%AB%F0%9F%87%B7%20FR-62.60.156.205:443",
+        "%F0%9F%94%92%20VL-GRPC-TLS%20%F0%9F%87%AB%F0%9F%87%B7%20FR-62.60.157.21:443",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-85.198.23.105:41606",
+        "%F0%9F%94%92%20VL-WS-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-185.208.77.113:11140",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%A6%F0%9F%87%AA%20AE-217.60.236.213:8443",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-5.198.168.163:8080",
+        "%F0%9F%94%92%20VL-GRPC-TLS%20%F0%9F%87%AB%F0%9F%87%B7%20FR-62.60.156.48:443",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-85.133.250.6:443"
       ],
-      "url": "http://www.gstatic.com/generate_204",
-      "interval": "10m",
-      "tolerance": 50
+      "url": "https://detectportal.firefox.com/success.txt",
+      "interval": "1m0s"
+    },
+    {
+      "type": "selector",
+      "tag": "Lock Region ID",
+      "outbounds": [
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-5.198.168.164:8080",
+        "%F0%9F%94%92%20VL-GRPC-TLS%20%F0%9F%87%AB%F0%9F%87%B7%20FR-62.60.156.205:443",
+        "%F0%9F%94%92%20VL-GRPC-TLS%20%F0%9F%87%AB%F0%9F%87%B7%20FR-62.60.157.21:443",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-85.198.23.105:41606",
+        "%F0%9F%94%92%20VL-WS-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-185.208.77.113:11140",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%A6%F0%9F%87%AA%20AE-217.60.236.213:8443",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-5.198.168.163:8080",
+        "%F0%9F%94%92%20VL-GRPC-TLS%20%F0%9F%87%AB%F0%9F%87%B7%20FR-62.60.156.48:443",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-85.133.250.6:443"
+      ]
+    },
+    {
+      "tag": "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-5.198.168.164:8080",
+      "type": "vless",
+      "server": "5.198.168.164",
+      "server_port": 8080,
+      "uuid": "51867ea4-443c-4539-a03e-cf7505db5521",
+      "flow": "",
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "domain_strategy": "ipv4_only"
+    },
+    {
+      "tag": "%F0%9F%94%92%20VL-GRPC-TLS%20%F0%9F%87%AB%F0%9F%87%B7%20FR-62.60.156.205:443",
+      "type": "vless",
+      "server": "62.60.156.205",
+      "server_port": 443,
+      "uuid": "ed447de4-ebd3-4f1c-8339-c084e06ec588",
+      "flow": "",
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "tls": {
+        "enabled": true,
+        "server_name": "ez.ez0535.com",
+        "insecure": true,
+        "disable_sni": false
+      },
+      "transport": {
+        "type": "grpc",
+        "service_name": null,
+        "idle_timeout": "15s",
+        "ping_timeout": "15s",
+        "permit_without_stream": false
+      },
+      "domain_strategy": "ipv4_only"
+    },
+    {
+      "tag": "%F0%9F%94%92%20VL-GRPC-TLS%20%F0%9F%87%AB%F0%9F%87%B7%20FR-62.60.157.21:443",
+      "type": "vless",
+      "server": "62.60.157.21",
+      "server_port": 443,
+      "uuid": "ed447de4-ebd3-4f1c-8339-c084e06ec588",
+      "flow": "",
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "tls": {
+        "enabled": true,
+        "server_name": "ez.ez0535.com",
+        "insecure": true,
+        "disable_sni": false
+      },
+      "transport": {
+        "type": "grpc",
+        "service_name": null,
+        "idle_timeout": "15s",
+        "ping_timeout": "15s",
+        "permit_without_stream": false
+      },
+      "domain_strategy": "ipv4_only"
+    },
+    {
+      "tag": "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-85.198.23.105:41606",
+      "type": "vless",
+      "server": "85.198.23.105",
+      "server_port": 41606,
+      "uuid": "b8d7526f-9bbe-40ce-a844-e84b82a800d1",
+      "flow": "",
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "domain_strategy": "ipv4_only"
+    },
+    {
+      "tag": "%F0%9F%94%92%20VL-WS-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-185.208.77.113:11140",
+      "type": "vless",
+      "server": "185.208.77.113",
+      "server_port": 11140,
+      "uuid": "39420bb7-5535-48fc-c56c-5c98c6eafce8",
+      "flow": "",
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/",
+        "headers": {
+          "Host": null
+        },
+        "max_early_data": 0,
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      },
+      "domain_strategy": "ipv4_only"
+    },
+    {
+      "tag": "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%A6%F0%9F%87%AA%20AE-217.60.236.213:8443",
+      "type": "vless",
+      "server": "217.60.236.213",
+      "server_port": 8443,
+      "uuid": "1ce8104f-63ed-4a1f-9847-6dfd20640349",
+      "flow": "",
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "domain_strategy": "ipv4_only"
+    },
+    {
+      "tag": "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-5.198.168.163:8080",
+      "type": "vless",
+      "server": "5.198.168.163",
+      "server_port": 8080,
+      "uuid": "51867ea4-443c-4539-a03e-cf7505db5521",
+      "flow": "",
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "domain_strategy": "ipv4_only"
+    },
+    {
+      "tag": "%F0%9F%94%92%20VL-GRPC-TLS%20%F0%9F%87%AB%F0%9F%87%B7%20FR-62.60.156.48:443",
+      "type": "vless",
+      "server": "62.60.156.48",
+      "server_port": 443,
+      "uuid": "ed447de4-ebd3-4f1c-8339-c084e06ec588",
+      "flow": "",
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "tls": {
+        "enabled": true,
+        "server_name": "ez.ez0535.com",
+        "insecure": true,
+        "disable_sni": false
+      },
+      "transport": {
+        "type": "grpc",
+        "service_name": null,
+        "idle_timeout": "15s",
+        "ping_timeout": "15s",
+        "permit_without_stream": false
+      },
+      "domain_strategy": "ipv4_only"
+    },
+    {
+      "tag": "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-85.133.250.6:443",
+      "type": "vless",
+      "server": "85.133.250.6",
+      "server_port": 443,
+      "uuid": "3491dd29-da32-721b-b2f9-73421aead895",
+      "flow": "",
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "tls": {
+        "enabled": true,
+        "server_name": null,
+        "insecure": true,
+        "disable_sni": false
+      },
+      "domain_strategy": "ipv4_only"
+    },
+    {
+      "type": "selector",
+      "tag": "WhatsApp",
+      "outbounds": [
+        "direct",
+        "Internet",
+        "Best Latency",
+        "Lock Region ID"
+      ]
+    },
+    {
+      "type": "selector",
+      "tag": "GAMESMAX(ML/FF/AOV)",
+      "outbounds": [
+        "direct",
+        "Internet",
+        "Best Latency",
+        "Lock Region ID"
+      ]
+    },
+    {
+      "type": "selector",
+      "tag": "Route Port Game",
+      "outbounds": [
+        "direct",
+        "Internet",
+        "Best Latency",
+        "Lock Region ID"
+      ]
+    },
+    {
+      "type": "selector",
+      "tag": "Option ADs",
+      "outbounds": [
+        "block",
+        "Internet"
+      ]
+    },
+    {
+      "type": "selector",
+      "tag": "Option P0rn",
+      "outbounds": [
+        "block",
+        "Internet"
+      ]
     },
     {
       "type": "direct",
       "tag": "direct"
     },
     {
-      "type": "shadowsocks",
-      "tag": "ss",
-      "server": "15.204.87.222",
-      "server_port": 2375,
-      "method": "aes-256-gcm",
-      "password": "faBAoD54k87UJG7"
+      "type": "block",
+      "tag": "block"
     },
     {
-      "type": "shadowsocks",
-      "tag": "ss_obfs",
-      "server": "www.v2rayse.com",
-      "server_port": 4567,
-      "method": "chacha20-ietf-poly1305",
-      "password": "YjMyO",
-      "plugin": "obfs",
-      "plugin_opts": "mode=http;host=m.youtube.com;path=/"
-    },
-    {
-      "type": "vmess",
-      "tag": "vmess",
-      "server": "1.0.2.3",
-      "server_port": 2095,
-      "uuid": "18d96190-c10f-448f-a82a-2d36df5c3cde",
-      "security": "auto",
-      "alter_id": 0,
-      "transport": {
-        "type": "ws"
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "vless_vision",
-      "server": "www.v2rayse.com",
-      "server_port": 29526,
-      "uuid": "a7603a32-e962-4098-befa-b56184c42a5b",
-      "flow": "xtls-rprx-vision",
-      "tls": {
-        "enabled": true,
-        "server_name": "itunes.apple.com",
-        "insecure": true,
-        "utls": {
-          "enabled": true,
-          "fingerprint": "chrome"
-        },
-        "reality": {
-          "enabled": true,
-          "public_key": "8GssTHyqkYrGu6nZ3xfWQHwbHNcQVdq-DIgdUU7TJC4",
-          "short_id": "9886241c"
-        }
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "vless",
-      "server": "1.2.3.4",
-      "server_port": 7777,
-      "uuid": "abc-def-ghi-fge-zsx"
-    },
-    {
-      "type": "tuic",
-      "tag": "tuic",
-      "server": "v2.v2rayse.com",
-      "server_port": 36395,
-      "uuid": "88b5ca4f-4578-4022-8825-56ef1abfba46",
-      "congestion_control": "bbr",
-      "udp_relay_mode": "quic",
-      "tls": {
-        "enabled": true,
-        "server_name": "www.v2rayse.com",
-        "insecure": true,
-        "alpn": [
-          "h3"
-        ]
-      }
+      "type": "dns",
+      "tag": "dns-out"
     }
   ],
   "route": {
     "auto_detect_interface": true,
-    "final": "Proxy",
+    "override_android_vpn": true,
+    "final": "Internet",
+    "geoip": {
+      "download_url": "https://github.com/malikshi/sing-box-geo/releases/latest/download/geoip.db",
+      "download_detour": "Best Latency"
+    },
+    "geosite": {
+      "download_url": "https://github.com/malikshi/v2ray-rules-dat/releases/latest/download/geosite.db",
+      "download_detour": "Best Latency"
+    },
     "rules": [
       {
-        "inbound": [
-          "tun-in",
-          "mixed-in"
+        "outbound": "dns-out",
+        "port": [
+          53
+        ]
+      },
+      {
+        "network": "udp",
+        "port": [
+          443
         ],
-        "action": "sniff"
+        "outbound": "block"
       },
       {
-        "type": "logical",
-        "mode": "or",
-        "rules": [
-          {
-            "port": 53
-          },
-          {
-            "protocol": "dns"
-          }
+        "domain_suffix": [
+          "googlesyndication.com"
         ],
-        "action": "hijack-dns"
+        "outbound": "Internet"
       },
       {
-        "rule_set": "geosite-category-ads-all",
-        "clash_mode": "rule",
-        "action": "reject"
-      },
-      {
-        "rule_set": "geosite-category-ads-all",
-        "clash_mode": "global",
-        "outbound": "Proxy"
-      },
-      {
-        "clash_mode": "direct",
-        "outbound": "direct"
-      },
-      {
-        "clash_mode": "global",
-        "outbound": "Proxy"
-      },
-      {
-        "domain": [
-          "clash.razord.top",
-          "yacd.metacubex.one",
-          "yacd.haishan.me",
-          "d.metacubex.one"
+        "geosite": [
+          "rule-ads",
+          "oisd-full"
         ],
-        "outbound": "direct"
+        "outbound": "Option ADs"
       },
       {
-        "ip_is_private": true,
-        "outbound": "direct"
-      },
-      {
-        "rule_set": "geosite-openai",
-        "outbound": "OpenAI"
-      },
-      {
-        "rule_set": [
-          "geosite-youtube",
-          "geoip-google",
-          "geosite-google",
-          "geosite-github"
+        "geosite": [
+          "oisd-nsfw",
+          "category-porn"
         ],
-        "outbound": "Google"
+        "outbound": "Option P0rn"
       },
       {
-        "rule_set": [
-          "geoip-telegram",
-          "geosite-telegram"
+        "geosite": "whatsapp",
+        "outbound": "WhatsApp"
+      },
+      {
+        "geoip": "facebook",
+        "port": [
+          3478,
+          4244,
+          5222,
+          5223,
+          5242,
+          45395,
+          50318,
+          59234
         ],
-        "outbound": "Telegram"
+        "outbound": "WhatsApp"
       },
       {
-        "rule_set": [
-          "geoip-twitter",
-          "geosite-twitter"
+        "protocol": "stun",
+        "outbound": "Internet"
+      },
+      {
+        "geosite": [
+          "rule-indo"
         ],
-        "outbound": "Twitter"
+        "outbound": "Lock Region ID"
       },
       {
-        "rule_set": [
-          "geoip-facebook",
-          "geosite-facebook"
+        "network": "udp",
+        "port": [
+          2702,
+          3702,
+          8443,
+          9120,
+          9992,
+          10003,
+          6006,
+          6008,
+          6674,
+          7889,
+          8008,
+          8130,
+          8443,
+          9008,
+          9120,
+          10100,
+          12008,
+          13008,
+          8011,
+          9030,
+          10491,
+          10612,
+          12235,
+          13004,
+          13748,
+          17000,
+          17500,
+          10039,
+          10096,
+          11455,
+          13894,
+          13972
         ],
-        "outbound": "Facebook"
-      },
-      {
-        "rule_set": "geosite-bilibili",
-        "outbound": "BiliBili"
-      },
-      {
-        "rule_set": "geosite-bahamut",
-        "outbound": "Bahamut"
-      },
-      {
-        "rule_set": "geosite-spotify",
-        "outbound": "Spotify"
-      },
-      {
-        "rule_set": "geosite-tiktok",
-        "outbound": "TikTok"
-      },
-      {
-        "rule_set": [
-          "geoip-netflix",
-          "geosite-netflix"
+        "port_range": [
+          "4001:4009",
+          "5000:5221",
+          "5224:5241",
+          "5243:5287",
+          "5289:5352",
+          "5354:5509",
+          "5517:5529",
+          "5551:5559",
+          "5601:5700",
+          "9000:9010",
+          "30000:30300",
+          "7006:7008",
+          "8001:8012",
+          "10000:10015",
+          "11000:11019",
+          "10101:10201",
+          "10080:10110",
+          "17000:18000"
         ],
-        "outbound": "Netflix"
+        "outbound": "GAMESMAX(ML/FF/AOV)"
       },
       {
-        "rule_set": "geosite-disney",
-        "outbound": "Disney+"
-      },
-      {
-        "rule_set": [
-          "geoip-apple",
-          "geosite-apple",
-          "geosite-amazon"
+        "network": "tcp",
+        "port": [
+          5517,
+          8443,
+          9443,
+          10003,
+          6006,
+          6008,
+          6674,
+          7889,
+          9006,
+          9137,
+          12006,
+          12008,
+          13006,
+          15006,
+          20561,
+          39003,
+          39006,
+          39698,
+          39779,
+          39800,
+          10012,
+          14000,
+          15692,
+          17000,
+          17500,
+          18081,
+          20371,
+          8013,
+          8085,
+          18082,
+          20000,
+          50000,
+          65010,
+          65050,
+          8013,
+          18082,
+          20166,
+          31003,
+          33445,
+          50000,
+          42472,
+          14422,
+          16999,
+          8013,
+          8888,
+          30031,
+          14009,
+          40005,
+          9339,
+          2099,
+          8088,
+          5692,
+          8085,
+          8500,
+          10000,
+          10082,
+          20000,
+          25000,
+          29134,
+          31003
         ],
-        "outbound": "Apple"
-      },
-      {
-        "rule_set": "geosite-microsoft",
-        "outbound": "Microsoft"
-      },
-      {
-        "rule_set": [
-          "geosite-category-games",
-          "geosite-dmm"
+        "port_range": [
+          "5000:5221",
+          "5224:5227",
+          "5229:5241",
+          "5243:5287",
+          "5289:5352",
+          "5354:5509",
+          "5520:5529",
+          "5551:5559",
+          "5601:5700",
+          "9000:9010",
+          "30000:30300",
+          "7006:7008",
+          "8001:8012",
+          "10000:10012",
+          "11000:11019",
+          "8085:8088",
+          "10000:10019",
+          "20000:20002",
+          "10000:10001",
+          "20000:20001",
+          "9330:9340",
+          "2080:2099",
+          "9100:9200",
+          "8230:8250",
+          "8110:8120",
+          "27000:28998",
+          "7770:7790",
+          "44590:44610",
+          "10500:10515",
+          "27015:27030",
+          "27036:27037",
+          "39190:39200",
+          "49001:49190",
+          "8393:8400"
         ],
-        "outbound": "Games"
+        "outbound": "Route Port Game"
       },
       {
-        "rule_set": [
-          "geosite-hbo",
-          "geosite-primevideo"
+        "network": "udp",
+        "port": [
+          2702,
+          3702,
+          8443,
+          9120,
+          9992,
+          10003,
+          6006,
+          6008,
+          6674,
+          7889,
+          8008,
+          8130,
+          8443,
+          9008,
+          9120,
+          10100,
+          12008,
+          13008,
+          8700,
+          10013,
+          10019,
+          10039,
+          10096,
+          10491,
+          10612,
+          11455,
+          12235,
+          13748,
+          13894,
+          13972,
+          17000,
+          17500,
+          8700,
+          9030,
+          8011,
+          9030,
+          10491,
+          10612,
+          12235,
+          13004,
+          13748,
+          17000,
+          17500,
+          10039,
+          10096,
+          11455,
+          13894,
+          13972,
+          42472,
+          5100,
+          39000,
+          4380,
+          27036,
+          14422,
+          16999,
+          8013,
+          8888,
+          8000,
+          30104,
+          14009,
+          40005,
+          8088,
+          5010,
+          6650,
+          8011,
+          8700,
+          20000,
+          25000,
+          29134,
+          30000
         ],
-        "outbound": "Streaming"
-      },
-      {
-        "rule_set": "geosite-geolocation-!cn",
-        "outbound": "Global"
-      },
-      {
-        "rule_set": [
-          "geoip-cn",
-          "geosite-cn"
+        "port_range": [
+          "4001:4009",
+          "5000:5221",
+          "5224:5241",
+          "5243:5287",
+          "5289:5352",
+          "5354:5509",
+          "5517:5529",
+          "5551:5559",
+          "5601:5700",
+          "9000:9010",
+          "30000:30300",
+          "7006:7008",
+          "8001:8012",
+          "10000:10015",
+          "11000:11019",
+          "7086:7995",
+          "8011:8013",
+          "9030:9031",
+          "20000:20002",
+          "12070:12460",
+          "41182:41192",
+          "7500:7995",
+          "10010:10019",
+          "20000:20001",
+          "10101:10201",
+          "10080:10110",
+          "17000:18000",
+          "5055:5058",
+          "22101:22102",
+          "9330:9340",
+          "27000:28998",
+          "16300:16350",
+          "40000:40010",
+          "60970:60980",
+          "27000:27031",
+          "40000:40010",
+          "7000:8000",
+          "8180:8181",
+          "27016:27024",
+          "54000:54012"
         ],
-        "outbound": "China"
-      }
-    ],
-    "rule_set": [
-      {
-        "tag": "geosite-category-ads-all",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/category-ads-all.srs",
-        "download_detour": "direct"
+        "outbound": "Route Port Game"
       },
       {
-        "tag": "geosite-openai",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://cdn.jsdelivr.net/gh/Toperlock/sing-box-geosite@main/rule/OpenAI.srs",
-        "download_detour": "direct"
+        "geoip": [
+          "id"
+        ],
+        "port": [
+          21,
+          22,
+          23,
+          80,
+          81,
+          123,
+          143,
+          182,
+          183,
+          194,
+          443,
+          465,
+          587,
+          853,
+          993,
+          995,
+          998,
+          2052,
+          2053,
+          2082,
+          2083,
+          2086,
+          2095,
+          2096,
+          5222,
+          5228,
+          5229,
+          5230,
+          8000,
+          8080,
+          8081,
+          8088,
+          8443,
+          8880,
+          8883,
+          8888,
+          8889,
+          42069
+        ],
+        "outbound": "Lock Region ID"
       },
       {
-        "tag": "geosite-youtube",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/youtube.srs",
-        "download_detour": "direct"
+        "port": [
+          21,
+          22,
+          23,
+          80,
+          81,
+          123,
+          143,
+          182,
+          183,
+          194,
+          443,
+          465,
+          587,
+          853,
+          993,
+          995,
+          998,
+          2052,
+          2053,
+          2082,
+          2083,
+          2086,
+          2095,
+          2096,
+          5222,
+          5228,
+          5229,
+          5230,
+          8000,
+          8080,
+          8081,
+          8088,
+          8443,
+          8880,
+          8883,
+          8888,
+          8889,
+          42069
+        ],
+        "outbound": "Internet"
       },
       {
-        "tag": "geoip-google",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/google.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geosite-google",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/google.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geosite-github",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/github.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geoip-telegram",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/telegram.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geosite-telegram",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/telegram.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geoip-twitter",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/twitter.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geosite-twitter",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/twitter.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geoip-facebook",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/facebook.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geosite-facebook",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/facebook.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geosite-bilibili",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/bilibili.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geosite-bahamut",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/bahamut.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geosite-spotify",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/spotify.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geosite-tiktok",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/tiktok.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geoip-netflix",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/netflix.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geosite-netflix",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/netflix.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geosite-disney",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/disney.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geoip-apple",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo-lite/geoip/apple.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geosite-apple",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/apple.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geosite-amazon",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/amazon.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geosite-microsoft",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/microsoft.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geosite-category-games",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/category-games.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geosite-dmm",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/dmm.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geosite-hbo",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/hbo.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geosite-primevideo",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/primevideo.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geosite-geolocation-!cn",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/geolocation-!cn.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geoip-cn",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/cn.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geosite-cn",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/cn.srs",
-        "download_detour": "direct"
+        "port_range": [
+          "1023:42068",
+          "42070:65535"
+        ],
+        "outbound": "Route Port Game"
       }
     ]
   }
