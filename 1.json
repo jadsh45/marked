@@ -1,212 +1,245 @@
 {
+  "log": {
+    "level": "panic",
+    "output": "/data/adb/box/run/sing-box.log",
+    "timestamp": true
+  },
   "dns": {
-    "final": "local-dns",
-    "rules": [
-      {
-        "clash_mode": "Global",
-        "server": "proxy-dns",
-        "source_ip_cidr": [
-          "172.19.0.0/30"
-        ]
-      },
-      {
-        "server": "proxy-dns",
-        "source_ip_cidr": [
-          "172.19.0.0/30"
-        ]
-      },
-      {
-        "clash_mode": "Direct",
-        "server": "direct-dns"
-      }
-    ],
     "servers": [
       {
-        "address": "tls://208.67.222.123",
-        "address_resolver": "local-dns",
-        "detour": "proxy",
-        "tag": "proxy-dns"
+        "tag": "Internet-dns",
+        "address": "9.9.9.10",
+        "strategy": "ipv4_only",
+        "detour": "INTERNET🚀"
       },
       {
-        "address": "local",
-        "detour": "direct",
-        "tag": "local-dns"
+        "tag": "Best-Latency-dns",
+        "address": "1.1.1.1",
+        "strategy": "ipv4_only",
+        "detour": "Best-Latency"
       },
       {
-        "address": "rcode://success",
-        "tag": "block"
+        "tag": "direct-dns",
+        "address": "149.112.112.112",
+        "strategy": "ipv4_only",
+        "detour": "direct"
       },
       {
-        "address": "local",
-        "detour": "direct",
-        "tag": "direct-dns"
+        "tag": "block-dns",
+        "address": "rcode://success"
       }
     ],
-    "strategy": "prefer_ipv4"
+    "rules": [
+      {
+        "domain_suffix": [
+          ".arpa.",
+          ".arpa"
+        ],
+        "server": "block-dns",
+        "rewrite_ttl": 20
+      },
+      {
+        "network": "udp",
+        "port": 443,
+        "server": "block-dns",
+        "rewrite_ttl": 20
+      },
+      {
+        "outbound": "INTERNET🚀",
+        "server": "Internet-dns",
+        "disable_cache": false,
+        "rewrite_ttl": 20
+      },
+      {
+        "outbound": "Best-Latency",
+        "server": "Best-Latency-dns",
+        "rewrite_ttl": 20
+      },
+      {
+        "outbound": "direct",
+        "server": "direct-dns",
+        "rewrite_ttl": 20
+      },
+      {
+        "outbound": "any",
+        "server": "direct-dns",
+        "rewrite_ttl": 20
+      }
+    ],
+    "reverse_mapping": true,
+    "strategy": "ipv4_only",
+    "independent_cache": true
   },
   "inbounds": [
     {
-      "address": [
-        "172.19.0.1/30",
-        "fdfe:dcba:9876::1/126"
-      ],
-      "auto_route": true,
-      "endpoint_independent_nat": false,
-      "mtu": 9000,
-      "platform": {
-        "http_proxy": {
-          "enabled": true,
-          "server": "127.0.0.1",
-          "server_port": 2080
-        }
-      },
-      "sniff": true,
-      "stack": "system",
-      "strict_route": false,
-      "type": "tun"
+      "type": "tproxy",
+      "tag": "tproxy-in",
+      "listen": "::",
+      "listen_port": 9898,
+      "sniff": true
     },
     {
-      "listen": "127.0.0.1",
-      "listen_port": 2080,
-      "sniff": true,
-      "type": "mixed",
-      "users": []
+      "type": "tun",
+      "tag": "tun-in",
+      "interface_name": "tun0",
+      "mtu": 9000,
+      "address": "172.18.0.1/30",
+      "auto_route": false,
+      "include_android_user": [
+        0,
+        10
+      ],
+      "stack": "mixed",
+      "sniff": true
     }
   ],
   "outbounds": [
     {
-      "tag": "proxy",
       "type": "selector",
+      "tag": "INTERNET🚀",
       "outbounds": [
-        "auto",
-        "vless-63c429a9",
-        "vless-fd1837dd",
-        "vless-377ee7c1",
-        "vless-e5bfc20d",
-        "vless-9f4dd506",
-        "direct"
-      ]
+        "Best-Latency",
+        "mobilesignal%20%7C%20%D9%86%D8%AA%20%D9%85%D9%84%DB%8C",
+        "WiFi-%40V2ray_Alpha-9",
+        "WiFi-%40V2ray_Alpha-10",
+        "WiFi-%40V2ray_Alpha-11",
+        "DIRECT"
+      ],
+      "default": "Best-Latency"
     },
     {
-      "tag": "auto",
       "type": "urltest",
+      "tag": "Best-Latency",
       "outbounds": [
-        "vless-63c429a9",
-        "vless-fd1837dd",
-        "vless-377ee7c1",
-        "vless-e5bfc20d",
-        "vless-9f4dd506"
+        "mobilesignal%20%7C%20%D9%86%D8%AA%20%D9%85%D9%84%DB%8C",
+        "WiFi-%40V2ray_Alpha-9",
+        "WiFi-%40V2ray_Alpha-10",
+        "WiFi-%40V2ray_Alpha-11"
       ],
       "url": "http://www.gstatic.com/generate_204",
-      "interval": "10m",
+      "idle_timeout": "5m",
+      "interval": "1m",
       "tolerance": 50
     },
     {
-      "tag": "direct",
-      "type": "direct"
-    },
-    {
+      "tag": "WiFi-%40V2ray_Alpha-11",
       "type": "vless",
-      "tag": "vless-63c429a9",
-      "server": "217.60.38.40",
-      "server_port": 47460,
-      "uuid": "42c6ca3b-b298-47f2-958d-ad386cf8289b",
-      "flow": "",
-      "transport": {
-        "path": "/",
-        "type": "ws"
-      },
-      "tls": {
-        "enabled": true,
-        "server_name": "217.60.38.40",
-        "insecure": true
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "vless-fd1837dd",
-      "server": "m1.persiangames.online",
-      "server_port": 3073,
-      "uuid": "99f2acd8-b0ab-4dbd-edc3-467ae27a95a7",
-      "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "m1.persiangames.online",
-        "insecure": true
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "vless-377ee7c1",
-      "server": "vip-82.f-sub.cfd",
-      "server_port": 5969,
-      "uuid": "953d71f0-9241-4903-95b4-cce61e90015e",
-      "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "vip-82.f-sub.cfd",
-        "insecure": true
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "vless-e5bfc20d",
       "server": "www.speedtest.net",
       "server_port": 80,
-      "uuid": "53fa8faf-ba4b-4322-9c69-a3e5b1555049",
-      "flow": "",
       "transport": {
-        "path": "/Telegram@V2ray_Alpha/?ed=2560",
-        "headers": {
-          "Host": "redfree8mahsang6.redfree8.ir"
-        },
-        "type": "ws"
-      },
-      "tls": {
-        "enabled": true,
-        "server_name": "www.speedtest.net",
-        "insecure": true
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "vless-9f4dd506",
-      "server": "www.speedtest.net",
-      "server_port": 80,
-      "uuid": "7c9e3c1d-a360-4429-9189-e45a98de7fde",
-      "flow": "",
-      "transport": {
+        "type": "ws",
         "path": "/",
         "headers": {
           "Host": "mail.ski1plag.ir"
-        },
-        "type": "ws"
+        }
       },
-      "tls": {
-        "enabled": true,
-        "server_name": "www.speedtest.net",
-        "insecure": true
-      }
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "uuid": "7c9e3c1d-a360-4429-9189-e45a98de7fde",
+      "flow": "",
+      "packet_encoding": "xudp"
+    },
+    {
+      "tag": "WiFi-%40V2ray_Alpha-10",
+      "type": "vless",
+      "server": "www.speedtest.net",
+      "server_port": 80,
+      "transport": {
+        "type": "ws",
+        "path": "/Telegram@V2ray_Alpha/?ed=2560",
+        "headers": {
+          "Host": "redfree8mahsang6.redfree8.ir"
+        }
+      },
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "uuid": "53fa8faf-ba4b-4322-9c69-a3e5b1555049",
+      "flow": "",
+      "packet_encoding": "xudp"
+    },
+    {
+      "tag": "WiFi-%40V2ray_Alpha-9",
+      "type": "vless",
+      "server": "vip-82.f-sub.cfd",
+      "server_port": 5969,
+      "transport": {
+        "type": "ws",
+        "path": "",
+        "headers": {
+          "Host": "speedtest.net"
+        }
+      },
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "uuid": "953d71f0-9241-4903-95b4-cce61e90015e",
+      "flow": "",
+      "packet_encoding": "xudp"
+    },
+    {
+      "tag": "mobilesignal%20%7C%20%D9%86%D8%AA%20%D9%85%D9%84%DB%8C",
+      "type": "vless",
+      "server": "217.60.38.40",
+      "server_port": 47460,
+      "transport": {
+        "type": "ws",
+        "path": "/",
+        "headers": {
+          "Host": "217.60.38.40"
+        }
+      },
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "uuid": "42c6ca3b-b298-47f2-958d-ad386cf8289b",
+      "flow": "",
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "direct",
+      "tag": "DIRECT"
+    },
+    {
+      "type": "block",
+      "tag": "block"
+    },
+    {
+      "type": "dns",
+      "tag": "dns-out"
     }
   ],
   "route": {
-    "auto_detect_interface": true,
-    "final": "proxy",
     "rules": [
       {
-        "clash_mode": "Direct",
-        "outbound": "direct"
+        "port": 53,
+        "outbound": "dns-out"
       },
       {
-        "clash_mode": "Global",
-        "outbound": "proxy"
-      },
-      {
-        "protocol": "dns",
-        "action": "hijack-dns"
+        "protocol": "stun",
+        "outbound": "INTERNET🚀"
       }
-    ]
+    ],
+    "final": "INTERNET🚀",
+    "find_process": true
+  },
+  "experimental": {
+    "cache_file": {
+      "enabled": true,
+      "path": "cache.db"
+    },
+    "clash_api": {
+      "external_controller": "0.0.0.0:9090",
+      "external_ui": "/data/adb/box/sing-box/dashboard"
+    }
   }
 }
