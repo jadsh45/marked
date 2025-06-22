@@ -1,975 +1,1821 @@
 {
+  "log": {
+    "disabled": false,
+    "level": "warn",
+    "timestamp": true
+  },
+  "experimental": {
+    "clash_api": {
+      "external_controller": "0.0.0.0:9090",
+      "external_ui": "yacd",
+      "external_ui_download_url": "https://github.com/MetaCubeX/Yacd-meta/archive/gh-pages.zip",
+      "external_ui_download_detour": "Internet",
+      "secret": "",
+      "default_mode": "rule",
+      "store_selected": true,
+      "cache_file": "clash.db"
+    }
+  },
   "dns": {
-    "final": "local-dns",
-    "rules": [
-      {
-        "clash_mode": "Global",
-        "server": "proxy-dns",
-        "source_ip_cidr": [
-          "172.19.0.0/30"
-        ]
-      },
-      {
-        "server": "proxy-dns",
-        "source_ip_cidr": [
-          "172.19.0.0/30"
-        ]
-      },
-      {
-        "clash_mode": "Direct",
-        "server": "direct-dns"
-      },
-      {
-        "rule_set": [
-          "geosite-ir"
-        ],
-        "server": "direct-dns"
-      },
-      {
-        "rule_set": [
-          "geosite-category-ads-all",
-          "geosite-malware",
-          "geosite-phishing",
-          "geosite-cryptominers"
-        ],
-        "server": "block"
-      }
-    ],
     "servers": [
       {
-        "address": "tls://208.67.222.123",
-        "address_resolver": "local-dns",
-        "detour": "proxy",
-        "tag": "proxy-dns"
+        "tag": "Internet-dns",
+        "address": "1.0.0.1",
+        "strategy": "ipv4_only",
+        "detour": "Internet"
       },
       {
+        "tag": "Best Latency-dns",
+        "address": "1.1.1.1",
+        "strategy": "ipv4_only",
+        "detour": "Best Latency"
+      },
+      {
+        "tag": "Lock Region ID-dns",
+        "address": "8.8.8.8",
+        "strategy": "ipv4_only",
+        "detour": "Lock Region ID"
+      },
+      {
+        "tag": "WhatsApp-dns",
+        "address": "8.8.4.4",
+        "strategy": "ipv4_only",
+        "detour": "WhatsApp"
+      },
+      {
+        "tag": "GAMESMAX(ML/FF/AOV)-dns",
+        "address": "8.8.4.4",
+        "strategy": "ipv4_only",
+        "detour": "GAMESMAX(ML/FF/AOV)"
+      },
+      {
+        "tag": "Route Port Game-dns",
+        "address": "9.9.9.9",
+        "strategy": "ipv4_only",
+        "detour": "Route Port Game"
+      },
+      {
+        "tag": "direct-dns",
         "address": "local",
-        "detour": "direct",
-        "tag": "local-dns"
+        "strategy": "ipv4_only",
+        "detour": "direct"
       },
       {
-        "address": "rcode://success",
-        "tag": "block"
-      },
-      {
-        "address": "local",
-        "detour": "direct",
-        "tag": "direct-dns"
+        "tag": "block-dns",
+        "address": "rcode://success"
       }
     ],
-    "strategy": "prefer_ipv4"
+    "rules": [
+      {
+        "domain_suffix": [
+          ".arpa.",
+          ".arpa"
+        ],
+        "server": "block-dns",
+        "rewrite_ttl": 20
+      },
+      {
+        "domain_suffix": [
+          "m1.persiangames.online",
+          "turkey.jewelll.ir",
+          "ir4.golden-dragon66.pw",
+          "ir4.golden-dragon66.pw",
+          "l32.magicnetwork.info",
+          "turkey.jewelll.ir",
+          "turkey.jewelll.ir",
+          "m1.persiangames.online",
+          "vip-82.f-sub.cfd",
+          "www.speedtest.net",
+          "www.speedtest.net",
+          "www.speedtest.net",
+          "www.speedtest.net",
+          "www.speedtest.net",
+          "www.speedtest.net",
+          "www.speedtest.net",
+          "www.speedtest.net"
+        ],
+        "server": "direct-dns",
+        "rewrite_ttl": 20
+      },
+      {
+        "network": "udp",
+        "port": 443,
+        "server": "block-dns",
+        "rewrite_ttl": 20
+      },
+      {
+        "geosite": "rule-malicious",
+        "server": "block-dns",
+        "rewrite_ttl": 20
+      },
+      {
+        "outbound": "Internet",
+        "server": "Internet-dns",
+        "rewrite_ttl": 20
+      },
+      {
+        "outbound": "Best Latency",
+        "server": "Best Latency-dns",
+        "rewrite_ttl": 20
+      },
+      {
+        "outbound": "Lock Region ID",
+        "server": "Lock Region ID-dns",
+        "rewrite_ttl": 20
+      },
+      {
+        "outbound": "WhatsApp",
+        "server": "WhatsApp-dns",
+        "rewrite_ttl": 20
+      },
+      {
+        "outbound": "GAMESMAX(ML/FF/AOV)",
+        "server": "GAMESMAX(ML/FF/AOV)-dns",
+        "rewrite_ttl": 20
+      },
+      {
+        "outbound": "Route Port Game",
+        "server": "Route Port Game-dns",
+        "rewrite_ttl": 20
+      },
+      {
+        "outbound": "direct",
+        "server": "direct-dns",
+        "rewrite_ttl": 20
+      },
+      {
+        "outbound": "any",
+        "server": "direct-dns",
+        "rewrite_ttl": 20
+      }
+    ],
+    "reverse_mapping": true,
+    "strategy": "ipv4_only",
+    "independent_cache": true,
+    "disable_cache": true
   },
   "inbounds": [
     {
-      "address": [
-        "172.19.0.1/30",
-        "fdfe:dcba:9876::1/126"
-      ],
-      "auto_route": true,
-      "endpoint_independent_nat": false,
+      "type": "tun",
+      "tag": "tun-in",
+      "interface_name": "tun0",
+      "inet4_address": "172.19.0.1/30",
       "mtu": 9000,
-      "platform": {
-        "http_proxy": {
-          "enabled": true,
-          "server": "127.0.0.1",
-          "server_port": 2080
-        }
-      },
-      "sniff": true,
+      "auto_route": true,
+      "strict_route": true,
       "stack": "system",
-      "strict_route": false,
-      "type": "tun"
+      "endpoint_independent_nat": true,
+      "sniff": true
     },
     {
-      "listen": "127.0.0.1",
+      "listen": "0.0.0.0",
       "listen_port": 2080,
       "sniff": true,
-      "type": "mixed",
-      "users": []
+      "tag": "mixed-in",
+      "type": "mixed"
     }
   ],
   "outbounds": [
     {
-      "tag": "proxy",
       "type": "selector",
+      "tag": "Internet",
       "outbounds": [
-        "auto",
-        "vless-c3191b7b",
-        "vless-3bb1c52e",
-        "vless-531948d4",
-        "vless-9876f640",
-        "vless-ec67c551",
-        "vless-7f4dad3f",
-        "vless-6b70970c",
-        "vless-1ff425b6",
-        "vless-802ec4c8",
-        "vless-29b9f994",
-        "vless-85e11e69",
-        "vless-1b1edb29",
-        "vless-c5bac3b4",
-        "vless-db6e48aa",
-        "vless-052166e8",
-        "vless-d6fed3bd",
-        "vless-2554a203",
-        "vless-306927e7",
-        "vless-4c7baf74",
-        "vless-165b307d",
-        "vless-d53ef743",
-        "vless-5757df71",
-        "vless-845df3db",
-        "vless-649df433",
-        "vless-201cfd35",
-        "vless-16a4c366",
-        "vless-bc433f2c",
-        "vless-de1de841",
-        "vless-32381222",
-        "vless-89052c9a",
-        "vless-6867246f",
-        "vless-50dc7147",
-        "vless-d99625ed",
-        "vless-54913f84",
-        "vless-01dbd8cc",
-        "vless-1bfa0812",
-        "vless-9d6802ac",
-        "vless-f6bd49e9",
-        "vless-7e3c228b",
-        "vless-3bb89e4f",
-        "vless-6b4ec685",
-        "vless-9be4c121",
-        "vless-0180fad9",
-        "direct"
+        "Best Latency",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-5.198.168.164:8080",
+        "%F0%9F%94%92%20VL-GRPC-TLS%20%F0%9F%87%AB%F0%9F%87%B7%20FR-62.60.156.205:443",
+        "%F0%9F%94%92%20VL-GRPC-TLS%20%F0%9F%87%AB%F0%9F%87%B7%20FR-62.60.157.21:443",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-85.198.23.105:41606",
+        "%F0%9F%94%92%20VL-WS-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-185.208.77.113:11140",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%A6%F0%9F%87%AA%20AE-217.60.236.213:8443",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-5.198.168.163:8080",
+        "%F0%9F%94%92%20VL-GRPC-TLS%20%F0%9F%87%AB%F0%9F%87%B7%20FR-62.60.156.48:443",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-85.133.250.6:443",
+        "%F0%9F%94%92%20VL-GRPC-TLS%20%F0%9F%87%AB%F0%9F%87%B7%20FR-62.60.156.228:443",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-193.151.149.105:28995",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-85.133.250.115:443",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-2.189.117.82:8080",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-2.144.7.14:8446",
+        "%F0%9F%94%92%20VL-WS-NONE%20%F0%9F%87%A6%F0%9F%87%AA%20AE-217.60.36.198:14961",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-5.198.168.162:8080",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-37.32.41.184:1010",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-2.189.117.83:8080",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-37.32.41.184:5050",
+        "%F0%9F%94%92%20VL-WS-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-185.14.160.118:90",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-85.133.196.2:3073",
+        "@meli_proxyy",
+        "%F0%9F%94%92%20VL-WS-NONE%20%F0%9F%87%A6%F0%9F%87%AA%20AE-217.60.37.197:12497",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-5.198.168.141:8080",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-5.198.168.133:8080",
+        "%F0%9F%94%92%20VL-TCP-NA%20%F0%9F%87%AE%F0%9F%87%B7%20IR-185.126.200.13:2096",
+        "mobilesignal",
+        "@mobilesignal%20|%D9%86%D8%AA%20%D9%85%D9%84%DB%8C%2021",
+        "mobilesignal%20|%20%D9%86%D8%AA%20%D9%85%D9%84%DB%8C",
+        "@meli_proxyy 2",
+        "%E2%87%9D%20@v2mystery%20%E2%80%A2%20%F0%9F%8C%8A%D9%82%D8%B7%D8%B9%20%D8%B4%D8%AF%DB%8C%20%D8%A8%DB%8C%D8%A7",
+        "mobilesignal%F0%9F%87%AE%F0%9F%87%B7",
+        "mobilesignal%20|%20%D9%86%D8%AA%20%D9%85%D9%84%DB%8C 2",
+        "@meli_proxyy 3",
+        "@meli_proxyy 4",
+        "mobilesignal%20|%20%D9%86%D8%AA%20%D9%85%D9%84%DB%8C 3",
+        "mobilesignal%20|%20%D9%86%D8%AA%20%D9%85%D9%84%DB%8C 4",
+        "WiFi-@V2ray_Alpha-9",
+        "WiFi-@V2ray_Alpha-10",
+        "WiFi-@V2ray_Alpha-11",
+        "WiFi-@V2ray_Alpha-12",
+        "WiFi-@V2ray_Alpha-13",
+        "WiFi-@V2ray_Alpha-14",
+        "WiFi-@V2ray_Alpha-15",
+        "WiFi-@V2ray_Alpha-16",
+        "WiFi-@V2ray_Alpha-17"
       ]
     },
     {
-      "tag": "auto",
       "type": "urltest",
+      "tag": "Best Latency",
       "outbounds": [
-        "vless-c3191b7b",
-        "vless-3bb1c52e",
-        "vless-531948d4",
-        "vless-9876f640",
-        "vless-ec67c551",
-        "vless-7f4dad3f",
-        "vless-6b70970c",
-        "vless-1ff425b6",
-        "vless-802ec4c8",
-        "vless-29b9f994",
-        "vless-85e11e69",
-        "vless-1b1edb29",
-        "vless-c5bac3b4",
-        "vless-db6e48aa",
-        "vless-052166e8",
-        "vless-d6fed3bd",
-        "vless-2554a203",
-        "vless-306927e7",
-        "vless-4c7baf74",
-        "vless-165b307d",
-        "vless-d53ef743",
-        "vless-5757df71",
-        "vless-845df3db",
-        "vless-649df433",
-        "vless-201cfd35",
-        "vless-16a4c366",
-        "vless-bc433f2c",
-        "vless-de1de841",
-        "vless-32381222",
-        "vless-89052c9a",
-        "vless-6867246f",
-        "vless-50dc7147",
-        "vless-d99625ed",
-        "vless-54913f84",
-        "vless-01dbd8cc",
-        "vless-1bfa0812",
-        "vless-9d6802ac",
-        "vless-f6bd49e9",
-        "vless-7e3c228b",
-        "vless-3bb89e4f",
-        "vless-6b4ec685",
-        "vless-9be4c121",
-        "vless-0180fad9"
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-5.198.168.164:8080",
+        "%F0%9F%94%92%20VL-GRPC-TLS%20%F0%9F%87%AB%F0%9F%87%B7%20FR-62.60.156.205:443",
+        "%F0%9F%94%92%20VL-GRPC-TLS%20%F0%9F%87%AB%F0%9F%87%B7%20FR-62.60.157.21:443",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-85.198.23.105:41606",
+        "%F0%9F%94%92%20VL-WS-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-185.208.77.113:11140",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%A6%F0%9F%87%AA%20AE-217.60.236.213:8443",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-5.198.168.163:8080",
+        "%F0%9F%94%92%20VL-GRPC-TLS%20%F0%9F%87%AB%F0%9F%87%B7%20FR-62.60.156.48:443",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-85.133.250.6:443",
+        "%F0%9F%94%92%20VL-GRPC-TLS%20%F0%9F%87%AB%F0%9F%87%B7%20FR-62.60.156.228:443",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-193.151.149.105:28995",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-85.133.250.115:443",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-2.189.117.82:8080",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-2.144.7.14:8446",
+        "%F0%9F%94%92%20VL-WS-NONE%20%F0%9F%87%A6%F0%9F%87%AA%20AE-217.60.36.198:14961",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-5.198.168.162:8080",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-37.32.41.184:1010",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-2.189.117.83:8080",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-37.32.41.184:5050",
+        "%F0%9F%94%92%20VL-WS-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-185.14.160.118:90",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-85.133.196.2:3073",
+        "@meli_proxyy",
+        "%F0%9F%94%92%20VL-WS-NONE%20%F0%9F%87%A6%F0%9F%87%AA%20AE-217.60.37.197:12497",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-5.198.168.141:8080",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-5.198.168.133:8080",
+        "%F0%9F%94%92%20VL-TCP-NA%20%F0%9F%87%AE%F0%9F%87%B7%20IR-185.126.200.13:2096",
+        "mobilesignal",
+        "@mobilesignal%20|%D9%86%D8%AA%20%D9%85%D9%84%DB%8C%2021",
+        "mobilesignal%20|%20%D9%86%D8%AA%20%D9%85%D9%84%DB%8C",
+        "@meli_proxyy 2",
+        "%E2%87%9D%20@v2mystery%20%E2%80%A2%20%F0%9F%8C%8A%D9%82%D8%B7%D8%B9%20%D8%B4%D8%AF%DB%8C%20%D8%A8%DB%8C%D8%A7",
+        "mobilesignal%F0%9F%87%AE%F0%9F%87%B7",
+        "mobilesignal%20|%20%D9%86%D8%AA%20%D9%85%D9%84%DB%8C 2",
+        "@meli_proxyy 3",
+        "@meli_proxyy 4",
+        "mobilesignal%20|%20%D9%86%D8%AA%20%D9%85%D9%84%DB%8C 3",
+        "mobilesignal%20|%20%D9%86%D8%AA%20%D9%85%D9%84%DB%8C 4",
+        "WiFi-@V2ray_Alpha-9",
+        "WiFi-@V2ray_Alpha-10",
+        "WiFi-@V2ray_Alpha-11",
+        "WiFi-@V2ray_Alpha-12",
+        "WiFi-@V2ray_Alpha-13",
+        "WiFi-@V2ray_Alpha-14",
+        "WiFi-@V2ray_Alpha-15",
+        "WiFi-@V2ray_Alpha-16",
+        "WiFi-@V2ray_Alpha-17"
       ],
-      "url": "http://www.gstatic.com/generate_204",
-      "interval": "10m",
-      "tolerance": 50
+      "url": "https://detectportal.firefox.com/success.txt",
+      "interval": "1m0s"
     },
     {
-      "tag": "direct",
-      "type": "direct"
+      "type": "selector",
+      "tag": "Lock Region ID",
+      "outbounds": [
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-5.198.168.164:8080",
+        "%F0%9F%94%92%20VL-GRPC-TLS%20%F0%9F%87%AB%F0%9F%87%B7%20FR-62.60.156.205:443",
+        "%F0%9F%94%92%20VL-GRPC-TLS%20%F0%9F%87%AB%F0%9F%87%B7%20FR-62.60.157.21:443",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-85.198.23.105:41606",
+        "%F0%9F%94%92%20VL-WS-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-185.208.77.113:11140",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%A6%F0%9F%87%AA%20AE-217.60.236.213:8443",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-5.198.168.163:8080",
+        "%F0%9F%94%92%20VL-GRPC-TLS%20%F0%9F%87%AB%F0%9F%87%B7%20FR-62.60.156.48:443",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-85.133.250.6:443",
+        "%F0%9F%94%92%20VL-GRPC-TLS%20%F0%9F%87%AB%F0%9F%87%B7%20FR-62.60.156.228:443",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-193.151.149.105:28995",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-85.133.250.115:443",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-2.189.117.82:8080",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-2.144.7.14:8446",
+        "%F0%9F%94%92%20VL-WS-NONE%20%F0%9F%87%A6%F0%9F%87%AA%20AE-217.60.36.198:14961",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-5.198.168.162:8080",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-37.32.41.184:1010",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-2.189.117.83:8080",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-37.32.41.184:5050",
+        "%F0%9F%94%92%20VL-WS-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-185.14.160.118:90",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-85.133.196.2:3073",
+        "@meli_proxyy",
+        "%F0%9F%94%92%20VL-WS-NONE%20%F0%9F%87%A6%F0%9F%87%AA%20AE-217.60.37.197:12497",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-5.198.168.141:8080",
+        "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-5.198.168.133:8080",
+        "%F0%9F%94%92%20VL-TCP-NA%20%F0%9F%87%AE%F0%9F%87%B7%20IR-185.126.200.13:2096",
+        "mobilesignal",
+        "@mobilesignal%20|%D9%86%D8%AA%20%D9%85%D9%84%DB%8C%2021",
+        "mobilesignal%20|%20%D9%86%D8%AA%20%D9%85%D9%84%DB%8C",
+        "@meli_proxyy 2",
+        "%E2%87%9D%20@v2mystery%20%E2%80%A2%20%F0%9F%8C%8A%D9%82%D8%B7%D8%B9%20%D8%B4%D8%AF%DB%8C%20%D8%A8%DB%8C%D8%A7",
+        "mobilesignal%F0%9F%87%AE%F0%9F%87%B7",
+        "mobilesignal%20|%20%D9%86%D8%AA%20%D9%85%D9%84%DB%8C 2",
+        "@meli_proxyy 3",
+        "@meli_proxyy 4",
+        "mobilesignal%20|%20%D9%86%D8%AA%20%D9%85%D9%84%DB%8C 3",
+        "mobilesignal%20|%20%D9%86%D8%AA%20%D9%85%D9%84%DB%8C 4",
+        "WiFi-@V2ray_Alpha-9",
+        "WiFi-@V2ray_Alpha-10",
+        "WiFi-@V2ray_Alpha-11",
+        "WiFi-@V2ray_Alpha-12",
+        "WiFi-@V2ray_Alpha-13",
+        "WiFi-@V2ray_Alpha-14",
+        "WiFi-@V2ray_Alpha-15",
+        "WiFi-@V2ray_Alpha-16",
+        "WiFi-@V2ray_Alpha-17"
+      ]
     },
     {
+      "tag": "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-5.198.168.164:8080",
       "type": "vless",
-      "tag": "vless-c3191b7b",
       "server": "5.198.168.164",
       "server_port": 8080,
       "uuid": "51867ea4-443c-4539-a03e-cf7505db5521",
       "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "5.198.168.164",
-        "insecure": true
-      }
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "domain_strategy": "ipv4_only"
     },
     {
+      "tag": "%F0%9F%94%92%20VL-GRPC-TLS%20%F0%9F%87%AB%F0%9F%87%B7%20FR-62.60.156.205:443",
       "type": "vless",
-      "tag": "vless-3bb1c52e",
       "server": "62.60.156.205",
       "server_port": 443,
       "uuid": "ed447de4-ebd3-4f1c-8339-c084e06ec588",
       "flow": "",
-      "transport": {},
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
       "tls": {
         "enabled": true,
         "server_name": "ez.ez0535.com",
-        "insecure": true
-      }
+        "insecure": true,
+        "disable_sni": false
+      },
+      "transport": {
+        "type": "grpc",
+        "service_name": null,
+        "idle_timeout": "15s",
+        "ping_timeout": "15s",
+        "permit_without_stream": false
+      },
+      "domain_strategy": "ipv4_only"
     },
     {
+      "tag": "%F0%9F%94%92%20VL-GRPC-TLS%20%F0%9F%87%AB%F0%9F%87%B7%20FR-62.60.157.21:443",
       "type": "vless",
-      "tag": "vless-531948d4",
       "server": "62.60.157.21",
       "server_port": 443,
       "uuid": "ed447de4-ebd3-4f1c-8339-c084e06ec588",
       "flow": "",
-      "transport": {},
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
       "tls": {
         "enabled": true,
         "server_name": "ez.ez0535.com",
-        "insecure": true
-      }
+        "insecure": true,
+        "disable_sni": false
+      },
+      "transport": {
+        "type": "grpc",
+        "service_name": null,
+        "idle_timeout": "15s",
+        "ping_timeout": "15s",
+        "permit_without_stream": false
+      },
+      "domain_strategy": "ipv4_only"
     },
     {
+      "tag": "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-85.198.23.105:41606",
       "type": "vless",
-      "tag": "vless-9876f640",
       "server": "85.198.23.105",
       "server_port": 41606,
       "uuid": "b8d7526f-9bbe-40ce-a844-e84b82a800d1",
       "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "85.198.23.105",
-        "insecure": true
-      }
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "domain_strategy": "ipv4_only"
     },
     {
+      "tag": "%F0%9F%94%92%20VL-WS-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-185.208.77.113:11140",
       "type": "vless",
-      "tag": "vless-ec67c551",
       "server": "185.208.77.113",
       "server_port": 11140,
       "uuid": "39420bb7-5535-48fc-c56c-5c98c6eafce8",
       "flow": "",
-      "transport": {
-        "path": "/",
-        "type": "ws"
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
       },
-      "tls": {
-        "enabled": true,
-        "server_name": "185.208.77.113",
-        "insecure": true
-      }
+      "transport": {
+        "type": "ws",
+        "path": "/",
+        "headers": {
+          "Host": null
+        },
+        "max_early_data": 0,
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      },
+      "domain_strategy": "ipv4_only"
     },
     {
+      "tag": "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%A6%F0%9F%87%AA%20AE-217.60.236.213:8443",
       "type": "vless",
-      "tag": "vless-7f4dad3f",
       "server": "217.60.236.213",
       "server_port": 8443,
       "uuid": "1ce8104f-63ed-4a1f-9847-6dfd20640349",
       "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "217.60.236.213",
-        "insecure": true
-      }
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "domain_strategy": "ipv4_only"
     },
     {
+      "tag": "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-5.198.168.163:8080",
       "type": "vless",
-      "tag": "vless-6b70970c",
       "server": "5.198.168.163",
       "server_port": 8080,
       "uuid": "51867ea4-443c-4539-a03e-cf7505db5521",
       "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "5.198.168.163",
-        "insecure": true
-      }
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "domain_strategy": "ipv4_only"
     },
     {
+      "tag": "%F0%9F%94%92%20VL-GRPC-TLS%20%F0%9F%87%AB%F0%9F%87%B7%20FR-62.60.156.48:443",
       "type": "vless",
-      "tag": "vless-1ff425b6",
       "server": "62.60.156.48",
       "server_port": 443,
       "uuid": "ed447de4-ebd3-4f1c-8339-c084e06ec588",
       "flow": "",
-      "transport": {},
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
       "tls": {
         "enabled": true,
         "server_name": "ez.ez0535.com",
-        "insecure": true
-      }
+        "insecure": true,
+        "disable_sni": false
+      },
+      "transport": {
+        "type": "grpc",
+        "service_name": null,
+        "idle_timeout": "15s",
+        "ping_timeout": "15s",
+        "permit_without_stream": false
+      },
+      "domain_strategy": "ipv4_only"
     },
     {
+      "tag": "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-85.133.250.6:443",
       "type": "vless",
-      "tag": "vless-802ec4c8",
       "server": "85.133.250.6",
       "server_port": 443,
       "uuid": "3491dd29-da32-721b-b2f9-73421aead895",
       "flow": "",
-      "transport": {},
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
       "tls": {
         "enabled": true,
-        "server_name": "85.133.250.6",
-        "insecure": true
-      }
+        "server_name": null,
+        "insecure": true,
+        "disable_sni": false
+      },
+      "domain_strategy": "ipv4_only"
     },
     {
+      "tag": "%F0%9F%94%92%20VL-GRPC-TLS%20%F0%9F%87%AB%F0%9F%87%B7%20FR-62.60.156.228:443",
       "type": "vless",
-      "tag": "vless-29b9f994",
       "server": "62.60.156.228",
       "server_port": 443,
       "uuid": "ed447de4-ebd3-4f1c-8339-c084e06ec588",
       "flow": "",
-      "transport": {},
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
       "tls": {
         "enabled": true,
         "server_name": "ez.ez0535.com",
-        "insecure": true
-      }
+        "insecure": true,
+        "disable_sni": false
+      },
+      "transport": {
+        "type": "grpc",
+        "service_name": null,
+        "idle_timeout": "15s",
+        "ping_timeout": "15s",
+        "permit_without_stream": false
+      },
+      "domain_strategy": "ipv4_only"
     },
     {
+      "tag": "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-193.151.149.105:28995",
       "type": "vless",
-      "tag": "vless-85e11e69",
       "server": "193.151.149.105",
       "server_port": 28995,
       "uuid": "c152c2c9-86e4-4d65-b248-380c9442e3b3",
       "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "193.151.149.105",
-        "insecure": true
-      }
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "domain_strategy": "ipv4_only"
     },
     {
+      "tag": "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-85.133.250.115:443",
       "type": "vless",
-      "tag": "vless-1b1edb29",
       "server": "85.133.250.115",
       "server_port": 443,
       "uuid": "88c0434e-fe9e-0472-703f-6ece5411066e",
       "flow": "",
-      "transport": {},
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
       "tls": {
         "enabled": true,
-        "server_name": "85.133.250.115",
-        "insecure": true
-      }
+        "server_name": null,
+        "insecure": true,
+        "disable_sni": false
+      },
+      "domain_strategy": "ipv4_only"
     },
     {
+      "tag": "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-2.189.117.82:8080",
       "type": "vless",
-      "tag": "vless-c5bac3b4",
       "server": "2.189.117.82",
       "server_port": 8080,
       "uuid": "51867ea4-443c-4539-a03e-cf7505db5521",
       "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "2.189.117.82",
-        "insecure": true
-      }
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "domain_strategy": "ipv4_only"
     },
     {
+      "tag": "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-2.144.7.14:8446",
       "type": "vless",
-      "tag": "vless-db6e48aa",
       "server": "2.144.7.14",
       "server_port": 8446,
       "uuid": "c0ac6d0a-dba7-4a19-97d3-ebae0ddefcfa",
       "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "2.144.7.14",
-        "insecure": true
-      }
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "domain_strategy": "ipv4_only"
     },
     {
+      "tag": "%F0%9F%94%92%20VL-WS-NONE%20%F0%9F%87%A6%F0%9F%87%AA%20AE-217.60.36.198:14961",
       "type": "vless",
-      "tag": "vless-052166e8",
       "server": "217.60.36.198",
       "server_port": 14961,
       "uuid": "d89b753c-aeef-4fab-9c31-744397572941",
       "flow": "",
-      "transport": {
-        "path": "/VPNPacket",
-        "type": "ws"
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
       },
-      "tls": {
-        "enabled": true,
-        "server_name": "217.60.36.198",
-        "insecure": true
-      }
+      "transport": {
+        "type": "ws",
+        "path": "/VPNPacket",
+        "headers": {
+          "Host": null
+        },
+        "max_early_data": 0,
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      },
+      "domain_strategy": "ipv4_only"
     },
     {
+      "tag": "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-5.198.168.162:8080",
       "type": "vless",
-      "tag": "vless-d6fed3bd",
       "server": "5.198.168.162",
       "server_port": 8080,
       "uuid": "51867ea4-443c-4539-a03e-cf7505db5521",
       "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "5.198.168.162",
-        "insecure": true
-      }
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "domain_strategy": "ipv4_only"
     },
     {
+      "tag": "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-37.32.41.184:1010",
       "type": "vless",
-      "tag": "vless-2554a203",
       "server": "37.32.41.184",
       "server_port": 1010,
       "uuid": "adeee029-e9b5-4312-8d00-71be8d86a7d3",
       "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "37.32.41.184",
-        "insecure": true
-      }
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "domain_strategy": "ipv4_only"
     },
     {
+      "tag": "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-2.189.117.83:8080",
       "type": "vless",
-      "tag": "vless-306927e7",
       "server": "2.189.117.83",
       "server_port": 8080,
       "uuid": "51867ea4-443c-4539-a03e-cf7505db5521",
       "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "2.189.117.83",
-        "insecure": true
-      }
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "domain_strategy": "ipv4_only"
     },
     {
+      "tag": "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-37.32.41.184:5050",
       "type": "vless",
-      "tag": "vless-4c7baf74",
       "server": "37.32.41.184",
       "server_port": 5050,
       "uuid": "1fadbc66-03c3-43db-a134-1ca7703eca0e",
       "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "37.32.41.184",
-        "insecure": true
-      }
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "domain_strategy": "ipv4_only"
     },
     {
+      "tag": "%F0%9F%94%92%20VL-WS-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-185.14.160.118:90",
       "type": "vless",
-      "tag": "vless-165b307d",
       "server": "185.14.160.118",
       "server_port": 90,
       "uuid": "9f1a116b-a8c1-4977-ad14-54da3974fe76",
       "flow": "",
-      "transport": {
-        "path": "/",
-        "type": "ws"
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
       },
-      "tls": {
-        "enabled": true,
-        "server_name": "185.14.160.118",
-        "insecure": true
-      }
+      "transport": {
+        "type": "ws",
+        "path": "/",
+        "headers": {
+          "Host": null
+        },
+        "max_early_data": 0,
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      },
+      "domain_strategy": "ipv4_only"
     },
     {
+      "tag": "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-85.133.196.2:3073",
       "type": "vless",
-      "tag": "vless-d53ef743",
       "server": "85.133.196.2",
       "server_port": 3073,
       "uuid": "99f2acd8-b0ab-4dbd-edc3-467ae27a95a7",
       "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "85.133.196.2",
-        "insecure": true
-      }
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "domain_strategy": "ipv4_only"
     },
     {
+      "tag": "@meli_proxyy",
       "type": "vless",
-      "tag": "vless-5757df71",
       "server": "m1.persiangames.online",
       "server_port": 3073,
       "uuid": "99f2acd8-b0ab-4dbd-edc3-467ae27a95a7",
       "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "m1.persiangames.online",
-        "insecure": true
-      }
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "domain_strategy": "ipv4_only"
     },
     {
+      "tag": "%F0%9F%94%92%20VL-WS-NONE%20%F0%9F%87%A6%F0%9F%87%AA%20AE-217.60.37.197:12497",
       "type": "vless",
-      "tag": "vless-845df3db",
       "server": "217.60.37.197",
       "server_port": 12497,
       "uuid": "41543083-fdfc-4951-b2a1-238ea58cdda6",
       "flow": "",
-      "transport": {
-        "path": "/@VPNPacket",
-        "type": "ws"
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
       },
-      "tls": {
-        "enabled": true,
-        "server_name": "217.60.37.197",
-        "insecure": true
-      }
+      "transport": {
+        "type": "ws",
+        "path": "/@VPNPacket",
+        "headers": {
+          "Host": null
+        },
+        "max_early_data": 0,
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      },
+      "domain_strategy": "ipv4_only"
     },
     {
+      "tag": "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-5.198.168.141:8080",
       "type": "vless",
-      "tag": "vless-649df433",
       "server": "5.198.168.141",
       "server_port": 8080,
       "uuid": "51867ea4-443c-4539-a03e-cf7505db5521",
       "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "5.198.168.141",
-        "insecure": true
-      }
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "domain_strategy": "ipv4_only"
     },
     {
+      "tag": "%F0%9F%94%92%20VL-TCP-NONE%20%F0%9F%87%AE%F0%9F%87%B7%20IR-5.198.168.133:8080",
       "type": "vless",
-      "tag": "vless-201cfd35",
       "server": "5.198.168.133",
       "server_port": 8080,
       "uuid": "51867ea4-443c-4539-a03e-cf7505db5521",
       "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "5.198.168.133",
-        "insecure": true
-      }
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "domain_strategy": "ipv4_only"
     },
     {
+      "tag": "%F0%9F%94%92%20VL-TCP-NA%20%F0%9F%87%AE%F0%9F%87%B7%20IR-185.126.200.13:2096",
       "type": "vless",
-      "tag": "vless-16a4c366",
       "server": "185.126.200.13",
       "server_port": 2096,
       "uuid": "f7508eb9-b5e8-4df2-849c-fe6d37abb68b",
       "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "185.126.200.13",
-        "insecure": true
-      }
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "domain_strategy": "ipv4_only"
     },
     {
+      "tag": "mobilesignal",
       "type": "vless",
-      "tag": "vless-bc433f2c",
       "server": "turkey.jewelll.ir",
       "server_port": 3311,
       "uuid": "ccd5d8c4-634c-46bc-8f7a-5be3b8649858",
       "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "turkey.jewelll.ir",
-        "insecure": true
-      }
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "transport": {
+        "type": "grpc",
+        "service_name": null,
+        "idle_timeout": "15s",
+        "ping_timeout": "15s",
+        "permit_without_stream": false
+      },
+      "domain_strategy": "ipv4_only"
     },
     {
+      "tag": "@mobilesignal%20|%D9%86%D8%AA%20%D9%85%D9%84%DB%8C%2021",
       "type": "vless",
-      "tag": "vless-de1de841",
       "server": "217.60.38.40",
       "server_port": 47460,
       "uuid": "42c6ca3b-b298-47f2-958d-ad386cf8289b",
       "flow": "",
-      "transport": {
-        "path": "/",
-        "type": "ws"
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
       },
-      "tls": {
-        "enabled": true,
-        "server_name": "217.60.38.40",
-        "insecure": true
-      }
+      "transport": {
+        "type": "ws",
+        "path": "/",
+        "headers": {
+          "Host": null
+        },
+        "max_early_data": 0,
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      },
+      "domain_strategy": "ipv4_only"
     },
     {
+      "tag": "mobilesignal%20|%20%D9%86%D8%AA%20%D9%85%D9%84%DB%8C",
       "type": "vless",
-      "tag": "vless-32381222",
       "server": "217.60.38.40",
       "server_port": 47460,
       "uuid": "42c6ca3b-b298-47f2-958d-ad386cf8289b",
       "flow": "",
-      "transport": {
-        "path": "/",
-        "type": "ws"
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
       },
-      "tls": {
-        "enabled": true,
-        "server_name": "217.60.38.40",
-        "insecure": true
-      }
+      "transport": {
+        "type": "ws",
+        "path": "/",
+        "headers": {
+          "Host": null
+        },
+        "max_early_data": 0,
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      },
+      "domain_strategy": "ipv4_only"
     },
     {
+      "tag": "@meli_proxyy 2",
       "type": "vless",
-      "tag": "vless-89052c9a",
       "server": "ir4.golden-dragon66.pw",
       "server_port": 9211,
       "uuid": "e8dc92da-89f4-4b1e-b1ba-3911c1ac8362",
       "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "ir4.golden-dragon66.pw",
-        "insecure": true
-      }
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "transport": {
+        "type": "grpc",
+        "service_name": null,
+        "idle_timeout": "15s",
+        "ping_timeout": "15s",
+        "permit_without_stream": false
+      },
+      "domain_strategy": "ipv4_only"
     },
     {
+      "tag": "%E2%87%9D%20@v2mystery%20%E2%80%A2%20%F0%9F%8C%8A%D9%82%D8%B7%D8%B9%20%D8%B4%D8%AF%DB%8C%20%D8%A8%DB%8C%D8%A7",
       "type": "vless",
-      "tag": "vless-6867246f",
       "server": "ir4.golden-dragon66.pw",
       "server_port": 9211,
       "uuid": "e8dc92da-89f4-4b1e-b1ba-3911c1ac8362",
       "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "ir4.golden-dragon66.pw",
-        "insecure": true
-      }
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "transport": {
+        "type": "grpc",
+        "service_name": null,
+        "idle_timeout": "15s",
+        "ping_timeout": "15s",
+        "permit_without_stream": false
+      },
+      "domain_strategy": "ipv4_only"
     },
     {
+      "tag": "mobilesignal%F0%9F%87%AE%F0%9F%87%B7",
       "type": "vless",
-      "tag": "vless-50dc7147",
       "server": "l32.magicnetwork.info",
       "server_port": 443,
       "uuid": "8f584d16-6ee7-1fc4-028b-a46a3302fac1",
       "flow": "",
-      "transport": {},
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
       "tls": {
         "enabled": true,
-        "server_name": "l32.magicnetwork.info",
-        "insecure": true
-      }
+        "server_name": null,
+        "insecure": true,
+        "disable_sni": false
+      },
+      "domain_strategy": "ipv4_only"
     },
     {
+      "tag": "mobilesignal%20|%20%D9%86%D8%AA%20%D9%85%D9%84%DB%8C 2",
       "type": "vless",
-      "tag": "vless-d99625ed",
+      "server": "217.60.38.40",
+      "server_port": 47460,
+      "uuid": "42c6ca3b-b298-47f2-958d-ad386cf8289b",
+      "flow": "",
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/",
+        "headers": {
+          "Host": null
+        },
+        "max_early_data": 0,
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      },
+      "domain_strategy": "ipv4_only"
+    },
+    {
+      "tag": "@meli_proxyy 3",
+      "type": "vless",
       "server": "turkey.jewelll.ir",
       "server_port": 3311,
       "uuid": "ccd5d8c4-634c-46bc-8f7a-5be3b8649858",
       "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "turkey.jewelll.ir",
-        "insecure": true
-      }
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "transport": {
+        "type": "grpc",
+        "service_name": null,
+        "idle_timeout": "15s",
+        "ping_timeout": "15s",
+        "permit_without_stream": false
+      },
+      "domain_strategy": "ipv4_only"
     },
     {
+      "tag": "@meli_proxyy 4",
       "type": "vless",
-      "tag": "vless-54913f84",
+      "server": "turkey.jewelll.ir",
+      "server_port": 3311,
+      "uuid": "ccd5d8c4-634c-46bc-8f7a-5be3b8649858",
+      "flow": "",
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "transport": {
+        "type": "grpc",
+        "service_name": null,
+        "idle_timeout": "15s",
+        "ping_timeout": "15s",
+        "permit_without_stream": false
+      },
+      "domain_strategy": "ipv4_only"
+    },
+    {
+      "tag": "mobilesignal%20|%20%D9%86%D8%AA%20%D9%85%D9%84%DB%8C 3",
+      "type": "vless",
+      "server": "217.60.38.40",
+      "server_port": 47460,
+      "uuid": "42c6ca3b-b298-47f2-958d-ad386cf8289b",
+      "flow": "",
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/",
+        "headers": {
+          "Host": null
+        },
+        "max_early_data": 0,
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      },
+      "domain_strategy": "ipv4_only"
+    },
+    {
+      "tag": "mobilesignal%20|%20%D9%86%D8%AA%20%D9%85%D9%84%DB%8C 4",
+      "type": "vless",
       "server": "m1.persiangames.online",
       "server_port": 3073,
       "uuid": "99f2acd8-b0ab-4dbd-edc3-467ae27a95a7",
       "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "m1.persiangames.online",
-        "insecure": true
-      }
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "domain_strategy": "ipv4_only"
     },
     {
+      "tag": "WiFi-@V2ray_Alpha-9",
       "type": "vless",
-      "tag": "vless-01dbd8cc",
       "server": "vip-82.f-sub.cfd",
       "server_port": 5969,
       "uuid": "953d71f0-9241-4903-95b4-cce61e90015e",
       "flow": "",
-      "transport": {},
-      "tls": {
-        "enabled": true,
-        "server_name": "vip-82.f-sub.cfd",
-        "insecure": true
-      }
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "domain_strategy": "ipv4_only"
     },
     {
+      "tag": "WiFi-@V2ray_Alpha-10",
       "type": "vless",
-      "tag": "vless-1bfa0812",
       "server": "www.speedtest.net",
       "server_port": 80,
       "uuid": "53fa8faf-ba4b-4322-9c69-a3e5b1555049",
       "flow": "",
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
       "transport": {
+        "type": "ws",
         "path": "/Telegram@V2ray_Alpha/?ed=2560",
         "headers": {
           "Host": "redfree8mahsang6.redfree8.ir"
         },
-        "type": "ws"
+        "max_early_data": 0,
+        "early_data_header_name": "Sec-WebSocket-Protocol"
       },
-      "tls": {
-        "enabled": true,
-        "server_name": "www.speedtest.net",
-        "insecure": true
-      }
+      "domain_strategy": "ipv4_only"
     },
     {
+      "tag": "WiFi-@V2ray_Alpha-11",
       "type": "vless",
-      "tag": "vless-9d6802ac",
       "server": "www.speedtest.net",
       "server_port": 80,
       "uuid": "7c9e3c1d-a360-4429-9189-e45a98de7fde",
       "flow": "",
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
       "transport": {
+        "type": "ws",
         "path": "/",
         "headers": {
           "Host": "mail.ski1plag.ir"
         },
-        "type": "ws"
+        "max_early_data": 0,
+        "early_data_header_name": "Sec-WebSocket-Protocol"
       },
-      "tls": {
-        "enabled": true,
-        "server_name": "www.speedtest.net",
-        "insecure": true
-      }
+      "domain_strategy": "ipv4_only"
     },
     {
+      "tag": "WiFi-@V2ray_Alpha-12",
       "type": "vless",
-      "tag": "vless-f6bd49e9",
       "server": "www.speedtest.net",
       "server_port": 2096,
       "uuid": "24a4aa9b-b341-4717-9d4a-00d74c2b84e0",
       "flow": "",
-      "transport": {
-        "path": "/",
-        "headers": {
-          "Host": "62X1tXx6M0.9pEsC.cOm"
-        },
-        "type": "ws"
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
       },
       "tls": {
         "enabled": true,
         "server_name": "62X1tXx6M0.9pEsC.cOm",
-        "insecure": true
-      }
+        "insecure": true,
+        "disable_sni": false
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/",
+        "headers": {
+          "Host": "62X1tXx6M0.9pEsC.cOm"
+        },
+        "max_early_data": 0,
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      },
+      "domain_strategy": "ipv4_only"
     },
     {
+      "tag": "WiFi-@V2ray_Alpha-13",
       "type": "vless",
-      "tag": "vless-7e3c228b",
       "server": "www.speedtest.net",
       "server_port": 2096,
       "uuid": "24a4aa9b-b341-4717-9d4a-00d74c2b84e0",
       "flow": "",
-      "transport": {
-        "path": "/",
-        "headers": {
-          "Host": "FlN5fXaYrS.9pEsC.cOm"
-        },
-        "type": "ws"
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
       },
       "tls": {
         "enabled": true,
         "server_name": "FlN5fXaYrS.9pEsC.cOm",
-        "insecure": true
-      }
+        "insecure": true,
+        "disable_sni": false
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/",
+        "headers": {
+          "Host": "FlN5fXaYrS.9pEsC.cOm"
+        },
+        "max_early_data": 0,
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      },
+      "domain_strategy": "ipv4_only"
     },
     {
+      "tag": "WiFi-@V2ray_Alpha-14",
       "type": "vless",
-      "tag": "vless-3bb89e4f",
       "server": "www.speedtest.net",
       "server_port": 2096,
       "uuid": "24a4aa9b-b341-4717-9d4a-00d74c2b84e0",
       "flow": "",
-      "transport": {
-        "path": "/",
-        "headers": {
-          "Host": "ZhN5vJ9dY7.9pEsC.cOm"
-        },
-        "type": "ws"
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
       },
       "tls": {
         "enabled": true,
         "server_name": "ZhN5vJ9dY7.9pEsC.cOm",
-        "insecure": true
-      }
+        "insecure": true,
+        "disable_sni": false
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/",
+        "headers": {
+          "Host": "ZhN5vJ9dY7.9pEsC.cOm"
+        },
+        "max_early_data": 0,
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      },
+      "domain_strategy": "ipv4_only"
     },
     {
+      "tag": "WiFi-@V2ray_Alpha-15",
       "type": "vless",
-      "tag": "vless-6b4ec685",
       "server": "www.speedtest.net",
       "server_port": 2096,
       "uuid": "24a4aa9b-b341-4717-9d4a-00d74c2b84e0",
       "flow": "",
-      "transport": {
-        "path": "/",
-        "headers": {
-          "Host": "HkPk6Cd2Kj.9PeSc.CoM"
-        },
-        "type": "ws"
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
       },
       "tls": {
         "enabled": true,
         "server_name": "HkPk6Cd2Kj.9PeSc.CoM",
-        "insecure": true
-      }
+        "insecure": true,
+        "disable_sni": false
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/",
+        "headers": {
+          "Host": "HkPk6Cd2Kj.9PeSc.CoM"
+        },
+        "max_early_data": 0,
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      },
+      "domain_strategy": "ipv4_only"
     },
     {
+      "tag": "WiFi-@V2ray_Alpha-16",
       "type": "vless",
-      "tag": "vless-9be4c121",
       "server": "www.speedtest.net",
       "server_port": 2096,
       "uuid": "24a4aa9b-b341-4717-9d4a-00d74c2b84e0",
       "flow": "",
-      "transport": {
-        "path": "/",
-        "headers": {
-          "Host": "PkO09dA8jF.9pEsC.cOm"
-        },
-        "type": "ws"
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
       },
       "tls": {
         "enabled": true,
         "server_name": "PkO09dA8jF.9pEsC.cOm",
-        "insecure": true
-      }
+        "insecure": true,
+        "disable_sni": false
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/",
+        "headers": {
+          "Host": "PkO09dA8jF.9pEsC.cOm"
+        },
+        "max_early_data": 0,
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      },
+      "domain_strategy": "ipv4_only"
     },
     {
+      "tag": "WiFi-@V2ray_Alpha-17",
       "type": "vless",
-      "tag": "vless-0180fad9",
       "server": "www.speedtest.net",
       "server_port": 2096,
       "uuid": "24a4aa9b-b341-4717-9d4a-00d74c2b84e0",
       "flow": "",
-      "transport": {
-        "path": "/",
-        "headers": {
-          "Host": "Q03l9EiQiA.9pEsC.cOm"
-        },
-        "type": "ws"
+      "packet_encoding": "xudp",
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
       },
       "tls": {
         "enabled": true,
         "server_name": "Q03l9EiQiA.9pEsC.cOm",
-        "insecure": true
-      }
+        "insecure": true,
+        "disable_sni": false
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/",
+        "headers": {
+          "Host": "Q03l9EiQiA.9pEsC.cOm"
+        },
+        "max_early_data": 0,
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      },
+      "domain_strategy": "ipv4_only"
+    },
+    {
+      "type": "selector",
+      "tag": "WhatsApp",
+      "outbounds": [
+        "direct",
+        "Internet",
+        "Best Latency",
+        "Lock Region ID"
+      ]
+    },
+    {
+      "type": "selector",
+      "tag": "GAMESMAX(ML/FF/AOV)",
+      "outbounds": [
+        "direct",
+        "Internet",
+        "Best Latency",
+        "Lock Region ID"
+      ]
+    },
+    {
+      "type": "selector",
+      "tag": "Route Port Game",
+      "outbounds": [
+        "direct",
+        "Internet",
+        "Best Latency",
+        "Lock Region ID"
+      ]
+    },
+    {
+      "type": "selector",
+      "tag": "Option ADs",
+      "outbounds": [
+        "block",
+        "Internet"
+      ]
+    },
+    {
+      "type": "selector",
+      "tag": "Option P0rn",
+      "outbounds": [
+        "block",
+        "Internet"
+      ]
+    },
+    {
+      "type": "direct",
+      "tag": "direct"
+    },
+    {
+      "type": "block",
+      "tag": "block"
+    },
+    {
+      "type": "dns",
+      "tag": "dns-out"
     }
   ],
   "route": {
     "auto_detect_interface": true,
-    "final": "proxy",
+    "override_android_vpn": true,
+    "final": "Internet",
+    "geoip": {
+      "download_url": "https://github.com/malikshi/sing-box-geo/releases/latest/download/geoip.db",
+      "download_detour": "Best Latency"
+    },
+    "geosite": {
+      "download_url": "https://github.com/malikshi/v2ray-rules-dat/releases/latest/download/geosite.db",
+      "download_detour": "Best Latency"
+    },
     "rules": [
       {
-        "clash_mode": "Direct",
-        "outbound": "direct"
+        "outbound": "dns-out",
+        "port": [
+          53
+        ]
       },
       {
-        "clash_mode": "Global",
-        "outbound": "proxy"
-      },
-      {
-        "protocol": "dns",
-        "action": "hijack-dns"
+        "network": "udp",
+        "port": [
+          443
+        ],
+        "outbound": "block"
       },
       {
         "domain_suffix": [
-          ".ir"
+          "googlesyndication.com"
         ],
-        "outbound": "direct"
+        "outbound": "Internet"
       },
       {
-        "rule_set": [
-          "geoip-ir",
-          "geosite-ir"
+        "geosite": [
+          "rule-ads",
+          "oisd-full"
         ],
-        "outbound": "direct"
+        "outbound": "Option ADs"
       },
       {
-        "rule_set": [
-          "geosite-category-ads-all",
-          "geosite-malware",
-          "geosite-phishing",
-          "geosite-cryptominers",
-          "geoip-malware",
-          "geoip-phishing"
+        "geosite": [
+          "oisd-nsfw",
+          "category-porn"
         ],
-        "outbound": "block"
-      }
-    ],
-    "rule_set": [
-      {
-        "tag": "geosite-ir",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-ir.srs",
-        "download_detour": "direct",
-        "update_interval": "1d"
+        "outbound": "Option P0rn"
       },
       {
-        "tag": "geosite-category-ads-all",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-category-ads-all.srs",
-        "download_detour": "direct",
-        "update_interval": "1d"
+        "geosite": "whatsapp",
+        "outbound": "WhatsApp"
       },
       {
-        "tag": "geosite-malware",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-malware.srs",
-        "download_detour": "direct",
-        "update_interval": "1d"
+        "geoip": "facebook",
+        "port": [
+          3478,
+          4244,
+          5222,
+          5223,
+          5242,
+          45395,
+          50318,
+          59234
+        ],
+        "outbound": "WhatsApp"
       },
       {
-        "tag": "geosite-phishing",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-phishing.srs",
-        "download_detour": "direct",
-        "update_interval": "1d"
+        "protocol": "stun",
+        "outbound": "Internet"
       },
       {
-        "tag": "geosite-cryptominers",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-cryptominers.srs",
-        "download_detour": "direct",
-        "update_interval": "1d"
+        "geosite": [
+          "rule-indo"
+        ],
+        "outbound": "Lock Region ID"
       },
       {
-        "tag": "geoip-ir",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geoip-ir.srs",
-        "download_detour": "direct",
-        "update_interval": "1d"
+        "network": "udp",
+        "port": [
+          2702,
+          3702,
+          8443,
+          9120,
+          9992,
+          10003,
+          6006,
+          6008,
+          6674,
+          7889,
+          8008,
+          8130,
+          8443,
+          9008,
+          9120,
+          10100,
+          12008,
+          13008,
+          8011,
+          9030,
+          10491,
+          10612,
+          12235,
+          13004,
+          13748,
+          17000,
+          17500,
+          10039,
+          10096,
+          11455,
+          13894,
+          13972
+        ],
+        "port_range": [
+          "4001:4009",
+          "5000:5221",
+          "5224:5241",
+          "5243:5287",
+          "5289:5352",
+          "5354:5509",
+          "5517:5529",
+          "5551:5559",
+          "5601:5700",
+          "9000:9010",
+          "30000:30300",
+          "7006:7008",
+          "8001:8012",
+          "10000:10015",
+          "11000:11019",
+          "10101:10201",
+          "10080:10110",
+          "17000:18000"
+        ],
+        "outbound": "GAMESMAX(ML/FF/AOV)"
       },
       {
-        "tag": "geoip-malware",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geoip-malware.srs",
-        "download_detour": "direct",
-        "update_interval": "1d"
+        "network": "tcp",
+        "port": [
+          5517,
+          8443,
+          9443,
+          10003,
+          6006,
+          6008,
+          6674,
+          7889,
+          9006,
+          9137,
+          12006,
+          12008,
+          13006,
+          15006,
+          20561,
+          39003,
+          39006,
+          39698,
+          39779,
+          39800,
+          10012,
+          14000,
+          15692,
+          17000,
+          17500,
+          18081,
+          20371,
+          8013,
+          8085,
+          18082,
+          20000,
+          50000,
+          65010,
+          65050,
+          8013,
+          18082,
+          20166,
+          31003,
+          33445,
+          50000,
+          42472,
+          14422,
+          16999,
+          8013,
+          8888,
+          30031,
+          14009,
+          40005,
+          9339,
+          2099,
+          8088,
+          5692,
+          8085,
+          8500,
+          10000,
+          10082,
+          20000,
+          25000,
+          29134,
+          31003
+        ],
+        "port_range": [
+          "5000:5221",
+          "5224:5227",
+          "5229:5241",
+          "5243:5287",
+          "5289:5352",
+          "5354:5509",
+          "5520:5529",
+          "5551:5559",
+          "5601:5700",
+          "9000:9010",
+          "30000:30300",
+          "7006:7008",
+          "8001:8012",
+          "10000:10012",
+          "11000:11019",
+          "8085:8088",
+          "10000:10019",
+          "20000:20002",
+          "10000:10001",
+          "20000:20001",
+          "9330:9340",
+          "2080:2099",
+          "9100:9200",
+          "8230:8250",
+          "8110:8120",
+          "27000:28998",
+          "7770:7790",
+          "44590:44610",
+          "10500:10515",
+          "27015:27030",
+          "27036:27037",
+          "39190:39200",
+          "49001:49190",
+          "8393:8400"
+        ],
+        "outbound": "Route Port Game"
       },
       {
-        "tag": "geoip-phishing",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geoip-phishing.srs",
-        "download_detour": "direct",
-        "update_interval": "1d"
+        "network": "udp",
+        "port": [
+          2702,
+          3702,
+          8443,
+          9120,
+          9992,
+          10003,
+          6006,
+          6008,
+          6674,
+          7889,
+          8008,
+          8130,
+          8443,
+          9008,
+          9120,
+          10100,
+          12008,
+          13008,
+          8700,
+          10013,
+          10019,
+          10039,
+          10096,
+          10491,
+          10612,
+          11455,
+          12235,
+          13748,
+          13894,
+          13972,
+          17000,
+          17500,
+          8700,
+          9030,
+          8011,
+          9030,
+          10491,
+          10612,
+          12235,
+          13004,
+          13748,
+          17000,
+          17500,
+          10039,
+          10096,
+          11455,
+          13894,
+          13972,
+          42472,
+          5100,
+          39000,
+          4380,
+          27036,
+          14422,
+          16999,
+          8013,
+          8888,
+          8000,
+          30104,
+          14009,
+          40005,
+          8088,
+          5010,
+          6650,
+          8011,
+          8700,
+          20000,
+          25000,
+          29134,
+          30000
+        ],
+        "port_range": [
+          "4001:4009",
+          "5000:5221",
+          "5224:5241",
+          "5243:5287",
+          "5289:5352",
+          "5354:5509",
+          "5517:5529",
+          "5551:5559",
+          "5601:5700",
+          "9000:9010",
+          "30000:30300",
+          "7006:7008",
+          "8001:8012",
+          "10000:10015",
+          "11000:11019",
+          "7086:7995",
+          "8011:8013",
+          "9030:9031",
+          "20000:20002",
+          "12070:12460",
+          "41182:41192",
+          "7500:7995",
+          "10010:10019",
+          "20000:20001",
+          "10101:10201",
+          "10080:10110",
+          "17000:18000",
+          "5055:5058",
+          "22101:22102",
+          "9330:9340",
+          "27000:28998",
+          "16300:16350",
+          "40000:40010",
+          "60970:60980",
+          "27000:27031",
+          "40000:40010",
+          "7000:8000",
+          "8180:8181",
+          "27016:27024",
+          "54000:54012"
+        ],
+        "outbound": "Route Port Game"
+      },
+      {
+        "geoip": [
+          "id"
+        ],
+        "port": [
+          21,
+          22,
+          23,
+          80,
+          81,
+          123,
+          143,
+          182,
+          183,
+          194,
+          443,
+          465,
+          587,
+          853,
+          993,
+          995,
+          998,
+          2052,
+          2053,
+          2082,
+          2083,
+          2086,
+          2095,
+          2096,
+          5222,
+          5228,
+          5229,
+          5230,
+          8000,
+          8080,
+          8081,
+          8088,
+          8443,
+          8880,
+          8883,
+          8888,
+          8889,
+          42069
+        ],
+        "outbound": "Lock Region ID"
+      },
+      {
+        "port": [
+          21,
+          22,
+          23,
+          80,
+          81,
+          123,
+          143,
+          182,
+          183,
+          194,
+          443,
+          465,
+          587,
+          853,
+          993,
+          995,
+          998,
+          2052,
+          2053,
+          2082,
+          2083,
+          2086,
+          2095,
+          2096,
+          5222,
+          5228,
+          5229,
+          5230,
+          8000,
+          8080,
+          8081,
+          8088,
+          8443,
+          8880,
+          8883,
+          8888,
+          8889,
+          42069
+        ],
+        "outbound": "Internet"
+      },
+      {
+        "port_range": [
+          "1023:42068",
+          "42070:65535"
+        ],
+        "outbound": "Route Port Game"
       }
     ]
   }
