@@ -18,6 +18,21 @@
       {
         "clash_mode": "Direct",
         "server": "direct-dns"
+      },
+      {
+        "rule_set": [
+          "geosite-ir"
+        ],
+        "server": "direct-dns"
+      },
+      {
+        "rule_set": [
+          "geosite-category-ads-all",
+          "geosite-malware",
+          "geosite-phishing",
+          "geosite-cryptominers"
+        ],
+        "server": "block"
       }
     ],
     "servers": [
@@ -79,49 +94,49 @@
       "type": "selector",
       "outbounds": [
         "auto",
-        "vless-c94c3e3d",
-        "vless-c45b12ac",
-        "vless-ee5e3312",
-        "vless-32951f1a",
-        "vless-d208e179",
-        "vless-816d85ff",
-        "vless-402b7ce0",
-        "vless-887b4d8a",
-        "vless-c3d635e7",
-        "vless-f4c0a02c",
-        "vless-89b4fe0e",
-        "vless-030aa658",
-        "vless-c56a3f98",
-        "vless-1ce26bb6",
-        "vless-d1108bc6",
-        "vless-ac11da82",
-        "vless-1d1387ba",
-        "vless-30cc4758",
-        "vless-f60535c7",
-        "vless-02a5eba6",
-        "vless-83fb64a2",
-        "vless-55eaa057",
-        "vless-7491f66a",
-        "vless-2dc7edc6",
-        "vless-6ca338da",
-        "vless-19b178ea",
-        "vless-9ff5cadb",
-        "vless-c9c3b099",
-        "vless-d1de7d0e",
-        "vless-a0e0a1f4",
-        "vless-6bcc4a39",
-        "vless-838620ee",
-        "vless-4e806a7c",
-        "vless-e0a509bc",
-        "vless-9759c154",
-        "vless-9f91f333",
-        "vless-6243d827",
-        "vless-a491042f",
-        "vless-c52190f3",
-        "vless-44a236ac",
-        "vless-dde69a3b",
-        "vless-065a11f3",
-        "vless-3f38181a",
+        "vless-c3191b7b",
+        "vless-3bb1c52e",
+        "vless-531948d4",
+        "vless-9876f640",
+        "vless-ec67c551",
+        "vless-7f4dad3f",
+        "vless-6b70970c",
+        "vless-1ff425b6",
+        "vless-802ec4c8",
+        "vless-29b9f994",
+        "vless-85e11e69",
+        "vless-1b1edb29",
+        "vless-c5bac3b4",
+        "vless-db6e48aa",
+        "vless-052166e8",
+        "vless-d6fed3bd",
+        "vless-2554a203",
+        "vless-306927e7",
+        "vless-4c7baf74",
+        "vless-165b307d",
+        "vless-d53ef743",
+        "vless-5757df71",
+        "vless-845df3db",
+        "vless-649df433",
+        "vless-201cfd35",
+        "vless-16a4c366",
+        "vless-bc433f2c",
+        "vless-de1de841",
+        "vless-32381222",
+        "vless-89052c9a",
+        "vless-6867246f",
+        "vless-50dc7147",
+        "vless-d99625ed",
+        "vless-54913f84",
+        "vless-01dbd8cc",
+        "vless-1bfa0812",
+        "vless-9d6802ac",
+        "vless-f6bd49e9",
+        "vless-7e3c228b",
+        "vless-3bb89e4f",
+        "vless-6b4ec685",
+        "vless-9be4c121",
+        "vless-0180fad9",
         "direct"
       ]
     },
@@ -129,49 +144,49 @@
       "tag": "auto",
       "type": "urltest",
       "outbounds": [
-        "vless-c94c3e3d",
-        "vless-c45b12ac",
-        "vless-ee5e3312",
-        "vless-32951f1a",
-        "vless-d208e179",
-        "vless-816d85ff",
-        "vless-402b7ce0",
-        "vless-887b4d8a",
-        "vless-c3d635e7",
-        "vless-f4c0a02c",
-        "vless-89b4fe0e",
-        "vless-030aa658",
-        "vless-c56a3f98",
-        "vless-1ce26bb6",
-        "vless-d1108bc6",
-        "vless-ac11da82",
-        "vless-1d1387ba",
-        "vless-30cc4758",
-        "vless-f60535c7",
-        "vless-02a5eba6",
-        "vless-83fb64a2",
-        "vless-55eaa057",
-        "vless-7491f66a",
-        "vless-2dc7edc6",
-        "vless-6ca338da",
-        "vless-19b178ea",
-        "vless-9ff5cadb",
-        "vless-c9c3b099",
-        "vless-d1de7d0e",
-        "vless-a0e0a1f4",
-        "vless-6bcc4a39",
-        "vless-838620ee",
-        "vless-4e806a7c",
-        "vless-e0a509bc",
-        "vless-9759c154",
-        "vless-9f91f333",
-        "vless-6243d827",
-        "vless-a491042f",
-        "vless-c52190f3",
-        "vless-44a236ac",
-        "vless-dde69a3b",
-        "vless-065a11f3",
-        "vless-3f38181a"
+        "vless-c3191b7b",
+        "vless-3bb1c52e",
+        "vless-531948d4",
+        "vless-9876f640",
+        "vless-ec67c551",
+        "vless-7f4dad3f",
+        "vless-6b70970c",
+        "vless-1ff425b6",
+        "vless-802ec4c8",
+        "vless-29b9f994",
+        "vless-85e11e69",
+        "vless-1b1edb29",
+        "vless-c5bac3b4",
+        "vless-db6e48aa",
+        "vless-052166e8",
+        "vless-d6fed3bd",
+        "vless-2554a203",
+        "vless-306927e7",
+        "vless-4c7baf74",
+        "vless-165b307d",
+        "vless-d53ef743",
+        "vless-5757df71",
+        "vless-845df3db",
+        "vless-649df433",
+        "vless-201cfd35",
+        "vless-16a4c366",
+        "vless-bc433f2c",
+        "vless-de1de841",
+        "vless-32381222",
+        "vless-89052c9a",
+        "vless-6867246f",
+        "vless-50dc7147",
+        "vless-d99625ed",
+        "vless-54913f84",
+        "vless-01dbd8cc",
+        "vless-1bfa0812",
+        "vless-9d6802ac",
+        "vless-f6bd49e9",
+        "vless-7e3c228b",
+        "vless-3bb89e4f",
+        "vless-6b4ec685",
+        "vless-9be4c121",
+        "vless-0180fad9"
       ],
       "url": "http://www.gstatic.com/generate_204",
       "interval": "10m",
@@ -183,7 +198,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-c94c3e3d",
+      "tag": "vless-c3191b7b",
       "server": "5.198.168.164",
       "server_port": 8080,
       "uuid": "51867ea4-443c-4539-a03e-cf7505db5521",
@@ -197,7 +212,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-c45b12ac",
+      "tag": "vless-3bb1c52e",
       "server": "62.60.156.205",
       "server_port": 443,
       "uuid": "ed447de4-ebd3-4f1c-8339-c084e06ec588",
@@ -211,7 +226,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-ee5e3312",
+      "tag": "vless-531948d4",
       "server": "62.60.157.21",
       "server_port": 443,
       "uuid": "ed447de4-ebd3-4f1c-8339-c084e06ec588",
@@ -225,7 +240,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-32951f1a",
+      "tag": "vless-9876f640",
       "server": "85.198.23.105",
       "server_port": 41606,
       "uuid": "b8d7526f-9bbe-40ce-a844-e84b82a800d1",
@@ -239,7 +254,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-d208e179",
+      "tag": "vless-ec67c551",
       "server": "185.208.77.113",
       "server_port": 11140,
       "uuid": "39420bb7-5535-48fc-c56c-5c98c6eafce8",
@@ -256,7 +271,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-816d85ff",
+      "tag": "vless-7f4dad3f",
       "server": "217.60.236.213",
       "server_port": 8443,
       "uuid": "1ce8104f-63ed-4a1f-9847-6dfd20640349",
@@ -270,7 +285,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-402b7ce0",
+      "tag": "vless-6b70970c",
       "server": "5.198.168.163",
       "server_port": 8080,
       "uuid": "51867ea4-443c-4539-a03e-cf7505db5521",
@@ -284,7 +299,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-887b4d8a",
+      "tag": "vless-1ff425b6",
       "server": "62.60.156.48",
       "server_port": 443,
       "uuid": "ed447de4-ebd3-4f1c-8339-c084e06ec588",
@@ -298,7 +313,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-c3d635e7",
+      "tag": "vless-802ec4c8",
       "server": "85.133.250.6",
       "server_port": 443,
       "uuid": "3491dd29-da32-721b-b2f9-73421aead895",
@@ -312,7 +327,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-f4c0a02c",
+      "tag": "vless-29b9f994",
       "server": "62.60.156.228",
       "server_port": 443,
       "uuid": "ed447de4-ebd3-4f1c-8339-c084e06ec588",
@@ -326,7 +341,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-89b4fe0e",
+      "tag": "vless-85e11e69",
       "server": "193.151.149.105",
       "server_port": 28995,
       "uuid": "c152c2c9-86e4-4d65-b248-380c9442e3b3",
@@ -340,7 +355,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-030aa658",
+      "tag": "vless-1b1edb29",
       "server": "85.133.250.115",
       "server_port": 443,
       "uuid": "88c0434e-fe9e-0472-703f-6ece5411066e",
@@ -354,7 +369,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-c56a3f98",
+      "tag": "vless-c5bac3b4",
       "server": "2.189.117.82",
       "server_port": 8080,
       "uuid": "51867ea4-443c-4539-a03e-cf7505db5521",
@@ -368,7 +383,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-1ce26bb6",
+      "tag": "vless-db6e48aa",
       "server": "2.144.7.14",
       "server_port": 8446,
       "uuid": "c0ac6d0a-dba7-4a19-97d3-ebae0ddefcfa",
@@ -382,7 +397,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-d1108bc6",
+      "tag": "vless-052166e8",
       "server": "217.60.36.198",
       "server_port": 14961,
       "uuid": "d89b753c-aeef-4fab-9c31-744397572941",
@@ -399,7 +414,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-ac11da82",
+      "tag": "vless-d6fed3bd",
       "server": "5.198.168.162",
       "server_port": 8080,
       "uuid": "51867ea4-443c-4539-a03e-cf7505db5521",
@@ -413,7 +428,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-1d1387ba",
+      "tag": "vless-2554a203",
       "server": "37.32.41.184",
       "server_port": 1010,
       "uuid": "adeee029-e9b5-4312-8d00-71be8d86a7d3",
@@ -427,7 +442,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-30cc4758",
+      "tag": "vless-306927e7",
       "server": "2.189.117.83",
       "server_port": 8080,
       "uuid": "51867ea4-443c-4539-a03e-cf7505db5521",
@@ -441,7 +456,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-f60535c7",
+      "tag": "vless-4c7baf74",
       "server": "37.32.41.184",
       "server_port": 5050,
       "uuid": "1fadbc66-03c3-43db-a134-1ca7703eca0e",
@@ -455,7 +470,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-02a5eba6",
+      "tag": "vless-165b307d",
       "server": "185.14.160.118",
       "server_port": 90,
       "uuid": "9f1a116b-a8c1-4977-ad14-54da3974fe76",
@@ -472,7 +487,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-83fb64a2",
+      "tag": "vless-d53ef743",
       "server": "85.133.196.2",
       "server_port": 3073,
       "uuid": "99f2acd8-b0ab-4dbd-edc3-467ae27a95a7",
@@ -486,7 +501,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-55eaa057",
+      "tag": "vless-5757df71",
       "server": "m1.persiangames.online",
       "server_port": 3073,
       "uuid": "99f2acd8-b0ab-4dbd-edc3-467ae27a95a7",
@@ -500,7 +515,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-7491f66a",
+      "tag": "vless-845df3db",
       "server": "217.60.37.197",
       "server_port": 12497,
       "uuid": "41543083-fdfc-4951-b2a1-238ea58cdda6",
@@ -517,7 +532,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-2dc7edc6",
+      "tag": "vless-649df433",
       "server": "5.198.168.141",
       "server_port": 8080,
       "uuid": "51867ea4-443c-4539-a03e-cf7505db5521",
@@ -531,7 +546,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-6ca338da",
+      "tag": "vless-201cfd35",
       "server": "5.198.168.133",
       "server_port": 8080,
       "uuid": "51867ea4-443c-4539-a03e-cf7505db5521",
@@ -545,7 +560,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-19b178ea",
+      "tag": "vless-16a4c366",
       "server": "185.126.200.13",
       "server_port": 2096,
       "uuid": "f7508eb9-b5e8-4df2-849c-fe6d37abb68b",
@@ -559,7 +574,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-9ff5cadb",
+      "tag": "vless-bc433f2c",
       "server": "turkey.jewelll.ir",
       "server_port": 3311,
       "uuid": "ccd5d8c4-634c-46bc-8f7a-5be3b8649858",
@@ -573,7 +588,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-c9c3b099",
+      "tag": "vless-de1de841",
       "server": "217.60.38.40",
       "server_port": 47460,
       "uuid": "42c6ca3b-b298-47f2-958d-ad386cf8289b",
@@ -590,7 +605,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-d1de7d0e",
+      "tag": "vless-32381222",
       "server": "217.60.38.40",
       "server_port": 47460,
       "uuid": "42c6ca3b-b298-47f2-958d-ad386cf8289b",
@@ -607,7 +622,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-a0e0a1f4",
+      "tag": "vless-89052c9a",
       "server": "ir4.golden-dragon66.pw",
       "server_port": 9211,
       "uuid": "e8dc92da-89f4-4b1e-b1ba-3911c1ac8362",
@@ -621,7 +636,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-6bcc4a39",
+      "tag": "vless-6867246f",
       "server": "ir4.golden-dragon66.pw",
       "server_port": 9211,
       "uuid": "e8dc92da-89f4-4b1e-b1ba-3911c1ac8362",
@@ -635,7 +650,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-838620ee",
+      "tag": "vless-50dc7147",
       "server": "l32.magicnetwork.info",
       "server_port": 443,
       "uuid": "8f584d16-6ee7-1fc4-028b-a46a3302fac1",
@@ -649,7 +664,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-4e806a7c",
+      "tag": "vless-d99625ed",
       "server": "turkey.jewelll.ir",
       "server_port": 3311,
       "uuid": "ccd5d8c4-634c-46bc-8f7a-5be3b8649858",
@@ -663,7 +678,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-e0a509bc",
+      "tag": "vless-54913f84",
       "server": "m1.persiangames.online",
       "server_port": 3073,
       "uuid": "99f2acd8-b0ab-4dbd-edc3-467ae27a95a7",
@@ -677,7 +692,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-9759c154",
+      "tag": "vless-01dbd8cc",
       "server": "vip-82.f-sub.cfd",
       "server_port": 5969,
       "uuid": "953d71f0-9241-4903-95b4-cce61e90015e",
@@ -691,7 +706,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-9f91f333",
+      "tag": "vless-1bfa0812",
       "server": "www.speedtest.net",
       "server_port": 80,
       "uuid": "53fa8faf-ba4b-4322-9c69-a3e5b1555049",
@@ -711,7 +726,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-6243d827",
+      "tag": "vless-9d6802ac",
       "server": "www.speedtest.net",
       "server_port": 80,
       "uuid": "7c9e3c1d-a360-4429-9189-e45a98de7fde",
@@ -731,7 +746,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-a491042f",
+      "tag": "vless-f6bd49e9",
       "server": "www.speedtest.net",
       "server_port": 2096,
       "uuid": "24a4aa9b-b341-4717-9d4a-00d74c2b84e0",
@@ -751,7 +766,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-c52190f3",
+      "tag": "vless-7e3c228b",
       "server": "www.speedtest.net",
       "server_port": 2096,
       "uuid": "24a4aa9b-b341-4717-9d4a-00d74c2b84e0",
@@ -771,7 +786,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-44a236ac",
+      "tag": "vless-3bb89e4f",
       "server": "www.speedtest.net",
       "server_port": 2096,
       "uuid": "24a4aa9b-b341-4717-9d4a-00d74c2b84e0",
@@ -791,7 +806,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-dde69a3b",
+      "tag": "vless-6b4ec685",
       "server": "www.speedtest.net",
       "server_port": 2096,
       "uuid": "24a4aa9b-b341-4717-9d4a-00d74c2b84e0",
@@ -811,7 +826,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-065a11f3",
+      "tag": "vless-9be4c121",
       "server": "www.speedtest.net",
       "server_port": 2096,
       "uuid": "24a4aa9b-b341-4717-9d4a-00d74c2b84e0",
@@ -831,7 +846,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-3f38181a",
+      "tag": "vless-0180fad9",
       "server": "www.speedtest.net",
       "server_port": 2096,
       "uuid": "24a4aa9b-b341-4717-9d4a-00d74c2b84e0",
@@ -865,6 +880,96 @@
       {
         "protocol": "dns",
         "action": "hijack-dns"
+      },
+      {
+        "domain_suffix": [
+          ".ir"
+        ],
+        "outbound": "direct"
+      },
+      {
+        "rule_set": [
+          "geoip-ir",
+          "geosite-ir"
+        ],
+        "outbound": "direct"
+      },
+      {
+        "rule_set": [
+          "geosite-category-ads-all",
+          "geosite-malware",
+          "geosite-phishing",
+          "geosite-cryptominers",
+          "geoip-malware",
+          "geoip-phishing"
+        ],
+        "outbound": "block"
+      }
+    ],
+    "rule_set": [
+      {
+        "tag": "geosite-ir",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-ir.srs",
+        "download_detour": "direct",
+        "update_interval": "1d"
+      },
+      {
+        "tag": "geosite-category-ads-all",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-category-ads-all.srs",
+        "download_detour": "direct",
+        "update_interval": "1d"
+      },
+      {
+        "tag": "geosite-malware",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-malware.srs",
+        "download_detour": "direct",
+        "update_interval": "1d"
+      },
+      {
+        "tag": "geosite-phishing",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-phishing.srs",
+        "download_detour": "direct",
+        "update_interval": "1d"
+      },
+      {
+        "tag": "geosite-cryptominers",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-cryptominers.srs",
+        "download_detour": "direct",
+        "update_interval": "1d"
+      },
+      {
+        "tag": "geoip-ir",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geoip-ir.srs",
+        "download_detour": "direct",
+        "update_interval": "1d"
+      },
+      {
+        "tag": "geoip-malware",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geoip-malware.srs",
+        "download_detour": "direct",
+        "update_interval": "1d"
+      },
+      {
+        "tag": "geoip-phishing",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geoip-phishing.srs",
+        "download_detour": "direct",
+        "update_interval": "1d"
       }
     ]
   }
