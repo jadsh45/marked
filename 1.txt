@@ -79,11 +79,11 @@
       "type": "selector",
       "outbounds": [
         "auto",
-        "vless-e0cfa931",
-        "vless-f5a899ec",
-        "vless-7607f07b",
-        "vless-15a1630d",
-        "vless-75d24563",
+        "vless-1-1",
+        "vless-1-2",
+        "vless-1-3",
+        "vless-1-4",
+        "vless-1-5",
         "direct"
       ]
     },
@@ -91,11 +91,11 @@
       "tag": "auto",
       "type": "urltest",
       "outbounds": [
-        "vless-e0cfa931",
-        "vless-f5a899ec",
-        "vless-7607f07b",
-        "vless-15a1630d",
-        "vless-75d24563"
+        "vless-1-1",
+        "vless-1-2",
+        "vless-1-3",
+        "vless-1-4",
+        "vless-1-5"
       ],
       "url": "http://www.gstatic.com/generate_204",
       "interval": "10m",
@@ -107,7 +107,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-e0cfa931",
+      "tag": "vless-1-1",
       "server": "217.60.38.40",
       "server_port": 47460,
       "uuid": "42c6ca3b-b298-47f2-958d-ad386cf8289b",
@@ -124,7 +124,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-f5a899ec",
+      "tag": "vless-1-2",
       "server": "m1.persiangames.online",
       "server_port": 3073,
       "uuid": "99f2acd8-b0ab-4dbd-edc3-467ae27a95a7",
@@ -138,7 +138,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-7607f07b",
+      "tag": "vless-1-3",
       "server": "vip-82.f-sub.cfd",
       "server_port": 5969,
       "uuid": "953d71f0-9241-4903-95b4-cce61e90015e",
@@ -152,7 +152,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-15a1630d",
+      "tag": "vless-1-4",
       "server": "www.speedtest.net",
       "server_port": 80,
       "uuid": "53fa8faf-ba4b-4322-9c69-a3e5b1555049",
@@ -172,7 +172,7 @@
     },
     {
       "type": "vless",
-      "tag": "vless-75d24563",
+      "tag": "vless-1-5",
       "server": "www.speedtest.net",
       "server_port": 80,
       "uuid": "7c9e3c1d-a360-4429-9189-e45a98de7fde",
