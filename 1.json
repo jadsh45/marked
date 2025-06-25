@@ -1,174 +1,304 @@
-{
-      "type": "urltest",
-      "tag": "⚡ 自动选择",
-      "outbounds": [
-        "WiFi-@V2ray_Alpha-8",
-        "WiFi-@V2ray_Alpha-9"
-      ]
-    },
-    {
-      "type": "block",
-      "tag": "REJECT"
-    },
-    {
-      "type": "direct",
-      "tag": "DIRECT"
-    },
-    {
-      "tag": "WiFi-@V2ray_Alpha-8",
-      "type": "vmess",
-      "server": "84.247.150.177",
-      "server_port": 36141,
-      "uuid": "d31ee52f-b6e4-4db8-9c95-98855ec823cc",
-      "alter_id": 0,
-      "security": "auto",
-      "network": "tcp",
-      "tcp_fast_open": false,
-      "transport": {}
-    },
-    {
-      "tag": "WiFi-@V2ray_Alpha-9",
-      "type": "vmess",
-      "server": "84.247.147.243",
-      "server_port": 51566,
-      "uuid": "ae6ae977-17f2-43fd-a336-20b3b3a9e791",
-      "alter_id": 0,
-      "security": "auto",
-      "network": "tcp",
-      "tcp_fast_open": false,
-      "transport": {}
-    },
-    {
-      "type": "selector",
-      "tag": "🏠 私有网络",
-      "outbounds": [
-        "🚀 节点选择",
-        "DIRECT",
-        "REJECT",
-        "⚡ 自动选择",
-        "WiFi-@V2ray_Alpha-8",
-        "WiFi-@V2ray_Alpha-9"
-      ]
-    },
-    {
-      "type": "selector",
-      "tag": "🔒 国内服务",
-      "outbounds": [
-        "🚀 节点选择",
-        "DIRECT",
-        "REJECT",
-        "⚡ 自动选择",
-        "WiFi-@V2ray_Alpha-8",
-        "WiFi-@V2ray_Alpha-9"
-      ]
-    },
-    {
-      "type": "selector",
-      "tag": "🌐 非中国",
-      "outbounds": [
-        "🚀 节点选择",
-        "DIRECT",
-        "REJECT",
-        "⚡ 自动选择",
-        "WiFi-@V2ray_Alpha-8",
-        "WiFi-@V2ray_Alpha-9"
-      ]
-    },
-    {
-      "type": "selector",
-      "tag": "🐟 漏网之鱼",
-      "outbounds": [
-        "🚀 节点选择",
-        "DIRECT",
-        "REJECT",
-        "⚡ 自动选择",
-        "WiFi-@V2ray_Alpha-8",
-        "WiFi-@V2ray_Alpha-9"
-      ]
-    }
-  ],
-  "route": {
-    "rule_set": [
-      {
-        "tag": "geolocation-cn",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://gh-proxy.com/https://raw.githubusercontent.com/lyc8503/sing-box-rules/refs/heads/rule-set-geosite/geosite-geolocation-cn.srs"
-      },
-      {
-        "tag": "cn",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://gh-proxy.com/https://raw.githubusercontent.com/lyc8503/sing-box-rules/refs/heads/rule-set-geosite/geosite-cn.srs"
-      },
-      {
-        "tag": "geolocation-!cn",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://gh-proxy.com/https://raw.githubusercontent.com/lyc8503/sing-box-rules/refs/heads/rule-set-geosite/geosite-geolocation-!cn.srs"
-      },
-      {
-        "tag": "private-ip",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://gh-proxy.com/https://raw.githubusercontent.com/lyc8503/sing-box-rules/refs/heads/rule-set-geoip/geoip-private.srs"
-      },
-      {
-        "tag": "cn-ip",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://gh-proxy.com/https://raw.githubusercontent.com/lyc8503/sing-box-rules/refs/heads/rule-set-geoip/geoip-cn.srs"
-      }
-    ],
-    "rules": [
-      {
-        "clash_mode": "direct",
-        "outbound": "DIRECT"
-      },
-      {
-        "clash_mode": "global",
-        "outbound": "🚀 节点选择"
-      },
-      {
-        "action": "sniff"
-      },
-      {
-        "protocol": "dns",
-        "action": "hijack-dns"
-      },
-      {
-        "rule_set": [
-          "geolocation-cn",
-          "cn"
-        ],
-        "outbound": "🔒 国内服务"
-      },
-      {
-        "rule_set": [
-          "geolocation-!cn"
-        ],
-        "outbound": "🌐 非中国"
-      },
-      {
-        "rule_set": [
-          "private-ip"
-        ],
-        "outbound": "🏠 私有网络"
-      },
-      {
-        "rule_set": [
-          "cn-ip"
-        ],
-        "outbound": "🔒 国内服务"
-      }
-    ],
-    "auto_detect_interface": true,
-    "final": "🐟 漏网之鱼"
-  },
-  "experimental": {
-    "cache_file": {
-      "enabled": true,
-      "store_fakeip": true
-    }
-  }
-}
+port: 7890
+socks-port: 7891
+allow-lan: false
+mode: rule
+log-level: info
+geodata-mode: true
+geo-auto-update: true
+geodata-loader: standard
+geo-update-interval: 24
+geox-url:
+  geoip: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat
+  geosite: >-
+    https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat
+  mmdb: >-
+    https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/country.mmdb
+  asn: >-
+    https://github.com/xishang0128/geoip/releases/download/latest/GeoLite2-ASN.mmdb
+rule-providers:
+  geolocation-cn:
+    type: http
+    format: mrs
+    behavior: domain
+    url: >-
+      https://gh-proxy.com/https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/geolocation-cn.mrs
+    path: ./ruleset/geolocation-cn.mrs
+    interval: 86400
+  cn:
+    type: http
+    format: mrs
+    behavior: ipcidr
+    url: >-
+      https://gh-proxy.com/https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geoip/cn.mrs
+    path: ./ruleset/cn.mrs
+    interval: 86400
+  geolocation-!cn:
+    type: http
+    format: mrs
+    behavior: domain
+    url: >-
+      https://gh-proxy.com/https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/geolocation-!cn.mrs
+    path: ./ruleset/geolocation-!cn.mrs
+    interval: 86400
+  private:
+    type: http
+    format: mrs
+    behavior: ipcidr
+    url: >-
+      https://gh-proxy.com/https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geoip/private.mrs
+    path: ./ruleset/private.mrs
+    interval: 86400
+dns:
+  enable: true
+  ipv6: true
+  respect-rules: true
+  enhanced-mode: fake-ip
+  nameserver:
+    - https://120.53.53.53/dns-query
+    - https://223.5.5.5/dns-query
+  proxy-server-nameserver:
+    - https://120.53.53.53/dns-query
+    - https://223.5.5.5/dns-query
+  nameserver-policy:
+    geosite:cn,private:
+      - https://120.53.53.53/dns-query
+      - https://223.5.5.5/dns-query
+    geosite:geolocation-!cn:
+      - https://dns.cloudflare.com/dns-query
+      - https://dns.google/dns-query
+proxies:
+  - name: '1'
+    type: vless
+    server: 47.251.95.178
+    port: 443
+    uuid: ea286109-d20f-415e-849e-4af20ab04b65
+    tls: true
+    servername: 147135001195.sec22org.com
+    network: tcp
+    tfo: false
+    skip-cert-verify: false
+  - name: '2'
+    type: vless
+    server: 104.17.147.22
+    port: 8080
+    uuid: 7c9e3c1d-a360-4429-9189-e45a98de7fde
+    tls: false
+    servername: ''
+    network: ws
+    ws-opts:
+      path: /Telegram@V2ray_Alpha/?ed=2560
+      headers:
+        host: mail.ski1plag.ir
+    tfo: false
+  - name: '3'
+    type: vless
+    server: 104.17.147.22
+    port: 80
+    uuid: 7c9e3c1d-a360-4429-9189-e45a98de7fde
+    tls: false
+    servername: ''
+    network: ws
+    ws-opts:
+      path: /Telegram@V2ray_Alpha/?ed=2560
+      headers:
+        host: mail.ski1plag.ir
+    tfo: false
+  - name: '4'
+    type: vless
+    server: 104.17.147.22
+    port: 80
+    uuid: 53fa8faf-ba4b-4322-9c69-a3e5b1555049
+    tls: false
+    servername: ''
+    network: ws
+    ws-opts:
+      path: /Telegram@V2ray_Alpha/?ed=2560
+      headers:
+        host: redfree8mahsang6.redfree8.ir
+    tfo: false
+  - name: '5'
+    type: vless
+    server: 104.17.147.22
+    port: 80
+    uuid: 53fa8faf-ba4b-4322-9c69-a3e5b1555049
+    tls: false
+    servername: ''
+    network: ws
+    ws-opts:
+      path: /Telegram@V2ray_Alpha/?ed=2560
+      headers:
+        host: redfree8mahsang6.redfree8.ir
+    tfo: false
+  - name: '6'
+    type: vless
+    server: 104.17.147.22
+    port: 80
+    uuid: 53fa8faf-ba4b-4322-9c69-a3e5b1555049
+    tls: false
+    servername: ''
+    network: ws
+    ws-opts:
+      path: /Telegram@V2ray_Alpha/?ed=2560
+      headers:
+        host: redfree8mahsang6.redfree8.ir
+    tfo: false
+  - name: '7'
+    type: vless
+    server: www.speedtest.net
+    port: 80
+    uuid: 53fa8faf-ba4b-4322-9c69-a3e5b1555049
+    tls: false
+    servername: ''
+    network: ws
+    ws-opts:
+      path: /Telegram@V2ray_Alpha/?ed=2560
+      headers:
+        host: redfree8mahsang6.redfree8.ir
+    tfo: false
+  - name: '8'
+    type: vless
+    server: www.speedtest.net
+    port: 80
+    uuid: 7c9e3c1d-a360-4429-9189-e45a98de7fde
+    tls: false
+    servername: ''
+    network: ws
+    ws-opts:
+      path: /Telegram@V2ray_Alpha/?ed=2560
+      headers:
+        host: mail.ski1plag.ir
+    tfo: false
+  - name: '9'
+    type: vless
+    server: www.speedtest.net
+    port: 80
+    uuid: 53fa8faf-ba4b-4322-9c69-a3e5b1555049
+    tls: false
+    servername: ''
+    network: ws
+    ws-opts:
+      path: /Telegram@V2ray_Alpha/?ed=2560
+      headers:
+        host: redfree8mahsang6.redfree8.ir
+    tfo: false
+  - name: '10'
+    type: vless
+    server: www.speedtest.net
+    port: 80
+    uuid: 53fa8faf-ba4b-4322-9c69-a3e5b1555049
+    tls: false
+    servername: ''
+    network: ws
+    ws-opts:
+      path: /Telegram@V2ray_Alpha/?ed=2560
+      headers:
+        host: redfree8mahsang6.redfree8.ir
+    tfo: false
+proxy-groups:
+  - type: select
+    name: 🚀 节点选择
+    proxies:
+      - DIRECT
+      - REJECT
+      - ⚡ 自动选择
+      - '1'
+      - '2'
+      - '3'
+      - '4'
+      - '5'
+      - '6'
+      - '7'
+      - '8'
+      - '9'
+      - '10'
+  - name: ⚡ 自动选择
+    type: url-test
+    proxies:
+      - '1'
+      - '2'
+      - '3'
+      - '4'
+      - '5'
+      - '6'
+      - '7'
+      - '8'
+      - '9'
+      - '10'
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    lazy: false
+  - type: select
+    name: 🏠 私有网络
+    proxies:
+      - 🚀 节点选择
+      - DIRECT
+      - REJECT
+      - ⚡ 自动选择
+      - '1'
+      - '2'
+      - '3'
+      - '4'
+      - '5'
+      - '6'
+      - '7'
+      - '8'
+      - '9'
+      - '10'
+  - type: select
+    name: 🔒 国内服务
+    proxies:
+      - 🚀 节点选择
+      - DIRECT
+      - REJECT
+      - ⚡ 自动选择
+      - '1'
+      - '2'
+      - '3'
+      - '4'
+      - '5'
+      - '6'
+      - '7'
+      - '8'
+      - '9'
+      - '10'
+  - type: select
+    name: 🌐 非中国
+    proxies:
+      - 🚀 节点选择
+      - DIRECT
+      - REJECT
+      - ⚡ 自动选择
+      - '1'
+      - '2'
+      - '3'
+      - '4'
+      - '5'
+      - '6'
+      - '7'
+      - '8'
+      - '9'
+      - '10'
+  - type: select
+    name: 🐟 漏网之鱼
+    proxies:
+      - 🚀 节点选择
+      - DIRECT
+      - REJECT
+      - ⚡ 自动选择
+      - '1'
+      - '2'
+      - '3'
+      - '4'
+      - '5'
+      - '6'
+      - '7'
+      - '8'
+      - '9'
+      - '10'
+rules:
+  - RULE-SET,geolocation-cn,🔒 国内服务
+  - RULE-SET,cn,🔒 国内服务
+  - RULE-SET,geolocation-!cn,🌐 非中国
+  - RULE-SET,private,🏠 私有网络,no-resolve
+  - RULE-SET,cn,🔒 国内服务,no-resolve
+  - MATCH,🐟 漏网之鱼
