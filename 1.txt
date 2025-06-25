@@ -1,198 +1,283 @@
 {
-  "log": {
-    "level": "info",
-    "timestamp": true
-  },
   "dns": {
     "servers": [
       {
-        "address": "tls://1.1.1.1",
-        "tag": "dns_cf_tls",
-        "detour": "auto_select_proxies"
+        "tag": "dns_proxy",
+        "address": "tcp://1.1.1.1",
+        "address_resolver": "dns_resolver",
+        "strategy": "ipv4_only",
+        "detour": "🚀 Node Select"
       },
       {
-        "address": "https://dns.google/dns-query",
-        "tag": "dns_google_doh",
-        "detour": "auto_select_proxies"
+        "tag": "dns_direct",
+        "address": "https://dns.alidns.com/dns-query",
+        "address_resolver": "dns_resolver",
+        "strategy": "ipv4_only",
+        "detour": "DIRECT"
       },
       {
-        "address": "1.0.0.1",
-        "tag": "dns_cf_plain_backup",
-        "detour": "auto_select_proxies"
-      },
-      {
+        "tag": "dns_resolver",
         "address": "223.5.5.5",
-        "tag": "dns_ali",
-        "detour": "direct"
+        "detour": "DIRECT"
       },
       {
-        "address": "185.51.200.2",
-        "tag": "dns_shecan",
-        "detour": "direct"
+        "tag": "dns_success",
+        "address": "rcode://success"
       },
       {
-        "address": "local",
-        "tag": "dns_system",
-        "detour": "direct"
+        "tag": "dns_refused",
+        "address": "rcode://refused"
+      },
+      {
+        "tag": "dns_fakeip",
+        "address": "fakeip"
       }
     ],
     "rules": [
       {
-        "geosite": [
-          "category-ir"
-        ],
-        "server": "dns_ali"
+        "outbound": "any",
+        "server": "dns_resolver"
       },
       {
-        "domain_suffix": [
-          ".ir"
-        ],
-        "server": "dns_ali"
-      },
-      {
+        "rule_set": "geolocation-!cn",
         "query_type": [
           "A",
           "AAAA"
         ],
-        "server": "dns_cf_tls",
-        "rewrite_ttl": 300
+        "server": "dns_fakeip"
       },
       {
-        "server": "dns_system"
+        "rule_set": "geolocation-!cn",
+        "query_type": [
+          "CNAME"
+        ],
+        "server": "dns_proxy"
+      },
+      {
+        "query_type": [
+          "A",
+          "AAAA",
+          "CNAME"
+        ],
+        "invert": true,
+        "server": "dns_refused",
+        "disable_cache": true
       }
     ],
-    "strategy": "ipv4_only",
-    "disable_cache": false
+    "final": "dns_direct",
+    "independent_cache": true,
+    "fakeip": {
+      "enabled": true,
+      "inet4_range": "198.18.0.0/15",
+      "inet6_range": "fc00::/18"
+    }
+  },
+  "ntp": {
+    "enabled": true,
+    "server": "time.apple.com",
+    "server_port": 123,
+    "interval": "30m"
   },
   "inbounds": [
     {
+      "type": "mixed",
+      "tag": "mixed-in",
+      "listen": "0.0.0.0",
+      "listen_port": 2080
+    },
+    {
       "type": "tun",
       "tag": "tun-in",
-      "interface_name": "NotePadVPN-TUN",
-      "inet4_address": "172.19.0.1/28",
+      "address": "172.19.0.1/30",
       "auto_route": true,
       "strict_route": true,
       "stack": "mixed",
-      "sniff": true
-    },
-    {
-      "type": "mixed",
-      "tag": "mixed-proxy-in",
-      "listen": "127.0.0.1",
-      "listen_port": 2080,
       "sniff": true
     }
   ],
   "outbounds": [
     {
-      "type": "direct",
-      "tag": "direct"
+      "type": "selector",
+      "tag": "🚀 节点选择",
+      "outbounds": [
+        "DIRECT",
+        "REJECT",
+        "⚡ 自动选择",
+        "WiFi-@V2ray_Alpha-8",
+        "WiFi-@V2ray_Alpha-9"
+      ]
+    },
+    {
+      "type": "urltest",
+      "tag": "⚡ 自动选择",
+      "outbounds": [
+        "WiFi-@V2ray_Alpha-8",
+        "WiFi-@V2ray_Alpha-9"
+      ]
     },
     {
       "type": "block",
-      "tag": "block"
+      "tag": "REJECT"
     },
     {
-      "type": "dns",
-      "tag": "dns-out"
+      "type": "direct",
+      "tag": "DIRECT"
     },
     {
+      "tag": "WiFi-@V2ray_Alpha-8",
       "type": "vmess",
-      "tag": "WiFi-_V2ray_Alpha-8",
       "server": "84.247.150.177",
       "server_port": 36141,
       "uuid": "d31ee52f-b6e4-4db8-9c95-98855ec823cc",
       "alter_id": 0,
-      "security": "auto"
+      "security": "auto",
+      "network": "tcp",
+      "tcp_fast_open": false,
+      "transport": {}
     },
     {
+      "tag": "WiFi-@V2ray_Alpha-9",
       "type": "vmess",
-      "tag": "WiFi-_V2ray_Alpha-9",
       "server": "84.247.147.243",
       "server_port": 51566,
       "uuid": "ae6ae977-17f2-43fd-a336-20b3b3a9e791",
       "alter_id": 0,
-      "security": "auto"
+      "security": "auto",
+      "network": "tcp",
+      "tcp_fast_open": false,
+      "transport": {}
     },
     {
-      "type": "urltest",
-      "tag": "auto_select_proxies",
+      "type": "selector",
+      "tag": "🏠 私有网络",
       "outbounds": [
-        "WiFi-_V2ray_Alpha-8",
-        "WiFi-_V2ray_Alpha-9"
-      ],
-      "url": "http://www.gstatic.com/generate_204",
-      "interval": "10m",
-      "tolerance": 200
+        "🚀 节点选择",
+        "DIRECT",
+        "REJECT",
+        "⚡ 自动选择",
+        "WiFi-@V2ray_Alpha-8",
+        "WiFi-@V2ray_Alpha-9"
+      ]
+    },
+    {
+      "type": "selector",
+      "tag": "🔒 国内服务",
+      "outbounds": [
+        "🚀 节点选择",
+        "DIRECT",
+        "REJECT",
+        "⚡ 自动选择",
+        "WiFi-@V2ray_Alpha-8",
+        "WiFi-@V2ray_Alpha-9"
+      ]
+    },
+    {
+      "type": "selector",
+      "tag": "🌐 非中国",
+      "outbounds": [
+        "🚀 节点选择",
+        "DIRECT",
+        "REJECT",
+        "⚡ 自动选择",
+        "WiFi-@V2ray_Alpha-8",
+        "WiFi-@V2ray_Alpha-9"
+      ]
+    },
+    {
+      "type": "selector",
+      "tag": "🐟 漏网之鱼",
+      "outbounds": [
+        "🚀 节点选择",
+        "DIRECT",
+        "REJECT",
+        "⚡ 自动选择",
+        "WiFi-@V2ray_Alpha-8",
+        "WiFi-@V2ray_Alpha-9"
+      ]
     }
   ],
   "route": {
-    "rules": [
+    "rule_set": [
       {
-        "protocol": [
-          "dns"
-        ],
-        "outbound": "dns-out"
+        "tag": "geolocation-cn",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://gh-proxy.com/https://raw.githubusercontent.com/lyc8503/sing-box-rules/refs/heads/rule-set-geosite/geosite-geolocation-cn.srs"
       },
       {
-        "domain": [
-          "allatori.com",
-          "analytics.example.com"
-        ],
-        "outbound": "block"
+        "tag": "cn",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://gh-proxy.com/https://raw.githubusercontent.com/lyc8503/sing-box-rules/refs/heads/rule-set-geosite/geosite-cn.srs"
       },
       {
-        "domain_keyword": [
-          "ads",
-          "tracker"
-        ],
-        "outbound": "block"
+        "tag": "geolocation-!cn",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://gh-proxy.com/https://raw.githubusercontent.com/lyc8503/sing-box-rules/refs/heads/rule-set-geosite/geosite-geolocation-!cn.srs"
       },
       {
-        "domain_suffix": [
-          ".ir",
-          "arvancloud.ir",
-          "arvancloud.com",
-          "cdn.ir",
-          "shaparak.ir",
-          "digikala.com"
-        ],
-        "outbound": "direct"
+        "tag": "private-ip",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://gh-proxy.com/https://raw.githubusercontent.com/lyc8503/sing-box-rules/refs/heads/rule-set-geoip/geoip-private.srs"
       },
       {
-        "geosite": [
-          "category-ir"
-        ],
-        "outbound": "direct"
-      },
-      {
-        "geoip": [
-          "ir"
-        ],
-        "outbound": "direct"
-      },
-      {
-        "ip_cidr": [
-          "192.168.0.0/16",
-          "10.0.0.0/8",
-          "172.16.0.0/12"
-        ],
-        "outbound": "direct"
-      },
-      {
-        "domain": [
-          "localhost"
-        ],
-        "outbound": "direct"
+        "tag": "cn-ip",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://gh-proxy.com/https://raw.githubusercontent.com/lyc8503/sing-box-rules/refs/heads/rule-set-geoip/geoip-cn.srs"
       }
     ],
-    "final": "auto_select_proxies",
+    "rules": [
+      {
+        "clash_mode": "direct",
+        "outbound": "DIRECT"
+      },
+      {
+        "clash_mode": "global",
+        "outbound": "🚀 节点选择"
+      },
+      {
+        "action": "sniff"
+      },
+      {
+        "protocol": "dns",
+        "action": "hijack-dns"
+      },
+      {
+        "rule_set": [
+          "geolocation-cn",
+          "cn"
+        ],
+        "outbound": "🔒 国内服务"
+      },
+      {
+        "rule_set": [
+          "geolocation-!cn"
+        ],
+        "outbound": "🌐 非中国"
+      },
+      {
+        "rule_set": [
+          "private-ip"
+        ],
+        "outbound": "🏠 私有网络"
+      },
+      {
+        "rule_set": [
+          "cn-ip"
+        ],
+        "outbound": "🔒 国内服务"
+      }
+    ],
     "auto_detect_interface": true,
-    "override_android_vpn": true
+    "final": "🐟 漏网之鱼"
   },
   "experimental": {
     "cache_file": {
-      "enabled": true
+      "enabled": true,
+      "store_fakeip": true
     }
   }
 }
