@@ -1,304 +1,338 @@
-port: 7890
-socks-port: 7891
-allow-lan: false
-mode: rule
-log-level: info
-geodata-mode: true
-geo-auto-update: true
-geodata-loader: standard
-geo-update-interval: 24
-geox-url:
-  geoip: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat
-  geosite: >-
-    https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat
-  mmdb: >-
-    https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/country.mmdb
-  asn: >-
-    https://github.com/xishang0128/geoip/releases/download/latest/GeoLite2-ASN.mmdb
-rule-providers:
-  geolocation-cn:
-    type: http
-    format: mrs
-    behavior: domain
-    url: >-
-      https://gh-proxy.com/https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/geolocation-cn.mrs
-    path: ./ruleset/geolocation-cn.mrs
-    interval: 86400
-  cn:
-    type: http
-    format: mrs
-    behavior: ipcidr
-    url: >-
-      https://gh-proxy.com/https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geoip/cn.mrs
-    path: ./ruleset/cn.mrs
-    interval: 86400
-  geolocation-!cn:
-    type: http
-    format: mrs
-    behavior: domain
-    url: >-
-      https://gh-proxy.com/https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/geolocation-!cn.mrs
-    path: ./ruleset/geolocation-!cn.mrs
-    interval: 86400
-  private:
-    type: http
-    format: mrs
-    behavior: ipcidr
-    url: >-
-      https://gh-proxy.com/https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geoip/private.mrs
-    path: ./ruleset/private.mrs
-    interval: 86400
-dns:
-  enable: true
-  ipv6: true
-  respect-rules: true
-  enhanced-mode: fake-ip
-  nameserver:
-    - https://120.53.53.53/dns-query
-    - https://223.5.5.5/dns-query
-  proxy-server-nameserver:
-    - https://120.53.53.53/dns-query
-    - https://223.5.5.5/dns-query
-  nameserver-policy:
-    geosite:cn,private:
-      - https://120.53.53.53/dns-query
-      - https://223.5.5.5/dns-query
-    geosite:geolocation-!cn:
-      - https://dns.cloudflare.com/dns-query
-      - https://dns.google/dns-query
-proxies:
-  - name: '1'
-    type: vless
-    server: 47.251.95.178
-    port: 443
-    uuid: ea286109-d20f-415e-849e-4af20ab04b65
-    tls: true
-    servername: 147135001195.sec22org.com
-    network: tcp
-    tfo: false
-    skip-cert-verify: false
-  - name: '2'
-    type: vless
-    server: 104.17.147.22
-    port: 8080
-    uuid: 7c9e3c1d-a360-4429-9189-e45a98de7fde
-    tls: false
-    servername: ''
-    network: ws
-    ws-opts:
-      path: /Telegram@V2ray_Alpha/?ed=2560
-      headers:
-        host: mail.ski1plag.ir
-    tfo: false
-  - name: '3'
-    type: vless
-    server: 104.17.147.22
-    port: 80
-    uuid: 7c9e3c1d-a360-4429-9189-e45a98de7fde
-    tls: false
-    servername: ''
-    network: ws
-    ws-opts:
-      path: /Telegram@V2ray_Alpha/?ed=2560
-      headers:
-        host: mail.ski1plag.ir
-    tfo: false
-  - name: '4'
-    type: vless
-    server: 104.17.147.22
-    port: 80
-    uuid: 53fa8faf-ba4b-4322-9c69-a3e5b1555049
-    tls: false
-    servername: ''
-    network: ws
-    ws-opts:
-      path: /Telegram@V2ray_Alpha/?ed=2560
-      headers:
-        host: redfree8mahsang6.redfree8.ir
-    tfo: false
-  - name: '5'
-    type: vless
-    server: 104.17.147.22
-    port: 80
-    uuid: 53fa8faf-ba4b-4322-9c69-a3e5b1555049
-    tls: false
-    servername: ''
-    network: ws
-    ws-opts:
-      path: /Telegram@V2ray_Alpha/?ed=2560
-      headers:
-        host: redfree8mahsang6.redfree8.ir
-    tfo: false
-  - name: '6'
-    type: vless
-    server: 104.17.147.22
-    port: 80
-    uuid: 53fa8faf-ba4b-4322-9c69-a3e5b1555049
-    tls: false
-    servername: ''
-    network: ws
-    ws-opts:
-      path: /Telegram@V2ray_Alpha/?ed=2560
-      headers:
-        host: redfree8mahsang6.redfree8.ir
-    tfo: false
-  - name: '7'
-    type: vless
-    server: www.speedtest.net
-    port: 80
-    uuid: 53fa8faf-ba4b-4322-9c69-a3e5b1555049
-    tls: false
-    servername: ''
-    network: ws
-    ws-opts:
-      path: /Telegram@V2ray_Alpha/?ed=2560
-      headers:
-        host: redfree8mahsang6.redfree8.ir
-    tfo: false
-  - name: '8'
-    type: vless
-    server: www.speedtest.net
-    port: 80
-    uuid: 7c9e3c1d-a360-4429-9189-e45a98de7fde
-    tls: false
-    servername: ''
-    network: ws
-    ws-opts:
-      path: /Telegram@V2ray_Alpha/?ed=2560
-      headers:
-        host: mail.ski1plag.ir
-    tfo: false
-  - name: '9'
-    type: vless
-    server: www.speedtest.net
-    port: 80
-    uuid: 53fa8faf-ba4b-4322-9c69-a3e5b1555049
-    tls: false
-    servername: ''
-    network: ws
-    ws-opts:
-      path: /Telegram@V2ray_Alpha/?ed=2560
-      headers:
-        host: redfree8mahsang6.redfree8.ir
-    tfo: false
-  - name: '10'
-    type: vless
-    server: www.speedtest.net
-    port: 80
-    uuid: 53fa8faf-ba4b-4322-9c69-a3e5b1555049
-    tls: false
-    servername: ''
-    network: ws
-    ws-opts:
-      path: /Telegram@V2ray_Alpha/?ed=2560
-      headers:
-        host: redfree8mahsang6.redfree8.ir
-    tfo: false
-proxy-groups:
-  - type: select
-    name: 🚀 节点选择
-    proxies:
-      - DIRECT
-      - REJECT
-      - ⚡ 自动选择
-      - '1'
-      - '2'
-      - '3'
-      - '4'
-      - '5'
-      - '6'
-      - '7'
-      - '8'
-      - '9'
-      - '10'
-  - name: ⚡ 自动选择
-    type: url-test
-    proxies:
-      - '1'
-      - '2'
-      - '3'
-      - '4'
-      - '5'
-      - '6'
-      - '7'
-      - '8'
-      - '9'
-      - '10'
-    url: https://www.gstatic.com/generate_204
-    interval: 300
-    lazy: false
-  - type: select
-    name: 🏠 私有网络
-    proxies:
-      - 🚀 节点选择
-      - DIRECT
-      - REJECT
-      - ⚡ 自动选择
-      - '1'
-      - '2'
-      - '3'
-      - '4'
-      - '5'
-      - '6'
-      - '7'
-      - '8'
-      - '9'
-      - '10'
-  - type: select
-    name: 🔒 国内服务
-    proxies:
-      - 🚀 节点选择
-      - DIRECT
-      - REJECT
-      - ⚡ 自动选择
-      - '1'
-      - '2'
-      - '3'
-      - '4'
-      - '5'
-      - '6'
-      - '7'
-      - '8'
-      - '9'
-      - '10'
-  - type: select
-    name: 🌐 非中国
-    proxies:
-      - 🚀 节点选择
-      - DIRECT
-      - REJECT
-      - ⚡ 自动选择
-      - '1'
-      - '2'
-      - '3'
-      - '4'
-      - '5'
-      - '6'
-      - '7'
-      - '8'
-      - '9'
-      - '10'
-  - type: select
-    name: 🐟 漏网之鱼
-    proxies:
-      - 🚀 节点选择
-      - DIRECT
-      - REJECT
-      - ⚡ 自动选择
-      - '1'
-      - '2'
-      - '3'
-      - '4'
-      - '5'
-      - '6'
-      - '7'
-      - '8'
-      - '9'
-      - '10'
-rules:
-  - RULE-SET,geolocation-cn,🔒 国内服务
-  - RULE-SET,cn,🔒 国内服务
-  - RULE-SET,geolocation-!cn,🌐 非中国
-  - RULE-SET,private,🏠 私有网络,no-resolve
-  - RULE-SET,cn,🔒 国内服务,no-resolve
-  - MATCH,🐟 漏网之鱼
+{
+  "log": {
+    "level": "info",
+    "timestamp": true
+  },
+  "dns": {
+    "servers": [
+      {
+        "address": "tls://1.1.1.1",
+        "tag": "dns_cf_tls",
+        "detour": "auto_select_proxies"
+      },
+      {
+        "address": "https://dns.google/dns-query",
+        "tag": "dns_google_doh",
+        "detour": "auto_select_proxies"
+      },
+      {
+        "address": "1.0.0.1",
+        "tag": "dns_cf_plain_backup",
+        "detour": "auto_select_proxies"
+      },
+      {
+        "address": "223.5.5.5",
+        "tag": "dns_ali",
+        "detour": "direct"
+      },
+      {
+        "address": "185.51.200.2",
+        "tag": "dns_shecan",
+        "detour": "direct"
+      },
+      {
+        "address": "local",
+        "tag": "dns_system",
+        "detour": "direct"
+      }
+    ],
+    "rules": [
+      {
+        "geosite": [
+          "category-ir"
+        ],
+        "server": "dns_ali"
+      },
+      {
+        "domain_suffix": [
+          ".ir"
+        ],
+        "server": "dns_ali"
+      },
+      {
+        "query_type": [
+          "A",
+          "AAAA"
+        ],
+        "server": "dns_cf_tls",
+        "rewrite_ttl": 300
+      },
+      {
+        "server": "dns_system"
+      }
+    ],
+    "strategy": "ipv4_only",
+    "disable_cache": false
+  },
+  "inbounds": [
+    {
+      "type": "tun",
+      "tag": "tun-in",
+      "interface_name": "NotePadVPN-TUN",
+      "inet4_address": "172.19.0.1/28",
+      "auto_route": true,
+      "strict_route": true,
+      "stack": "mixed",
+      "sniff": true
+    },
+    {
+      "type": "mixed",
+      "tag": "mixed-proxy-in",
+      "listen": "127.0.0.1",
+      "listen_port": 2080,
+      "sniff": true
+    }
+  ],
+  "outbounds": [
+    {
+      "type": "direct",
+      "tag": "direct"
+    },
+    {
+      "type": "block",
+      "tag": "block"
+    },
+    {
+      "type": "dns",
+      "tag": "dns-out"
+    },
+    {
+      "type": "vless",
+      "tag": "1",
+      "server": "47.251.95.178",
+      "server_port": 443,
+      "uuid": "ea286109-d20f-415e-849e-4af20ab04b65",
+      "tls": {
+        "enabled": true,
+        "server_name": "147135001195.sec22org.com",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "2",
+      "server": "104.17.147.22",
+      "server_port": 8080,
+      "uuid": "7c9e3c1d-a360-4429-9189-e45a98de7fde",
+      "encryption": "none",
+      "transport": {
+        "type": "ws",
+        "path": "/Telegram@V2ray_Alpha/?ed=2560",
+        "headers": {
+          "Host": "mail.ski1plag.ir"
+        }
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "3",
+      "server": "104.17.147.22",
+      "server_port": 80,
+      "uuid": "7c9e3c1d-a360-4429-9189-e45a98de7fde",
+      "encryption": "none",
+      "transport": {
+        "type": "ws",
+        "path": "/Telegram@V2ray_Alpha/?ed=2560",
+        "headers": {
+          "Host": "mail.ski1plag.ir"
+        }
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "4",
+      "server": "104.17.147.22",
+      "server_port": 80,
+      "uuid": "53fa8faf-ba4b-4322-9c69-a3e5b1555049",
+      "encryption": "none",
+      "transport": {
+        "type": "ws",
+        "path": "/Telegram@V2ray_Alpha/?ed=2560",
+        "headers": {
+          "Host": "redfree8mahsang6.redfree8.ir"
+        }
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "5",
+      "server": "104.17.147.22",
+      "server_port": 80,
+      "uuid": "53fa8faf-ba4b-4322-9c69-a3e5b1555049",
+      "encryption": "none",
+      "transport": {
+        "type": "ws",
+        "path": "/Telegram@V2ray_Alpha/?ed=2560",
+        "headers": {
+          "Host": "redfree8mahsang6.redfree8.ir"
+        }
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "6",
+      "server": "104.17.147.22",
+      "server_port": 80,
+      "uuid": "53fa8faf-ba4b-4322-9c69-a3e5b1555049",
+      "encryption": "none",
+      "transport": {
+        "type": "ws",
+        "path": "/Telegram@V2ray_Alpha/?ed=2560",
+        "headers": {
+          "Host": "redfree8mahsang6.redfree8.ir"
+        }
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "7",
+      "server": "www.speedtest.net",
+      "server_port": 80,
+      "uuid": "53fa8faf-ba4b-4322-9c69-a3e5b1555049",
+      "encryption": "none",
+      "transport": {
+        "type": "ws",
+        "path": "/Telegram@V2ray_Alpha/?ed=2560",
+        "headers": {
+          "Host": "redfree8mahsang6.redfree8.ir"
+        }
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "8",
+      "server": "www.speedtest.net",
+      "server_port": 80,
+      "uuid": "7c9e3c1d-a360-4429-9189-e45a98de7fde",
+      "encryption": "none",
+      "transport": {
+        "type": "ws",
+        "path": "/Telegram@V2ray_Alpha/?ed=2560",
+        "headers": {
+          "Host": "mail.ski1plag.ir"
+        }
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "9",
+      "server": "www.speedtest.net",
+      "server_port": 80,
+      "uuid": "53fa8faf-ba4b-4322-9c69-a3e5b1555049",
+      "encryption": "none",
+      "transport": {
+        "type": "ws",
+        "path": "/Telegram@V2ray_Alpha/?ed=2560",
+        "headers": {
+          "Host": "redfree8mahsang6.redfree8.ir"
+        }
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "10",
+      "server": "www.speedtest.net",
+      "server_port": 80,
+      "uuid": "53fa8faf-ba4b-4322-9c69-a3e5b1555049",
+      "encryption": "none",
+      "transport": {
+        "type": "ws",
+        "path": "/Telegram@V2ray_Alpha/?ed=2560",
+        "headers": {
+          "Host": "redfree8mahsang6.redfree8.ir"
+        }
+      }
+    },
+    {
+      "type": "urltest",
+      "tag": "auto_select_proxies",
+      "outbounds": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10"
+      ],
+      "url": "http://www.gstatic.com/generate_204",
+      "interval": "10m",
+      "tolerance": 200
+    }
+  ],
+  "route": {
+    "rules": [
+      {
+        "protocol": [
+          "dns"
+        ],
+        "outbound": "dns-out"
+      },
+      {
+        "domain": [
+          "allatori.com",
+          "analytics.example.com"
+        ],
+        "outbound": "block"
+      },
+      {
+        "domain_keyword": [
+          "ads",
+          "tracker"
+        ],
+        "outbound": "block"
+      },
+      {
+        "domain_suffix": [
+          ".ir",
+          "arvancloud.ir",
+          "arvancloud.com",
+          "cdn.ir",
+          "shaparak.ir",
+          "digikala.com"
+        ],
+        "outbound": "direct"
+      },
+      {
+        "geosite": [
+          "category-ir"
+        ],
+        "outbound": "direct"
+      },
+      {
+        "geoip": [
+          "ir"
+        ],
+        "outbound": "direct"
+      },
+      {
+        "ip_cidr": [
+          "192.168.0.0/16",
+          "10.0.0.0/8",
+          "172.16.0.0/12"
+        ],
+        "outbound": "direct"
+      },
+      {
+        "domain": [
+          "localhost"
+        ],
+        "outbound": "direct"
+      }
+    ],
+    "final": "auto_select_proxies",
+    "auto_detect_interface": true,
+    "override_android_vpn": true
+  },
+  "experimental": {
+    "cache_file": {
+      "enabled": true
+    }
+  }
+}
