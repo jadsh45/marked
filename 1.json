@@ -1,17 +1,4 @@
 {
-  "outbounds": [
-    {
-      "type": "selector",
-      "tag": "🚀 节点选择",
-      "outbounds": [
-        "DIRECT",
-        "REJECT",
-        "⚡ 自动选择",
-        "WiFi-@V2ray_Alpha-8",
-        "WiFi-@V2ray_Alpha-9"
-      ]
-    },
-    {
       "type": "urltest",
       "tag": "⚡ 自动选择",
       "outbounds": [
