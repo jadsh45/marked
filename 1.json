@@ -1,492 +1,198 @@
 {
+  "log": {
+    "level": "info",
+    "timestamp": true
+  },
   "dns": {
     "servers": [
       {
-        "tag": "dns_proxy",
-        "address": "tcp://1.1.1.1",
-        "address_resolver": "dns_resolver",
-        "strategy": "ipv4_only",
-        "detour": "🚀 Node Select"
+        "address": "tls://1.1.1.1",
+        "tag": "dns_cf_tls",
+        "detour": "auto_select_proxies"
       },
       {
-        "tag": "dns_direct",
-        "address": "https://dns.alidns.com/dns-query",
-        "address_resolver": "dns_resolver",
-        "strategy": "ipv4_only",
-        "detour": "DIRECT"
+        "address": "https://dns.google/dns-query",
+        "tag": "dns_google_doh",
+        "detour": "auto_select_proxies"
       },
       {
-        "tag": "dns_resolver",
+        "address": "1.0.0.1",
+        "tag": "dns_cf_plain_backup",
+        "detour": "auto_select_proxies"
+      },
+      {
         "address": "223.5.5.5",
-        "detour": "DIRECT"
+        "tag": "dns_ali",
+        "detour": "direct"
       },
       {
-        "tag": "dns_success",
-        "address": "rcode://success"
+        "address": "185.51.200.2",
+        "tag": "dns_shecan",
+        "detour": "direct"
       },
       {
-        "tag": "dns_refused",
-        "address": "rcode://refused"
-      },
-      {
-        "tag": "dns_fakeip",
-        "address": "fakeip"
+        "address": "local",
+        "tag": "dns_system",
+        "detour": "direct"
       }
     ],
     "rules": [
       {
-        "outbound": "any",
-        "server": "dns_resolver"
+        "geosite": [
+          "category-ir"
+        ],
+        "server": "dns_ali"
       },
       {
-        "rule_set": "geolocation-!cn",
+        "domain_suffix": [
+          ".ir"
+        ],
+        "server": "dns_ali"
+      },
+      {
         "query_type": [
           "A",
           "AAAA"
         ],
-        "server": "dns_fakeip"
+        "server": "dns_cf_tls",
+        "rewrite_ttl": 300
       },
       {
-        "rule_set": "geolocation-!cn",
-        "query_type": [
-          "CNAME"
-        ],
-        "server": "dns_proxy"
-      },
-      {
-        "query_type": [
-          "A",
-          "AAAA",
-          "CNAME"
-        ],
-        "invert": true,
-        "server": "dns_refused",
-        "disable_cache": true
+        "server": "dns_system"
       }
     ],
-    "final": "dns_direct",
-    "independent_cache": true,
-    "fakeip": {
-      "enabled": true,
-      "inet4_range": "198.18.0.0/15",
-      "inet6_range": "fc00::/18"
-    }
-  },
-  "ntp": {
-    "enabled": true,
-    "server": "time.apple.com",
-    "server_port": 123,
-    "interval": "30m"
+    "strategy": "ipv4_only",
+    "disable_cache": false
   },
   "inbounds": [
     {
-      "type": "mixed",
-      "tag": "mixed-in",
-      "listen": "0.0.0.0",
-      "listen_port": 2080
-    },
-    {
       "type": "tun",
       "tag": "tun-in",
-      "address": "172.19.0.1/30",
+      "interface_name": "NotePadVPN-TUN",
+      "inet4_address": "172.19.0.1/28",
       "auto_route": true,
       "strict_route": true,
       "stack": "mixed",
+      "sniff": true
+    },
+    {
+      "type": "mixed",
+      "tag": "mixed-proxy-in",
+      "listen": "127.0.0.1",
+      "listen_port": 2080,
       "sniff": true
     }
   ],
   "outbounds": [
     {
-      "type": "selector",
-      "tag": "🚀 节点选择",
-      "outbounds": [
-        "DIRECT",
-        "REJECT",
-        "⚡ 自动选择",
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8",
-        "9",
-        "10"
-      ]
-    },
-    {
-      "type": "urltest",
-      "tag": "⚡ 自动选择",
-      "outbounds": [
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8",
-        "9",
-        "10"
-      ]
+      "type": "direct",
+      "tag": "direct"
     },
     {
       "type": "block",
-      "tag": "REJECT"
+      "tag": "block"
     },
     {
-      "type": "direct",
-      "tag": "DIRECT"
+      "type": "dns",
+      "tag": "dns-out"
     },
     {
-      "type": "vless",
-      "tag": "1",
-      "server": "47.251.95.178",
-      "server_port": 443,
-      "uuid": "ea286109-d20f-415e-849e-4af20ab04b65",
-      "tcp_fast_open": false,
-      "tls": {
-        "enabled": true,
-        "server_name": "147135001195.sec22org.com",
-        "insecure": false
-      },
-      "network": "tcp"
+      "type": "vmess",
+      "tag": "WiFi-_V2ray_Alpha-8",
+      "server": "84.247.150.177",
+      "server_port": 36141,
+      "uuid": "d31ee52f-b6e4-4db8-9c95-98855ec823cc",
+      "alter_id": 0,
+      "security": "auto"
     },
     {
-      "type": "vless",
-      "tag": "2",
-      "server": "104.17.147.22",
-      "server_port": 8080,
-      "uuid": "7c9e3c1d-a360-4429-9189-e45a98de7fde",
-      "tcp_fast_open": false,
-      "tls": {
-        "enabled": false
-      },
-      "transport": {
-        "type": "ws",
-        "path": "/Telegram@V2ray_Alpha/?ed=2560",
-        "headers": {
-          "host": "mail.ski1plag.ir"
-        }
-      },
-      "network": "tcp"
+      "type": "vmess",
+      "tag": "WiFi-_V2ray_Alpha-9",
+      "server": "84.247.147.243",
+      "server_port": 51566,
+      "uuid": "ae6ae977-17f2-43fd-a336-20b3b3a9e791",
+      "alter_id": 0,
+      "security": "auto"
     },
     {
-      "type": "vless",
-      "tag": "3",
-      "server": "104.17.147.22",
-      "server_port": 80,
-      "uuid": "7c9e3c1d-a360-4429-9189-e45a98de7fde",
-      "tcp_fast_open": false,
-      "tls": {
-        "enabled": false
-      },
-      "transport": {
-        "type": "ws",
-        "path": "/Telegram@V2ray_Alpha/?ed=2560",
-        "headers": {
-          "host": "mail.ski1plag.ir"
-        }
-      },
-      "network": "tcp"
-    },
-    {
-      "type": "vless",
-      "tag": "4",
-      "server": "104.17.147.22",
-      "server_port": 80,
-      "uuid": "53fa8faf-ba4b-4322-9c69-a3e5b1555049",
-      "tcp_fast_open": false,
-      "tls": {
-        "enabled": false
-      },
-      "transport": {
-        "type": "ws",
-        "path": "/Telegram@V2ray_Alpha/?ed=2560",
-        "headers": {
-          "host": "redfree8mahsang6.redfree8.ir"
-        }
-      },
-      "network": "tcp"
-    },
-    {
-      "type": "vless",
-      "tag": "5",
-      "server": "104.17.147.22",
-      "server_port": 80,
-      "uuid": "53fa8faf-ba4b-4322-9c69-a3e5b1555049",
-      "tcp_fast_open": false,
-      "tls": {
-        "enabled": false
-      },
-      "transport": {
-        "type": "ws",
-        "path": "/Telegram@V2ray_Alpha/?ed=2560",
-        "headers": {
-          "host": "redfree8mahsang6.redfree8.ir"
-        }
-      },
-      "network": "tcp"
-    },
-    {
-      "type": "vless",
-      "tag": "6",
-      "server": "104.17.147.22",
-      "server_port": 80,
-      "uuid": "53fa8faf-ba4b-4322-9c69-a3e5b1555049",
-      "tcp_fast_open": false,
-      "tls": {
-        "enabled": false
-      },
-      "transport": {
-        "type": "ws",
-        "path": "/Telegram@V2ray_Alpha/?ed=2560",
-        "headers": {
-          "host": "redfree8mahsang6.redfree8.ir"
-        }
-      },
-      "network": "tcp"
-    },
-    {
-      "type": "vless",
-      "tag": "7",
-      "server": "www.speedtest.net",
-      "server_port": 80,
-      "uuid": "53fa8faf-ba4b-4322-9c69-a3e5b1555049",
-      "tcp_fast_open": false,
-      "tls": {
-        "enabled": false
-      },
-      "transport": {
-        "type": "ws",
-        "path": "/Telegram@V2ray_Alpha/?ed=2560",
-        "headers": {
-          "host": "redfree8mahsang6.redfree8.ir"
-        }
-      },
-      "network": "tcp"
-    },
-    {
-      "type": "vless",
-      "tag": "8",
-      "server": "www.speedtest.net",
-      "server_port": 80,
-      "uuid": "7c9e3c1d-a360-4429-9189-e45a98de7fde",
-      "tcp_fast_open": false,
-      "tls": {
-        "enabled": false
-      },
-      "transport": {
-        "type": "ws",
-        "path": "/Telegram@V2ray_Alpha/?ed=2560",
-        "headers": {
-          "host": "mail.ski1plag.ir"
-        }
-      },
-      "network": "tcp"
-    },
-    {
-      "type": "vless",
-      "tag": "9",
-      "server": "www.speedtest.net",
-      "server_port": 80,
-      "uuid": "53fa8faf-ba4b-4322-9c69-a3e5b1555049",
-      "tcp_fast_open": false,
-      "tls": {
-        "enabled": false
-      },
-      "transport": {
-        "type": "ws",
-        "path": "/Telegram@V2ray_Alpha/?ed=2560",
-        "headers": {
-          "host": "redfree8mahsang6.redfree8.ir"
-        }
-      },
-      "network": "tcp"
-    },
-    {
-      "type": "vless",
-      "tag": "10",
-      "server": "www.speedtest.net",
-      "server_port": 80,
-      "uuid": "53fa8faf-ba4b-4322-9c69-a3e5b1555049",
-      "tcp_fast_open": false,
-      "tls": {
-        "enabled": false
-      },
-      "transport": {
-        "type": "ws",
-        "path": "/Telegram@V2ray_Alpha/?ed=2560",
-        "headers": {
-          "host": "redfree8mahsang6.redfree8.ir"
-        }
-      },
-      "network": "tcp"
-    },
-    {
-      "type": "selector",
-      "tag": "🏠 私有网络",
+      "type": "urltest",
+      "tag": "auto_select_proxies",
       "outbounds": [
-        "🚀 节点选择",
-        "DIRECT",
-        "REJECT",
-        "⚡ 自动选择",
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8",
-        "9",
-        "10"
-      ]
-    },
-    {
-      "type": "selector",
-      "tag": "🔒 国内服务",
-      "outbounds": [
-        "🚀 节点选择",
-        "DIRECT",
-        "REJECT",
-        "⚡ 自动选择",
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8",
-        "9",
-        "10"
-      ]
-    },
-    {
-      "type": "selector",
-      "tag": "🌐 非中国",
-      "outbounds": [
-        "🚀 节点选择",
-        "DIRECT",
-        "REJECT",
-        "⚡ 自动选择",
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8",
-        "9",
-        "10"
-      ]
-    },
-    {
-      "type": "selector",
-      "tag": "🐟 漏网之鱼",
-      "outbounds": [
-        "🚀 节点选择",
-        "DIRECT",
-        "REJECT",
-        "⚡ 自动选择",
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8",
-        "9",
-        "10"
-      ]
+        "WiFi-_V2ray_Alpha-8",
+        "WiFi-_V2ray_Alpha-9"
+      ],
+      "url": "http://www.gstatic.com/generate_204",
+      "interval": "10m",
+      "tolerance": 200
     }
   ],
   "route": {
-    "rule_set": [
-      {
-        "tag": "geolocation-cn",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://gh-proxy.com/https://raw.githubusercontent.com/lyc8503/sing-box-rules/refs/heads/rule-set-geosite/geosite-geolocation-cn.srs"
-      },
-      {
-        "tag": "cn",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://gh-proxy.com/https://raw.githubusercontent.com/lyc8503/sing-box-rules/refs/heads/rule-set-geosite/geosite-cn.srs"
-      },
-      {
-        "tag": "geolocation-!cn",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://gh-proxy.com/https://raw.githubusercontent.com/lyc8503/sing-box-rules/refs/heads/rule-set-geosite/geosite-geolocation-!cn.srs"
-      },
-      {
-        "tag": "private-ip",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://gh-proxy.com/https://raw.githubusercontent.com/lyc8503/sing-box-rules/refs/heads/rule-set-geoip/geoip-private.srs"
-      },
-      {
-        "tag": "cn-ip",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://gh-proxy.com/https://raw.githubusercontent.com/lyc8503/sing-box-rules/refs/heads/rule-set-geoip/geoip-cn.srs"
-      }
-    ],
     "rules": [
       {
-        "clash_mode": "direct",
-        "outbound": "DIRECT"
-      },
-      {
-        "clash_mode": "global",
-        "outbound": "🚀 节点选择"
-      },
-      {
-        "action": "sniff"
-      },
-      {
-        "protocol": "dns",
-        "action": "hijack-dns"
-      },
-      {
-        "rule_set": [
-          "geolocation-cn",
-          "cn"
+        "protocol": [
+          "dns"
         ],
-        "outbound": "🔒 国内服务"
+        "outbound": "dns-out"
       },
       {
-        "rule_set": [
-          "geolocation-!cn"
+        "domain": [
+          "allatori.com",
+          "analytics.example.com"
         ],
-        "outbound": "🌐 非中国"
+        "outbound": "block"
       },
       {
-        "rule_set": [
-          "private-ip"
+        "domain_keyword": [
+          "ads",
+          "tracker"
         ],
-        "outbound": "🏠 私有网络"
+        "outbound": "block"
       },
       {
-        "rule_set": [
-          "cn-ip"
+        "domain_suffix": [
+          ".ir",
+          "arvancloud.ir",
+          "arvancloud.com",
+          "cdn.ir",
+          "shaparak.ir",
+          "digikala.com"
         ],
-        "outbound": "🔒 国内服务"
+        "outbound": "direct"
+      },
+      {
+        "geosite": [
+          "category-ir"
+        ],
+        "outbound": "direct"
+      },
+      {
+        "geoip": [
+          "ir"
+        ],
+        "outbound": "direct"
+      },
+      {
+        "ip_cidr": [
+          "192.168.0.0/16",
+          "10.0.0.0/8",
+          "172.16.0.0/12"
+        ],
+        "outbound": "direct"
+      },
+      {
+        "domain": [
+          "localhost"
+        ],
+        "outbound": "direct"
       }
     ],
+    "final": "auto_select_proxies",
     "auto_detect_interface": true,
-    "final": "🐟 漏网之鱼"
+    "override_android_vpn": true
   },
   "experimental": {
     "cache_file": {
-      "enabled": true,
-      "store_fakeip": true
+      "enabled": true
     }
   }
 }
