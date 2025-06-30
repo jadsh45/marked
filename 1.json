@@ -1,338 +1,381 @@
 {
   "log": {
+    "disabled": false,
     "level": "info",
-    "timestamp": true
+    "output": "",
+    "timestamp": false
   },
-  "dns": {
-    "servers": [
-      {
-        "address": "tls://1.1.1.1",
-        "tag": "dns_cf_tls",
-        "detour": "auto_select_proxies"
-      },
-      {
-        "address": "https://dns.google/dns-query",
-        "tag": "dns_google_doh",
-        "detour": "auto_select_proxies"
-      },
-      {
-        "address": "1.0.0.1",
-        "tag": "dns_cf_plain_backup",
-        "detour": "auto_select_proxies"
-      },
-      {
-        "address": "223.5.5.5",
-        "tag": "dns_ali",
-        "detour": "direct"
-      },
-      {
-        "address": "185.51.200.2",
-        "tag": "dns_shecan",
-        "detour": "direct"
-      },
-      {
-        "address": "local",
-        "tag": "dns_system",
-        "detour": "direct"
-      }
-    ],
-    "rules": [
-      {
-        "geosite": [
-          "category-ir"
-        ],
-        "server": "dns_ali"
-      },
-      {
-        "domain_suffix": [
-          ".ir"
-        ],
-        "server": "dns_ali"
-      },
-      {
-        "query_type": [
-          "A",
-          "AAAA"
-        ],
-        "server": "dns_cf_tls",
-        "rewrite_ttl": 300
-      },
-      {
-        "server": "dns_system"
-      }
-    ],
-    "strategy": "ipv4_only",
-    "disable_cache": false
+  "experimental": {
+    "clash_api": {
+      "external_controller": "127.0.0.1:20123",
+      "external_ui": "",
+      "external_ui_download_url": "",
+      "external_ui_download_detour": "🎯 Direct",
+      "secret": "ID_zpay51bj",
+      "default_mode": "rule",
+      "access_control_allow_origin": [
+        "*"
+      ],
+      "access_control_allow_private_network": false
+    },
+    "cache_file": {
+      "enabled": true,
+      "path": "cache.db",
+      "cache_id": "",
+      "store_fakeip": true,
+      "store_rdrc": true,
+      "rdrc_timeout": "7d"
+    }
   },
   "inbounds": [
     {
-      "type": "tun",
-      "tag": "tun-in",
-      "interface_name": "NotePadVPN-TUN",
-      "inet4_address": "172.19.0.1/28",
-      "auto_route": true,
-      "strict_route": true,
-      "stack": "mixed",
-      "sniff": true
-    },
-    {
       "type": "mixed",
-      "tag": "mixed-proxy-in",
+      "tag": "mixed-in",
       "listen": "127.0.0.1",
-      "listen_port": 2080,
-      "sniff": true
+      "listen_port": 20122,
+      "tcp_fast_open": false,
+      "tcp_multi_path": false,
+      "udp_fragment": false
     }
   ],
   "outbounds": [
     {
+      "type": "selector",
+      "tag": "🚀 Select",
+      "interrupt_exist_connections": true,
+      "outbounds": [
+        "🎈 Auto",
+        "🇩🇪 آلمان تانل شده 🇩🇪",
+        "🇩🇪 2آلمان تانل شده 🇩🇪",
+        "🇹🇷 ترکیه تانل شده 🇹🇷",
+        "🇳🇱 هلند تانل شده 🇳🇱",
+        "🇩🇪 3آلمان تانل شده 🇩🇪",
+        "🇫🇮 فنلاند تانل شده 🇫🇮",
+        "🇺🇸 آمریکا تانل شده 🇺🇸",
+        "⏳حجم باقیمانده:  6.8 GB|🗓 روز های باقیمانده : 15|سرویسservice-145324"
+      ]
+    },
+    {
+      "type": "urltest",
+      "tag": "🎈 Auto",
+      "url": "https://www.gstatic.com/generate_204",
+      "interval": "3m",
+      "tolerance": 150,
+      "interrupt_exist_connections": true,
+      "outbounds": [
+        "🇩🇪 آلمان تانل شده 🇩🇪",
+        "🇩🇪 2آلمان تانل شده 🇩🇪",
+        "🇹🇷 ترکیه تانل شده 🇹🇷",
+        "🇳🇱 هلند تانل شده 🇳🇱",
+        "🇩🇪 3آلمان تانل شده 🇩🇪",
+        "🇫🇮 فنلاند تانل شده 🇫🇮",
+        "🇺🇸 آمریکا تانل شده 🇺🇸",
+        "⏳حجم باقیمانده:  6.8 GB|🗓 روز های باقیمانده : 15|سرویسservice-145324"
+      ]
+    },
+    {
       "type": "direct",
-      "tag": "direct"
+      "tag": "🎯 Direct"
     },
     {
-      "type": "block",
-      "tag": "block"
+      "type": "selector",
+      "tag": "🐟 Fallback",
+      "interrupt_exist_connections": true,
+      "outbounds": [
+        "🚀 Select",
+        "🎯 Direct"
+      ]
     },
     {
-      "type": "dns",
-      "tag": "dns-out"
+      "type": "selector",
+      "tag": "GLOBAL",
+      "interrupt_exist_connections": true,
+      "outbounds": [
+        "🚀 Select",
+        "🎈 Auto",
+        "🎯 Direct",
+        "🐟 Fallback"
+      ]
     },
     {
+      "tag": "🇩🇪 آلمان تانل شده 🇩🇪",
       "type": "vless",
-      "tag": "1",
-      "server": "47.251.95.178",
-      "server_port": 443,
-      "uuid": "ea286109-d20f-415e-849e-4af20ab04b65",
+      "server": "sv5.maxhostco2.top",
+      "server_port": 59443,
+      "uuid": "6c45dba7-f6a5-458d-80eb-f46f0a802a81",
       "tls": {
         "enabled": true,
-        "server_name": "147135001195.sec22org.com",
+        "server_name": "www.speedtest.net",
+        "insecure": false,
+        "reality": {
+          "enabled": true,
+          "public_key": "eNl9igWK4DQud2xfrMVpJy6VHI8JzvTN6dwckwko-HM",
+          "short_id": "502a76d3e038"
+        },
         "utls": {
           "enabled": true,
           "fingerprint": "chrome"
         }
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "2",
-      "server": "104.17.147.22",
-      "server_port": 8080,
-      "uuid": "7c9e3c1d-a360-4429-9189-e45a98de7fde",
-      "encryption": "none",
+      },
       "transport": {
-        "type": "ws",
-        "path": "/Telegram@V2ray_Alpha/?ed=2560",
-        "headers": {
-          "Host": "mail.ski1plag.ir"
-        }
+        "type": "grpc",
+        "service_name": "9513vless"
       }
     },
     {
+      "tag": "🇩🇪 2آلمان تانل شده 🇩🇪",
       "type": "vless",
-      "tag": "3",
-      "server": "104.17.147.22",
-      "server_port": 80,
-      "uuid": "7c9e3c1d-a360-4429-9189-e45a98de7fde",
-      "encryption": "none",
-      "transport": {
-        "type": "ws",
-        "path": "/Telegram@V2ray_Alpha/?ed=2560",
-        "headers": {
-          "Host": "mail.ski1plag.ir"
-        }
-      }
+      "server": "sv5.maxhostco2.top",
+      "server_port": 60443,
+      "uuid": "6c45dba7-f6a5-458d-80eb-f46f0a802a81"
     },
     {
+      "tag": "🇹🇷 ترکیه تانل شده 🇹🇷",
       "type": "vless",
-      "tag": "4",
-      "server": "104.17.147.22",
-      "server_port": 80,
-      "uuid": "53fa8faf-ba4b-4322-9c69-a3e5b1555049",
-      "encryption": "none",
-      "transport": {
-        "type": "ws",
-        "path": "/Telegram@V2ray_Alpha/?ed=2560",
-        "headers": {
-          "Host": "redfree8mahsang6.redfree8.ir"
+      "server": "sv3.maxhostco.top",
+      "server_port": 63443,
+      "uuid": "6c45dba7-f6a5-458d-80eb-f46f0a802a81",
+      "tls": {
+        "enabled": true,
+        "server_name": "www.speedtest.net",
+        "insecure": false,
+        "reality": {
+          "enabled": true,
+          "public_key": "eNl9igWK4DQud2xfrMVpJy6VHI8JzvTN6dwckwko-HM",
+          "short_id": "502a76d3e038"
+        },
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
         }
+      },
+      "transport": {
+        "type": "grpc",
+        "service_name": "9513vless"
       }
     },
     {
+      "tag": "🇳🇱 هلند تانل شده 🇳🇱",
       "type": "vless",
-      "tag": "5",
-      "server": "104.17.147.22",
-      "server_port": 80,
-      "uuid": "53fa8faf-ba4b-4322-9c69-a3e5b1555049",
-      "encryption": "none",
-      "transport": {
-        "type": "ws",
-        "path": "/Telegram@V2ray_Alpha/?ed=2560",
-        "headers": {
-          "Host": "redfree8mahsang6.redfree8.ir"
+      "server": "sv7.maxhostco2.top",
+      "server_port": 8415,
+      "uuid": "6c45dba7-f6a5-458d-80eb-f46f0a802a81",
+      "tls": {
+        "enabled": true,
+        "server_name": "www.speedtest.net",
+        "insecure": false,
+        "reality": {
+          "enabled": true,
+          "public_key": "eNl9igWK4DQud2xfrMVpJy6VHI8JzvTN6dwckwko-HM",
+          "short_id": "502a76d3e038"
+        },
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
         }
+      },
+      "transport": {
+        "type": "grpc",
+        "service_name": "9513vless"
       }
     },
     {
+      "tag": "🇩🇪 3آلمان تانل شده 🇩🇪",
       "type": "vless",
-      "tag": "6",
-      "server": "104.17.147.22",
-      "server_port": 80,
-      "uuid": "53fa8faf-ba4b-4322-9c69-a3e5b1555049",
-      "encryption": "none",
-      "transport": {
-        "type": "ws",
-        "path": "/Telegram@V2ray_Alpha/?ed=2560",
-        "headers": {
-          "Host": "redfree8mahsang6.redfree8.ir"
-        }
-      }
+      "server": "sv1.maxhostco.top",
+      "server_port": 61443,
+      "uuid": "6c45dba7-f6a5-458d-80eb-f46f0a802a81"
     },
     {
+      "tag": "🇫🇮 فنلاند تانل شده 🇫🇮",
       "type": "vless",
-      "tag": "7",
-      "server": "www.speedtest.net",
-      "server_port": 80,
-      "uuid": "53fa8faf-ba4b-4322-9c69-a3e5b1555049",
-      "encryption": "none",
-      "transport": {
-        "type": "ws",
-        "path": "/Telegram@V2ray_Alpha/?ed=2560",
-        "headers": {
-          "Host": "redfree8mahsang6.redfree8.ir"
-        }
-      }
+      "server": "sv2.maxhostco2.top",
+      "server_port": 62443,
+      "uuid": "6c45dba7-f6a5-458d-80eb-f46f0a802a81"
     },
     {
+      "tag": "🇺🇸 آمریکا تانل شده 🇺🇸",
       "type": "vless",
-      "tag": "8",
-      "server": "www.speedtest.net",
-      "server_port": 80,
-      "uuid": "7c9e3c1d-a360-4429-9189-e45a98de7fde",
-      "encryption": "none",
-      "transport": {
-        "type": "ws",
-        "path": "/Telegram@V2ray_Alpha/?ed=2560",
-        "headers": {
-          "Host": "mail.ski1plag.ir"
-        }
-      }
+      "server": "sv6.maxhostco.top",
+      "server_port": 56343,
+      "uuid": "6c45dba7-f6a5-458d-80eb-f46f0a802a81"
     },
     {
+      "tag": "⏳حجم باقیمانده:  6.8 GB|🗓 روز های باقیمانده : 15|سرویسservice-145324",
       "type": "vless",
-      "tag": "9",
-      "server": "www.speedtest.net",
-      "server_port": 80,
-      "uuid": "53fa8faf-ba4b-4322-9c69-a3e5b1555049",
-      "encryption": "none",
-      "transport": {
-        "type": "ws",
-        "path": "/Telegram@V2ray_Alpha/?ed=2560",
-        "headers": {
-          "Host": "redfree8mahsang6.redfree8.ir"
-        }
-      }
-    },
-    {
-      "type": "vless",
-      "tag": "10",
-      "server": "www.speedtest.net",
-      "server_port": 80,
-      "uuid": "53fa8faf-ba4b-4322-9c69-a3e5b1555049",
-      "encryption": "none",
-      "transport": {
-        "type": "ws",
-        "path": "/Telegram@V2ray_Alpha/?ed=2560",
-        "headers": {
-          "Host": "redfree8mahsang6.redfree8.ir"
-        }
-      }
-    },
-    {
-      "type": "urltest",
-      "tag": "auto_select_proxies",
-      "outbounds": [
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8",
-        "9",
-        "10"
-      ],
-      "url": "http://www.gstatic.com/generate_204",
-      "interval": "10m",
-      "tolerance": 200
+      "server": "service-145324",
+      "server_port": 2050,
+      "uuid": "6c45dba7-f6a5-458d-80eb-f46f0a802a81"
     }
   ],
   "route": {
     "rules": [
       {
-        "protocol": [
-          "dns"
-        ],
-        "outbound": "dns-out"
+        "action": "hijack-dns",
+        "protocol": "dns"
       },
       {
-        "domain": [
-          "allatori.com",
-          "analytics.example.com"
-        ],
-        "outbound": "block"
+        "action": "route",
+        "clash_mode": "direct",
+        "outbound": "🎯 Direct"
       },
       {
-        "domain_keyword": [
-          "ads",
-          "tracker"
-        ],
-        "outbound": "block"
+        "action": "route",
+        "clash_mode": "global",
+        "outbound": "GLOBAL"
       },
       {
-        "domain_suffix": [
-          ".ir",
-          "arvancloud.ir",
-          "arvancloud.com",
-          "cdn.ir",
-          "shaparak.ir",
-          "digikala.com"
-        ],
-        "outbound": "direct"
+        "action": "reject",
+        "protocol": "quic"
       },
       {
-        "geosite": [
-          "category-ir"
-        ],
-        "outbound": "direct"
+        "action": "reject",
+        "rule_set": [
+          "Category-Ads"
+        ]
       },
       {
-        "geoip": [
-          "ir"
+        "action": "route",
+        "rule_set": [
+          "GeoSite-Private"
         ],
-        "outbound": "direct"
+        "outbound": "🎯 Direct"
       },
       {
-        "ip_cidr": [
-          "192.168.0.0/16",
-          "10.0.0.0/8",
-          "172.16.0.0/12"
+        "action": "route",
+        "rule_set": [
+          "GeoSite-CN"
         ],
-        "outbound": "direct"
+        "outbound": "🎯 Direct"
       },
       {
-        "domain": [
-          "localhost"
+        "action": "route",
+        "rule_set": [
+          "GeoIP-Private"
         ],
-        "outbound": "direct"
+        "outbound": "🎯 Direct"
+      },
+      {
+        "action": "route",
+        "rule_set": [
+          "GeoIP-CN"
+        ],
+        "outbound": "🎯 Direct"
+      },
+      {
+        "action": "route",
+        "rule_set": [
+          "GeoLocation-!CN"
+        ],
+        "outbound": "🚀 Select"
       }
     ],
-    "final": "auto_select_proxies",
+    "rule_set": [
+      {
+        "tag": "Category-Ads",
+        "type": "remote",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/category-ads-all.srs",
+        "format": "binary",
+        "download_detour": "🎯 Direct"
+      },
+      {
+        "tag": "GeoIP-Private",
+        "type": "remote",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/private.srs",
+        "format": "binary",
+        "download_detour": "🎯 Direct"
+      },
+      {
+        "tag": "GeoSite-Private",
+        "type": "remote",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/private.srs",
+        "format": "binary",
+        "download_detour": "🎯 Direct"
+      },
+      {
+        "tag": "GeoIP-CN",
+        "type": "remote",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/cn.srs",
+        "format": "binary",
+        "download_detour": "🎯 Direct"
+      },
+      {
+        "tag": "GeoSite-CN",
+        "type": "remote",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/cn.srs",
+        "format": "binary",
+        "download_detour": "🎯 Direct"
+      },
+      {
+        "tag": "GeoLocation-!CN",
+        "type": "remote",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/geolocation-!cn.srs",
+        "format": "binary",
+        "download_detour": "🎯 Direct"
+      }
+    ],
     "auto_detect_interface": true,
-    "override_android_vpn": true
+    "final": "🐟 Fallback"
   },
-  "experimental": {
-    "cache_file": {
-      "enabled": true
-    }
+  "dns": {
+    "servers": [
+      {
+        "tag": "Local-DNS",
+        "address": "https://223.5.5.5:443/dns-query",
+        "address_resolver": "Local-DNS-Resolver",
+        "detour": "🎯 Direct"
+      },
+      {
+        "tag": "Local-DNS-Resolver",
+        "address": "udp://223.5.5.5:53",
+        "detour": "🎯 Direct"
+      },
+      {
+        "tag": "Remote-DNS",
+        "address": "tls://8.8.8.8:853",
+        "address_resolver": "Remote-DNS-Resolver",
+        "detour": "🚀 Select"
+      },
+      {
+        "tag": "Remote-DNS-Resolver",
+        "address": "udp://8.8.8.8:53",
+        "detour": "🚀 Select"
+      }
+    ],
+    "rules": [
+      {
+        "action": "route",
+        "server": "Local-DNS",
+        "outbound": "any"
+      },
+      {
+        "action": "route",
+        "clash_mode": "direct",
+        "server": "Local-DNS"
+      },
+      {
+        "action": "route",
+        "clash_mode": "global",
+        "server": "Remote-DNS"
+      },
+      {
+        "action": "route",
+        "rule_set": [
+          "GeoSite-CN"
+        ],
+        "server": "Local-DNS"
+      },
+      {
+        "action": "route",
+        "rule_set": [
+          "GeoLocation-!CN"
+        ],
+        "server": "Remote-DNS"
+      }
+    ],
+    "disable_cache": false,
+    "disable_expire": false,
+    "independent_cache": false,
+    "final": "Remote-DNS"
   }
 }
